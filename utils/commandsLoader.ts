@@ -1,24 +1,23 @@
-const { REST, Routes, Collection } = require("discord.js");
-const fs = require("fs");
-const configData = require(`./config${process.env.bot}.json`)
+import { Routes, Collection } from "discord.js";
+import fs from "fs";
+
+const {REST} = require("discord.js");
 const rest = new REST().setToken(process.env.token);
+let commands: Array<String> = [];
 
-const commandSlash  = new Collection();
-const commandPrefix = new Collection();
-
-let commands = [];
-
-function loadCommandsPrefix(path){
+export const commandSlash: any = new Collection();
+export const commandPrefix: any = new Collection();
+export function loadCommandsPrefix(path: fs.PathLike){
     try {
-        fs.readdir(path, (error, subFolderPath) => {
-            for (const name of subFolderPath) {
-                fs.readdir(`${path}/${[name]}`, (error, files) => {
-                    files.forEach((files) => {
-                        if (files.endsWith(".js")) {
+        fs.readdir(path, (error, subFolderPath: Array<String>) => {
+            for (const name of subFolderPath ) {
+                fs.readdir(`${path}/${[name]}`, (error, files: string[]) => {
+                    files.forEach((files: string) => {
+                        if (files.endsWith(".ts")) {
                             let command = require(`.${path}/${name}/${files}`)
                             commandPrefix.set(command.name, command)
                             if (command.aliases && command.aliases.length >= 1) {
-                                for (i in command.aliases) {
+                                for (const i in command.aliases) {
                                     commandPrefix.set(command.aliases[i], command)
                                 };
                             };
@@ -31,17 +30,16 @@ function loadCommandsPrefix(path){
         console.log(err)
     };
 };
-
-function loadCommandsSlash(path) {
+export function loadCommandsSlash(path: fs.PathLike) {
     try {
 
-        fs.readdir(path, (error, subFolderPath) => {
+        fs.readdir(path, (error, subFolderPath: Array<String>) => {
             for (const name of subFolderPath){
-                fs.readdir(`${path}/${[name]}`, (error, files) => {
-                    files.forEach((files) => {
-                        if (files.endsWith(".js")) {
+                fs.readdir(`${path}/${[name]}`, (error, files: String[]) => {
+                    files.forEach((files: String) => {
+                        if (files.endsWith(".ts")) {
                             let command = require(`.${path}/${name}/${files}`)
-                            commands.push(command.data.toJSON())
+                            commands.push(command.data)
                             commandSlash.set(command.data.name, command)
                         };
                     });
@@ -54,11 +52,7 @@ function loadCommandsSlash(path) {
     };
 
 };
-
-loadCommandsSlash("./commands/slash")
-loadCommandsPrefix("./commands/prefix")
-
-async function loadSlash(CLIENT_ID){
+export async function loadSlash(CLIENT_ID: any){
 
     try {
         console.log(`Começando a carregar ${commands.length} Slash Commands.`);
@@ -71,5 +65,5 @@ async function loadSlash(CLIENT_ID){
         console.log(error);
     }
 }
-
-module.exports = {loadSlash, commandSlash, commandPrefix}
+loadCommandsSlash("./commands/slash")
+loadCommandsPrefix("./commands/prefix")
