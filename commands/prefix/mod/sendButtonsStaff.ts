@@ -1,5 +1,5 @@
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js")
-const { verifyRoles } = require("../../../funcsSuporte/verifyRoles")
+import { ActionRowBuilder, ButtonBuilder, Message } from "discord.js"
+import { verifyRoles } from "../../../funcsSuporte/verifyRoles"
 const configData = require(`../../../utils/config${process.env.bot}.json`)
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
         configData["roles"]["staff"]["asmodeus"],
         configData["roles"]["staff"]["astaroth"]
     ],
-    async execute( msg ){
+    async execute( msg: Message ){
 
         if (!verifyRoles(msg,this.roles)) return
 
@@ -33,8 +33,11 @@ module.exports = {
         .setLabel("CARGOS")
         .setStyle(3)
 
-        const row = new ActionRowBuilder()
+        const row = new ActionRowBuilder<any>()
         .addComponents(bBan,bAdv,bNtf,bCg)
-        msg.channel.send({components:[row]})
+
+        await msg.channel.send({components:[row]})
+
+        await msg.delete()
     }
 }
