@@ -1,8 +1,8 @@
-const {Client, GatewayIntentBits} = require("discord.js")
-const { loadSlash, commandSlash, commandPrefix } = require("./commandsLoader")
-const configData = require(`./config${process.env.bot}.json`)
+import { BaseInteraction, Client, GatewayIntentBits } from "discord.js"
+import { loadSlash, commandSlash, commandPrefix } from "./commandsLoader";
+export const configData = require(`../utils/config${process.env.bot}`)
 
-const client = new Client({
+export const client = new Client({
     intents: [
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.Guilds,
@@ -10,12 +10,12 @@ const client = new Client({
     ]
 })
 
-client.once("ready", (self => {
-    loadSlash(self.application.id);
-    console.log("Eu entrei como " + self.user.username);
+client.once("ready", ((self: typeof client) => {
+    loadSlash(self.application?.id);
+    console.log("Eu entrei como " + self.user?.username);
 })),
 
-client.on("messageCreate", async msg => {
+client.on("messageCreate", async (msg) => {
 
 	if (!msg.content.startsWith(configData.prefix) || msg.author.bot || !msg.guild) return;
 	const commandName =  msg.content.toLowerCase().split(" ")[0].substring(configData.prefix.length);
@@ -34,7 +34,7 @@ client.on("messageCreate", async msg => {
 
 });
 
-client.on("interactionCreate", async (interaction) => {
+client.on("interactionCreate", async (interaction: BaseInteraction) => {
 	if (interaction.isChatInputCommand()){
 
 		const command = commandSlash.get(interaction.commandName);
@@ -54,17 +54,15 @@ client.on("interactionCreate", async (interaction) => {
 		};
 	} else if (interaction.isButton()) {
 		try{
-			await require(`../buttons/${interaction.customId}.js`).execute(interaction)
+			await require(`../buttons/${interaction.customId}.ts`).execute(interaction)
 		} catch (err) {
 			console.log(err)
 		}
 	} else if (interaction.isStringSelectMenu()){
 		try{
-			await require(`../StringSelects/${interaction.customId}.js`).execute(interaction)
+			await require(`../StringSelects/${interaction.customId}.ts`).execute(interaction)
 		} catch (err) {
 			console.log(err)
 		}
 	}
 });
-
-module.exports = client
