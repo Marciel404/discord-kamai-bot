@@ -34,7 +34,7 @@ client.on("messageCreate", async msg => {
 
 });
 
-client.on("interactionCreate", async interaction => {
+client.on("interactionCreate", async (interaction) => {
 	if (interaction.isChatInputCommand()){
 
 		const command = commandSlash.get(interaction.commandName);
@@ -52,14 +52,18 @@ client.on("interactionCreate", async interaction => {
 				await interaction.reply({ content: `${error}`, ephemeral: true });
 			}
 		};
-
 	} else if (interaction.isButton()) {
 		try{
 			await require(`../buttons/${interaction.customId}.js`).execute(interaction)
 		} catch (err) {
-			console.error(err)
+			console.log(err)
 		}
-		
+	} else if (interaction.isStringSelectMenu()){
+		try{
+			await require(`../StringSelects/${interaction.customId}.js`).execute(interaction)
+		} catch (err) {
+			console.log(err)
+		}
 	}
 });
 
