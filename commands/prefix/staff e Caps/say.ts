@@ -1,7 +1,9 @@
+import { Message } from "discord.js"
+
 module.exports = {
     name: "say",
     description: "Envia uma mensagem",
-    async execute(msg) {
+    async execute(msg: Message) {
 
         if (!msg.content.toLowerCase().split(" ")[1]) return await msg.reply({content: "Argumento canal necessario"})
         if (!msg.content.toLowerCase().split(" ")[2]) return await msg.reply({content: "Argumento canal mensagem"})
@@ -15,15 +17,10 @@ module.exports = {
             }
         }
 
-        msg.guild.channels.fetch(channelId)
-        .then( async (channel) => {
+        const channel: any = await msg.guild!.channels.fetch(channelId)
+
         await channel.send({
             content: args,
-        });
-        await msg.reply({content: "Mensagem enviada com sucesso"})
-        })
-        .catch ( async (err) => {
-        return await msg.reply({content: `Não encontrei o canal ${channelId}`});
         });
     },
 }
