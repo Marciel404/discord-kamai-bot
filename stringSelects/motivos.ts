@@ -4,8 +4,106 @@ import {
     StringSelectMenuInteraction,
     EmbedBuilder
     } from "discord.js"
-import { RegsAtivos, moddb } from "../db/moderation"
-import { configData } from "../utils/loader"
+import { RegsAtivos } from "../db/moderation"
+
+export const motivosList = [
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'Flood/spam.',
+        "value": '1',
+    },
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'Divulgação inadequada.',
+        "value": '2',
+    },
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'Off topic/mensagem fora de tópico.',
+        "value": '3',
+    },
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'Menção desnecessária de membros e cargos.',
+        "value": '4',
+    },
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'Provocação e brigas.',
+        "value": '5',
+    },
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'Poluição sonora.',
+        "value": '6',
+    },
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'Atrapalhar o andamento do Karaokê.',
+        "value": '7',
+    },
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'Denúncias falsas.',
+        "value": '8',
+    },
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'Linguagem discriminatória.',
+        "value": '9',
+    },
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'Exposição de membros/ Assédio.',
+        "value": '10',
+    },
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'Preconceito, discriminação, difamação e/ou desrespeito.',
+        "value": '11',
+    },
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'Planejar ou exercer raids no servidor.',
+        "value": '12',
+    },
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'NSFW/ (+18).',
+        "value": '13',
+    },
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'Estimular ou praticar atividades ilegais ou que cause banimento de membros.',
+        "value": '14',
+    },
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'Evasão de punição.',
+        "value": '15',
+    },
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'Conteúdos graficamente chocantes.',
+        "value": '16',
+    },
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'Quebra do ToS do Discord.',
+        "value": '17',
+    },
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'Selfbot.',
+        "value": '18',
+    },
+    {
+        "emoji": ":BAN:903237786465894430",
+        "label": 'Scam.',
+        "value": '19',
+    },
+
+]
 
 const reason: any = {
     "1": "Flood/spam",

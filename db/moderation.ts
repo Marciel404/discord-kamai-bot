@@ -1,9 +1,8 @@
-import { GuildMember, time } from "discord.js"
 import { configData } from "../utils/loader"
 import moment from 'moment';
 const {MongoClient} = require("mongodb")
 
-const cluster = new MongoClient(process.env.mongoKet)
+export const cluster = new MongoClient(process.env.mongoKet)
 const db = cluster.db(configData["database_name"])
 export const moddb = db.collection("moderação")
 export const memberManegements = db.collection("memberManegements")
@@ -23,19 +22,18 @@ export async function adcAdvertencia(author: any, member: any, aprovador: any, m
         {upsert: true}
     )
     const warn = await moddb.findOne({"_id": "kamaiMod"})
+    const insert = {"advertencias": {
+            "points": 1,
+            "author": `${author}`,
+            "aprovador": `${aprovador}`,
+            "motivo": `${motivo}`,
+            "data": `${data}`,
+            "warn_id": warn["AdvsQnt"]
+        }
+    }
     memberManegements.updateOne(
         {_id: member.id},
-        {$push: {
-            "advertencias": {
-                "points": 1,
-                "author": `${author}`,
-                "aprovador": `${aprovador}`,
-                "motivo": `${motivo}`,
-                "data": `${data}`,
-                "warn_id": warn["AdvsQnt"]
-            }
-        }
-        },
+        {$push: insert},
         {upsert: true}
     )
 }

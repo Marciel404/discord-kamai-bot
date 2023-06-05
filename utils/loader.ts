@@ -9,13 +9,15 @@ export const client = new Client({
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.GuildMembers
     ]
 })
 
-client.once("ready", ((self: Client) => {
+client.once("ready", (async (self: Client) => {
     loadSlash(self.application?.id);
     console.log("Eu entrei como " + self.user?.username);
 	verifyRegChannelName(self, configData, moddb)
+  	console.log('Connected successfully to server');
 })),
 
 client.on("messageCreate", async (msg: Message) => {

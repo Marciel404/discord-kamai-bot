@@ -23,7 +23,7 @@ export async function execute(interaction: ButtonInteraction) {
 
     for (const m of interaction.message.embeds[0].description!.split("\n")){
 
-        let user = await client.users.fetch(m.split(" ")[m.split(" ").length-1])
+        let user = await client.users.fetch(m.split(" ")[m.split(" ").length-1].replace(/[<@>]/g, ""))
         const author = await interaction.guild!.members.fetch(interaction.message.embeds[0].footer!.text)
         const aprovador = interaction.member
         const reason = interaction.message.embeds[0].fields[0].value
