@@ -1,6 +1,8 @@
-import { ButtonInteraction, EmbedBuilder } from "discord.js"
+import { ButtonInteraction, Colors, EmbedBuilder } from "discord.js"
 import { verifyRoles } from "../funcsSuporte/verifyRoles"
-import { configData } from "../utils/loader"
+import { client, configData } from "../utils/loader"
+import moment from "moment"
+import { RegsAtivos } from "../db/moderation"
 
 const roles: Array<any> = [
     configData["roles"]["staff"]["asmodeus"],
@@ -9,14 +11,19 @@ const roles: Array<any> = [
 
 export async function execute(interaction: ButtonInteraction) {
 
+    const time = new Date()
+    const dt = new Date().setHours(time.getHours()-3)
+
     let eR = new EmbedBuilder()
     .setTitle("Banimento")
+    .setThumbnail(interaction.guild!.iconURL())
+    .setColor(0xed4245)
 
     if (!verifyRoles(interaction, roles)) return await interaction.reply({content: "Sem permissão"})
 
     for (const m of interaction.message.embeds[0].description!.split("\n")){
 
-        let user = await interaction.client.users.fetch(m.replace(/[<@>]/g, ""))
+        let user = await client.users.fetch(m.split(" ")[m.split(" ").length-1])
         const author = await interaction.guild!.members.fetch(interaction.message.embeds[0].footer!.text)
         const aprovador = interaction.member
         const reason = interaction.message.embeds[0].fields[0].value
@@ -27,21 +34,22 @@ export async function execute(interaction: ButtonInteraction) {
                 eR.setFields(
                     {name: "Banido por", value: `${author.user.username}`,inline: false},
                     {name: "Aprovador por", value: `${aprovador!.user.username}`, inline: false},
-                    {name: "Motivo", value: `${reason}`, inline: false}
+                    {name: "Motivo", value: `${reason}`, inline: false},
+                    {name:"Data", value: `${(moment(new Date(dt))).format("DD/MM/YYYY HH:mm")}`, inline: false}
                 )
                 await user.send({embeds: [eR]})
             } catch (err) {
-                console.log(err)
             }
 
             eR.setFields(
                 {name: "Membro Banido", value: `${user.username}`, inline: false},
                 {name: "Banido por", value: `${author}`,inline: false},
                 {name: "Aprovador por", value: `${aprovador}`, inline: false},
-                {name: "Motivo", value: `${reason}`, inline: false}
+                {name: "Motivo", value: `${reason}`, inline: false},
+                {name:"Data", value: `${(moment(new Date(dt))).format("DD/MM/YYYY HH:mm")}`, inline: false}
             )
             await interaction.guild!.bans.create(
-                m.replace(/[<@>]/g, ""),
+               user.id,
                 {
                     reason: reason,
                     deleteMessageSeconds: 604800
@@ -51,7 +59,7 @@ export async function execute(interaction: ButtonInteraction) {
                 embeds: [eR]
             })
         } catch (err) {
-            let msg = await interaction.channel!.send({content: `Não conseguir banir o membro <@${m.replace(/[<@>]/g, "")}>`});
+            let msg = await interaction.channel!.send({content: `Não conseguir banir o membro ${user.username}`});
             setTimeout(async ()=>{
                 await msg.delete()
             }, 5000);
@@ -59,5 +67,6 @@ export async function execute(interaction: ButtonInteraction) {
     }
 
     await interaction.message.delete()
+    RegsAtivos(-1)
     
 }

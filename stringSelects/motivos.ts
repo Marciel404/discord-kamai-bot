@@ -4,6 +4,8 @@ import {
     StringSelectMenuInteraction,
     EmbedBuilder
     } from "discord.js"
+import { RegsAtivos, moddb } from "../db/moderation"
+import { configData } from "../utils/loader"
 
 const reason: any = {
     "1": "Flood/spam",
@@ -34,20 +36,38 @@ export async function execute (interaction: StringSelectMenuInteraction){
     .addFields([{name: "Motivo", value: reason[interaction.values[0]]}])
     .setFooter({text: interaction.message.embeds[0].footer!.text})
 
-    const confirmBan: ButtonBuilder = new ButtonBuilder()
-    .setCustomId("confirmBan")
-    .setLabel("✔")
-    .setStyle(4)
+    let button1 = new ButtonBuilder();
+    let button2 = new ButtonBuilder();
 
-    const denyBan: ButtonBuilder = new ButtonBuilder()
-    .setCustomId("denyBan")
-    .setLabel("❌")
-    .setStyle(4)
+    if (interaction.message.embeds[0].title == "Banimento"){
+        button1
+        .setCustomId("confirmBan")
+        .setLabel("✔")
+        .setStyle(4)
+
+        button2 = new ButtonBuilder()
+        .setCustomId("deny")
+        .setLabel("❌")
+        .setStyle(4)
+
+    } else if (interaction.message.embeds[0].title == "Advertencia"){
+        button1
+        .setCustomId("confirmAdvertencia")
+        .setLabel("✔")
+        .setStyle(4)
+
+        button2 = new ButtonBuilder()
+        .setCustomId("deny")
+        .setLabel("❌")
+        .setStyle(4)
+    }
 
     const row = new ActionRowBuilder<any>()
-    .addComponents(confirmBan, denyBan)
+    .addComponents(button1, button2)
 
     await interaction.update({content: "Foi", embeds: [], components: []})
+    await interaction.channel?.send({embeds: [embed], components:[row]})
 
-    await interaction.channel!.send({embeds: [embed], components:[row]})
-}   
+    RegsAtivos(1)
+}
+  

@@ -55,11 +55,8 @@ export function loadCommandsSlash(path: fs.PathLike) {
 export async function loadSlash(CLIENT_ID: any){
 
     try {
-        console.log(`Começando a carregar ${commands.length} Slash Commands.`);
-
         const data = await rest.put(Routes.applicationCommands(CLIENT_ID),{ body: commands });
-
-        console.log(`Recarreguei ${data.length} Slash Commands.`);
+        console.log(`Registrei ${data.length} Slash Commands.`);
     } catch (error) {
 
         console.log(error);

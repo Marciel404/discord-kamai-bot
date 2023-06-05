@@ -1,6 +1,8 @@
-import { BaseInteraction, Client, GatewayIntentBits } from "discord.js"
+import { BaseInteraction, Client, GatewayIntentBits, Message } from "discord.js"
 import { loadSlash, commandSlash, commandPrefix } from "./commandsLoader";
 export const configData = require(`../utils/config${process.env.bot}`)
+import { moddb } from "../db/moderation";
+import { verifyRegChannelName } from "../funcsSuporte/verifys";
 
 export const client = new Client({
     intents: [
@@ -10,12 +12,13 @@ export const client = new Client({
     ]
 })
 
-client.once("ready", ((self: typeof client) => {
+client.once("ready", ((self: Client) => {
     loadSlash(self.application?.id);
     console.log("Eu entrei como " + self.user?.username);
+	verifyRegChannelName(self, configData, moddb)
 })),
 
-client.on("messageCreate", async (msg) => {
+client.on("messageCreate", async (msg: Message) => {
 
 	if (!msg.content.startsWith(configData.prefix) || msg.author.bot || !msg.guild) return;
 	const commandName =  msg.content.toLowerCase().split(" ")[0].substring(configData.prefix.length);
@@ -26,12 +29,11 @@ client.on("messageCreate", async (msg) => {
 		await command.execute(msg)
 	} catch (err) {
 		if (String(err).includes("Cannot read properties of undefined (reading 'execute')")){
-			await msg.reply({content: `Não encontrei o comando ${commandName} nos meus comandos aqui está sua lista de comandos`})
+			await msg.reply({content: `Não encontrei o comando ${commandName} nos meus comandos`})
 		} else {
 			await msg.reply({content: `Error: ${err}`})
 		}
 	}
-
 });
 
 client.on("interactionCreate", async (interaction: BaseInteraction) => {
