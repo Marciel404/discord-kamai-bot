@@ -1,8 +1,10 @@
-import { ButtonInteraction, Colors, EmbedBuilder } from "discord.js"
-import { verifyRoles } from "../funcsSuporte/verifyRoles"
-import { client, configData } from "../utils/loader"
+import { ButtonInteraction, EmbedBuilder } from "discord.js"
+import { verifyRoles } from "../funcsSuporte/verifys"
+import { client } from "../utils/loader"
+import { configData } from "../utils/loader"
 import moment from "moment"
 import { RegsAtivos } from "../db/moderation"
+import { msgDelete } from "../funcsSuporte/messages"
 
 const roles: Array<any> = [
     configData["roles"]["staff"]["asmodeus"],
@@ -60,13 +62,11 @@ export async function execute(interaction: ButtonInteraction) {
             })
         } catch (err) {
             let msg = await interaction.channel!.send({content: `Não conseguir banir o membro ${user.username}`});
-            setTimeout(async ()=>{
-                await msg.delete()
-            }, 5000);
+            msgDelete(msg)
         };
     }
 
-    await interaction.message.delete()
+    msgDelete(interaction.message)
     RegsAtivos(-1)
     
 }

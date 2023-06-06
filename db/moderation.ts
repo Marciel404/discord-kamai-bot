@@ -1,9 +1,8 @@
-import { configData } from "../utils/loader"
 import moment from 'moment';
-const {MongoClient} = require("mongodb")
+const { MongoClient } = require("mongodb")
 
-export const cluster = new MongoClient(process.env.mongoKet)
-const db = cluster.db(configData["database_name"])
+const cluster = new MongoClient(process.env.mongoKet)
+const db = cluster.db(process.env.database_name)
 export const moddb = db.collection("moderação")
 export const memberManegements = db.collection("memberManegements")
 

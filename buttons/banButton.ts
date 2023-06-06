@@ -1,5 +1,5 @@
 import { configData } from "../utils/loader"
-import { verifyRoles } from "../funcsSuporte/verifyRoles";
+import { verifyRoles } from "../funcsSuporte/verifys";
 import { motivosList } from "../stringSelects/motivos";
 import { 
     ButtonInteraction,
@@ -9,6 +9,7 @@ import {
     EmbedBuilder,
     Message,
     } from "discord.js";
+import { msgDelete } from "../funcsSuporte/messages";
 
 const roles: Array<any> =[
     configData["roles"]["staff"]["staff1"],
@@ -51,32 +52,31 @@ export async function execute(interaction: ButtonInteraction) {
         for (const i of message.content.split("\n")){
 
             try {
+
                 let member = await interaction.guild!.members.fetch(i.replace(/[<@>]/g, ""))
 
                 if (member.roles.highest.position >= client.roles.highest.position){
                     let msg = await interaction.channel!.send({content: `Não consego banir o membro ${member}`});
-                    setTimeout(async () =>{
-                        await msg.delete()
-                    }, 3000)
+                    msgDelete(msg)
                 } else {
                     desc += `${member}\n`
                 }
+
             } catch {
+
                 try{
                     let user = await interaction.client.users.fetch(i.replace(/[<@>]/g, ""))
                     desc += `${user.username} ${user.id}\n`
                 } catch {
-                    let m = await interaction.channel!.send({content: `${i} não é um usuario`})
-                    setTimeout(async () =>{
-                        await m.delete()
-                    }, 3000)
+                    let msg = await interaction.channel!.send({content: `${i} não é um usuario`})
+                    msgDelete(msg)
                 }
                 
             }
         }
         if (desc.length == 0) {
             await interaction.editReply({content: "Não consegui banir ninguem"});
-            await message.delete()
+            msgDelete(message)
             return
         }
         
@@ -90,7 +90,7 @@ export async function execute(interaction: ButtonInteraction) {
             }
         )
 
-        await message.delete()
+        msgDelete(message)
         
     })
 }

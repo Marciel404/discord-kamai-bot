@@ -1,4 +1,5 @@
 import { Message } from "discord.js"
+import { configData } from "../../../utils/loader"
 
 module.exports = {
     name: "say",

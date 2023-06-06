@@ -5,8 +5,8 @@ const {REST} = require("discord.js");
 const rest = new REST().setToken(process.env.token);
 let commands: Array<String> = [];
 
-export const commandSlash: any = new Collection();
-export const commandPrefix: any = new Collection();
+export const commandSlash: Collection<any, any> = new Collection();
+export const commandPrefix: Collection<any, any> = new Collection();
 export function loadCommandsPrefix(path: fs.PathLike){
     try {
         fs.readdir(path, (error, subFolderPath: Array<String>) => {

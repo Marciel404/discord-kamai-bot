@@ -1,6 +1,6 @@
 import { ButtonInteraction } from "discord.js";
-import { verifyRoles } from "../funcsSuporte/verifyRoles";
-import { configData } from "../utils/loader";
+import { verifyRoles } from "../funcsSuporte/verifys";
+import { configData } from "../utils/loader"
 import { RegsAtivos } from "../db/moderation";
 
 const roles: Array<any> = [

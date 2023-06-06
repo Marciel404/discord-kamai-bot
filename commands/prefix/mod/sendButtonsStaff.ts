@@ -1,6 +1,6 @@
 import { ActionRowBuilder, ButtonBuilder, Message } from "discord.js"
-import { verifyRoles } from "../../../funcsSuporte/verifyRoles"
-const configData = require(`../../../utils/config${process.env.bot}.json`)
+import { verifyRoles } from "../../../funcsSuporte/verifys"
+import { configData } from "../../../utils/loader"
 
 module.exports = {
     name: "sendbuttonsstaff",

@@ -5,6 +5,7 @@ import {
     EmbedBuilder
     } from "discord.js"
 import { RegsAtivos } from "../db/moderation"
+import { notifyMember } from "../funcsSuporte/satff"
 
 export const motivosList = [
     {
@@ -137,28 +138,37 @@ export async function execute (interaction: StringSelectMenuInteraction){
     let button1 = new ButtonBuilder();
     let button2 = new ButtonBuilder();
 
-    if (interaction.message.embeds[0].title == "Banimento"){
-        button1
-        .setCustomId("confirmBan")
-        .setLabel("✔")
-        .setStyle(4)
+    switch ( interaction.message.embeds[0].title){
 
-        button2 = new ButtonBuilder()
-        .setCustomId("deny")
-        .setLabel("❌")
-        .setStyle(4)
+        case "Banimento":
 
-    } else if (interaction.message.embeds[0].title == "Advertencia"){
-        button1
-        .setCustomId("confirmAdvertencia")
-        .setLabel("✔")
-        .setStyle(4)
+            button1
+            .setCustomId("confirmBan")
+            .setLabel("✔")
+            .setStyle(4)
+            RegsAtivos(1)
+            break
 
-        button2 = new ButtonBuilder()
-        .setCustomId("deny")
-        .setLabel("❌")
-        .setStyle(4)
+        case  "Advertencia":
+
+            button1
+            .setCustomId("confirmAdvertencia")
+            .setLabel("✔")
+            .setStyle(4)
+            RegsAtivos(1)
+            break
+
+        case "Notifação":
+
+            notifyMember(interaction)
+            return
+            
     }
+
+    button2 = new ButtonBuilder()
+    .setCustomId("deny")
+    .setLabel("❌")
+    .setStyle(4)
 
     const row = new ActionRowBuilder<any>()
     .addComponents(button1, button2)
@@ -166,6 +176,6 @@ export async function execute (interaction: StringSelectMenuInteraction){
     await interaction.update({content: "Foi", embeds: [], components: []})
     await interaction.channel?.send({embeds: [embed], components:[row]})
 
-    RegsAtivos(1)
+    
 }
   

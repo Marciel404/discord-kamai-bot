@@ -1,9 +1,10 @@
-import { ButtonInteraction, Colors, EmbedBuilder } from "discord.js"
-import { verifyRoles } from "../funcsSuporte/verifyRoles"
+import { ButtonInteraction, EmbedBuilder, GuildMember } from "discord.js"
 import { configData } from "../utils/loader"
-import moment from "moment"
 import { RegsAtivos, adcAdvertencia } from "../db/moderation"
-import { functionAdv } from "../funcsSuporte/verifys"
+import { verifyRoles } from "../funcsSuporte/verifys"
+import moment from "moment"
+import { functionAdvRoles } from "../funcsSuporte/satff"
+import { msgDelete } from "../funcsSuporte/messages"
 
 const roles: Array<any> = [
     configData["roles"]["staff"]["asmodeus"],
@@ -30,7 +31,7 @@ export async function execute(interaction: ButtonInteraction) {
         const reason = interaction.message.embeds[0].fields[0].value;
 
         try {
-            let vrf = await functionAdv(member, author, aprovador, (moment(new Date(dt))).format("DD/MM/YYYY HH:mm"))
+            let vrf = await functionAdvRoles(member, author, aprovador, (moment(new Date(dt))).format("DD/MM/YYYY HH:mm"))
             if (vrf != "adv3") {
 
                 await adcAdvertencia(author, member,aprovador, reason, (moment(new Date(dt))).format("DD/MM/YYYY HH:mm"));
@@ -49,14 +50,12 @@ export async function execute(interaction: ButtonInteraction) {
 
             }
         } catch (err) {
-            let msg = await interaction.channel!.send({content: `Não conseguir adverter o membro ${member}`});
-            setTimeout(async ()=>{
-                await msg.delete()
-            }, 5000);
+            let msg = await interaction.channel!.send({content: `Não consegui adverter o membro ${member}`});
+            msgDelete(msg)
         };
     };
 
-    await interaction.message.delete();
+    msgDelete(interaction.message)
     RegsAtivos(-1);
     
 }
