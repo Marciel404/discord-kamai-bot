@@ -103,7 +103,6 @@ export const motivosList = [
         "label": 'Scam.',
         "value": '19',
     },
-
 ]
 
 const reason: any = {
@@ -128,7 +127,7 @@ const reason: any = {
     "19": "Scam"
 }
 
-export async function execute (interaction: StringSelectMenuInteraction){
+export async function execute(interaction: StringSelectMenuInteraction){
     const embed = new EmbedBuilder()
     .setTitle(interaction.message.embeds[0].title)
     .setDescription(interaction.message.embeds[0].description)
@@ -140,30 +139,16 @@ export async function execute (interaction: StringSelectMenuInteraction){
 
     switch ( interaction.message.embeds[0].title){
 
-        case "Banimento":
-
-            button1
-            .setCustomId("confirmBan")
-            .setLabel("✔")
-            .setStyle(4)
-            RegsAtivos(1)
-            break
-
-        case  "Advertencia":
-
-            button1
-            .setCustomId("confirmAdvertencia")
-            .setLabel("✔")
-            .setStyle(4)
-            RegsAtivos(1)
-            break
-
         case "Notifação":
 
-            notifyMember(interaction)
-            return
-            
+            notifyMember(interaction, reason[interaction.values[0]])
+            return await interaction.update({content: "Foi", embeds: [], components: []})
     }
+
+    button1 = new ButtonBuilder()
+    .setCustomId("comfirm")
+    .setLabel("✔")
+    .setStyle(4)
 
     button2 = new ButtonBuilder()
     .setCustomId("deny")

@@ -2,7 +2,6 @@ import { BaseInteraction, Client, Events, GatewayIntentBits, Message } from "dis
 import { loadSlash, commandSlash, commandPrefix } from "./commandsLoader";
 import { moddb } from "../db/moderation";
 import { verifyRegChannelName } from "../funcsSuporte/verifys";
-import { msgCountInitDelete } from "../funcsSuporte/messages";
 
 export const configData = require(`./config${process.env.bot}.json`)
 
@@ -19,7 +18,6 @@ export const client = new Client({
 client.once("ready", (async (self: Client) => {
     loadSlash(self.application?.id);
     console.log("Eu entrei como " + self.user?.username);
-	msgCountInitDelete(client, configData["channels"]["registrosAtivos"])
 	verifyRegChannelName(self, configData, moddb)
 }));
 

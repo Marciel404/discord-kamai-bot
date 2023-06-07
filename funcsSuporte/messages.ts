@@ -1,4 +1,5 @@
-import { Channel, Client, Message, TextChannel } from "discord.js";
+import { Client, Message } from "discord.js";
+import { configData } from "../utils/loader";
 
 export function msgDelete(message: Message){
     setTimeout(async () =>{
@@ -8,8 +9,4 @@ export function msgDelete(message: Message){
                 msgDelete(ms)
             })
     }, 3000)
-}
-
-export async function msgCountInitDelete(client: Client, id: string){
-
 }

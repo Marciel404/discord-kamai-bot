@@ -1,4 +1,4 @@
-import { Client, EmbedBuilder, GuildMember, Interaction, Message } from "discord.js"
+import { Client, GuildMember, Interaction, Message } from "discord.js"
 import { memberManegements } from "../db/moderation"
 import { configData } from "../utils/loader";
 
