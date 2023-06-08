@@ -69,6 +69,7 @@ export async function functionAdvRoles(member: GuildMember, author: GuildMember,
     const roles: Array<string> = [configData["roles"]["adv1"], configData["roles"]["adv2"], configData["roles"]["adv3"]]
     let v = await verifyAdvertenciaEntry(member)
     if (!v){
+        await member.timeout(120 * 60 * 1000, "Advertencia 1")
         return await member.roles.add(roles[0])
     }
     for (const r of Object.values(member.roles)[0]["_roles"]){
@@ -108,11 +109,11 @@ export async function functionAdvRoles(member: GuildMember, author: GuildMember,
                 })
                 return "adv3"
             case roles[1]:
+                await member.timeout(2880 * 60 * 1000, "Advertencia 1")
                 return await member.roles.add([roles[0], roles[1], roles[2]])
             case roles[0]:
+                await member.timeout(720 * 60 * 1000, "Advertencia 1")
                 return await member.roles.add([roles[0], roles[1]])
-            default:
-                return await member.roles.add(roles[0])
         }
     };
 }
