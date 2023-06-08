@@ -146,7 +146,7 @@ export async function execute(interaction: StringSelectMenuInteraction){
     }
 
     button1 = new ButtonBuilder()
-    .setCustomId("comfirm")
+    .setCustomId("confirm")
     .setLabel("✔")
     .setStyle(4)
 
