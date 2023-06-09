@@ -2,7 +2,6 @@ import { EmbedBuilder, GuildMember, StringSelectMenuInteraction } from "discord.
 import { configData } from "../utils/loader";
 import { verifyAdvertenciaEntry } from "./verifys";
 import moment from "moment";
-import { msgDelete } from "./messages";
 
 export async function notifyMember(interaction: StringSelectMenuInteraction, reason: string) {
 

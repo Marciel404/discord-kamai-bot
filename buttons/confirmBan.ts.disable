@@ -13,6 +13,8 @@ const roles: Array<any> = [
 
 export async function execute(interaction: ButtonInteraction) {
 
+    if (!verifyRoles(interaction, roles)) return await interaction.reply({content: "Sem permissão"});
+
     const time = new Date()
     const dt = new Date().setHours(time.getHours()-3)
 
@@ -20,8 +22,6 @@ export async function execute(interaction: ButtonInteraction) {
     .setTitle("Banimento")
     .setThumbnail(interaction.guild!.iconURL())
     .setColor(0xed4245)
-
-    if (!verifyRoles(interaction, roles)) return await interaction.reply({content: "Sem permissão"})
 
     for (const m of interaction.message.embeds[0].description!.split("\n")){
 

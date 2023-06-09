@@ -20,7 +20,7 @@ export async function execute(interaction: ButtonInteraction) {
 
     if (!verifyRoles(interaction, roles)) return await interaction.reply({content: "Sem permissão", ephemeral: true})
 
-    let selecMenu: StringSelectMenuBuilder = new StringSelectMenuBuilder()
+    let selecMenu = new StringSelectMenuBuilder()
     .setCustomId("motivos")
     .setMinValues(1)
     .setPlaceholder("Motivo da Notificação")
@@ -55,8 +55,7 @@ export async function execute(interaction: ButtonInteraction) {
                 desc += `${member}\n`
             } catch {
                 let msg = await interaction.channel!.send({content: `${i} não é um usuario no servidor`})
-                msgDelete(msg)
-                return
+                msgDelete(msg,3000)
             };
         };
         
@@ -69,7 +68,7 @@ export async function execute(interaction: ButtonInteraction) {
                 components: [row]
             }
         );
-        msgDelete(message)
+        msgDelete(message,0)
     })
     
 }

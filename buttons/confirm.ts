@@ -67,12 +67,12 @@ export async function execute(interaction: ButtonInteraction) {
                     })
                 } catch (err) {
                     let msg = await interaction.channel!.send({content: `Não conseguir banir o membro ${user.username}`});
-                    msgDelete(msg)
+                    msgDelete(msg,3000)
                 };
             }
-        
-            msgDelete(interaction.message)
-            RegsAtivos(-1)
+
+            msgDelete(interaction.message,0)
+            return RegsAtivos(-1)
 
         case "Advertencia":
 
@@ -87,7 +87,7 @@ export async function execute(interaction: ButtonInteraction) {
                 const reason = interaction.message.embeds[0].fields[0].value;
 
                 try {
-                    let vrf = await functionAdvRoles(member, author, aprovador, (moment(new Date(dt))).format("DD/MM/YYYY HH:mm"))
+                    let vrf = await functionAdvRoles(member, author, aprovador, (moment(new Date(dt))).format("DD/MM/YYYY HH:mm"));
                     if (vrf != "adv3") {
 
                         await adcAdvertencia(author, member,aprovador, reason, (moment(new Date(dt))).format("DD/MM/YYYY HH:mm"));
@@ -107,11 +107,32 @@ export async function execute(interaction: ButtonInteraction) {
                     }
                 } catch (err) {
                     let msg = await interaction.channel!.send({content: `Não consegui adverter o membro ${member}`});
-                    msgDelete(msg)
+                    msgDelete(msg,3000);
                 };
             };
 
-            msgDelete(interaction.message)
-            RegsAtivos(-1);
+            msgDelete(interaction.message,0);
+            return RegsAtivos(-1)
+
+        case "Adicionar cargo":
+            for (const m of interaction.message.embeds[0].description!.split("\n")){
+        
+                let member = await interaction.guild!.members.fetch(m.split(" ")[m.split(" ").length-1].replace(/[<@>]/g, ""));
+                const role = interaction.message.embeds[0].fields[0].value.replace(/[<@&>]/g, "");
+                await member.roles.add(role)
+
+            }
+            msgDelete(interaction.message,0)
+            return RegsAtivos(-1)
+        case "Remover cargo":
+            for (const m of interaction.message.embeds[0].description!.split("\n")){
+        
+                let member = await interaction.guild!.members.fetch(m.split(" ")[m.split(" ").length-1].replace(/[<@>]/g, ""));
+                const role = interaction.message.embeds[0].fields[0].value.replace(/[<@&>]/g, "");
+                await member.roles.remove(role)
+
+            }
+            msgDelete(interaction.message,0)
+            return RegsAtivos(-1)
     }
 }

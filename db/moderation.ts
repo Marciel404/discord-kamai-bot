@@ -13,7 +13,6 @@ export function RegsAtivos(qnt: any){
         {upsert: true}
     )
 }
-
 export async function adcAdvertencia(author: any, member: any, aprovador: any, motivo: string, data: string){
     moddb.updateOne(
         {_id: "kamaiMod"},
@@ -36,7 +35,6 @@ export async function adcAdvertencia(author: any, member: any, aprovador: any, m
         {upsert: true}
     )
 }
-
 export function rmvAdvertencia(warnid: any){
     const time = new Date()
     const dt = new Date().setHours(time.getHours()-3)
@@ -45,7 +43,6 @@ export function rmvAdvertencia(warnid: any){
                          {"$pull": {"advertencias": {"warn_id": warnid}},
                           "$set": {"UltimaRemoção": (moment(new Date(dt))).format("DD/MM/YYYY HH:mm")}})
 }
-
 export async function adcNotify(author: any, member: any, motivo: string, data: string,){
     moddb.updateOne(
         {"_id": "kamaiMod"}, {"$inc": {"NtfsQnt": 1}}, {upsert: true}
@@ -65,7 +62,6 @@ export async function adcNotify(author: any, member: any, motivo: string, data: 
         {upsert: true}
     )
 }
-
 export async function rmvNotify(warnid: any) {
 
     memberManegements.findOneAndUpdate({"Notifys": {"$elemMatch": {"notify_id": warnid}}},

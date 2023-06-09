@@ -3,9 +3,10 @@ import {
     ButtonBuilder, 
     StringSelectMenuInteraction,
     EmbedBuilder
-    } from "discord.js"
-import { RegsAtivos } from "../db/moderation"
-import { notifyMember } from "../funcsSuporte/satff"
+    } from "discord.js";
+
+import { notifyMember } from "../funcsSuporte/satff";
+import { RegsAtivos } from "../db/moderation";
 
 export const motivosList = [
     {
@@ -103,7 +104,7 @@ export const motivosList = [
         "label": 'Scam.',
         "value": '19',
     },
-]
+];
 
 const reason: any = {
     "1": "Flood/spam",
@@ -125,42 +126,39 @@ const reason: any = {
     "17": "Quebra do ToS do Discord",
     "18": "Selfbot",
     "19": "Scam"
-}
+};
 
 export async function execute(interaction: StringSelectMenuInteraction){
+
     const embed = new EmbedBuilder()
     .setTitle(interaction.message.embeds[0].title)
     .setDescription(interaction.message.embeds[0].description)
     .addFields([{name: "Motivo", value: reason[interaction.values[0]]}])
-    .setFooter({text: interaction.message.embeds[0].footer!.text})
-
-    let button1 = new ButtonBuilder();
-    let button2 = new ButtonBuilder();
+    .setFooter({text: interaction.message.embeds[0].footer!.text});
 
     switch ( interaction.message.embeds[0].title){
 
         case "Notifação":
+            notifyMember(interaction, reason[interaction.values[0]]);
+            return await interaction.update({content: "Foi", embeds: [], components: []});
+    };
 
-            notifyMember(interaction, reason[interaction.values[0]])
-            return await interaction.update({content: "Foi", embeds: [], components: []})
-    }
-
-    button1 = new ButtonBuilder()
+    let button1 = new ButtonBuilder()
     .setCustomId("confirm")
     .setLabel("✔")
-    .setStyle(4)
+    .setStyle(4);
 
-    button2 = new ButtonBuilder()
+    let button2 = new ButtonBuilder()
     .setCustomId("deny")
     .setLabel("❌")
-    .setStyle(4)
+    .setStyle(4);
 
     const row = new ActionRowBuilder<any>()
-    .addComponents(button1, button2)
+    .addComponents(button1, button2);
 
-    await interaction.update({content: "Foi", embeds: [], components: []})
-    await interaction.channel?.send({embeds: [embed], components:[row]})
+    RegsAtivos(1)
 
+    await interaction.update({content: "Foi", embeds: [], components: []});
+    await interaction.channel?.send({embeds: [embed], components:[row]});
     
-}
-  
+};

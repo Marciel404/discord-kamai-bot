@@ -19,7 +19,7 @@ export async function execute(interaction: ButtonInteraction) {
 
     if (!verifyRoles(interaction, roles)) return await interaction.reply({content: "Sem permissão", ephemeral: true})
     
-    let selecMenu: StringSelectMenuBuilder = new StringSelectMenuBuilder()
+    let selecMenu = new StringSelectMenuBuilder()
     .setCustomId("motivos")
     .setMinValues(1)
     .setPlaceholder("Motivo do banimento")
@@ -57,7 +57,7 @@ export async function execute(interaction: ButtonInteraction) {
 
                 if (member.roles.highest.position >= client.roles.highest.position){
                     let msg = await interaction.channel!.send({content: `Não consego banir o membro ${member}`});
-                    msgDelete(msg)
+                    msgDelete(msg,3000)
                 } else {
                     desc += `${member}\n`
                 }
@@ -69,14 +69,14 @@ export async function execute(interaction: ButtonInteraction) {
                     desc += `${user.username} ${user.id}\n`
                 } catch {
                     let msg = await interaction.channel!.send({content: `${i} não é um usuario`})
-                    msgDelete(msg)
+                    msgDelete(msg,3000)
                 }
                 
             }
         }
         if (desc.length == 0) {
             await interaction.editReply({content: "Não consegui banir ninguem"});
-            msgDelete(message)
+            msgDelete(message,0)
             return
         }
         
@@ -90,7 +90,7 @@ export async function execute(interaction: ButtonInteraction) {
             }
         )
 
-        msgDelete(message)
+        msgDelete(message,0)
         
     })
 }

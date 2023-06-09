@@ -1,4 +1,4 @@
-import { ButtonInteraction } from "discord.js";
+import { ButtonInteraction, StringSelectMenuOptionBuilder } from "discord.js";
 import { configData } from "../utils/loader";
 import { verifyRoles } from "../funcsSuporte/verifys";
 import { ActionRowBuilder, StringSelectMenuBuilder } from "@discordjs/builders";
@@ -13,17 +13,23 @@ const roles: Array<any> = [
 ]
 
 export async function execute(interaction: ButtonInteraction) {
+    
     if (!verifyRoles(interaction, roles)) return await interaction.reply({content: "Sem permissão"});
 
-    const adc = new StringSelectMenuBuilder()
-    .setCustomId("adcRoles")
-    .setPlaceholder("Adicionar")
-    const rmv = new StringSelectMenuBuilder()
-    .setCustomId("rmvRoles")
-    .setPlaceholder("Remover")
+    const initR = new StringSelectMenuBuilder()
+    .setCustomId("initRoles")
+    .setPlaceholder("Cargos")
+    .addOptions(
+        new StringSelectMenuOptionBuilder()
+        .setLabel("Adicionar")
+        .setValue("adcRoles"),
+        new StringSelectMenuOptionBuilder()
+        .setLabel("Remover")
+        .setValue("rmvRoles")
+    )
     const row = new ActionRowBuilder<any>()
-    .addComponents(adc, rmv)
+    .addComponents(initR)
 
-    await interaction.reply({content: "O que ira fazer?",components: [row], ephemeral: true})
+    await interaction.reply({content: "O que ira fazer?", components: [row], ephemeral: true})
 
 }
