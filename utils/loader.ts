@@ -1,4 +1,4 @@
-import { BaseInteraction, Client, Events, GatewayIntentBits, Message } from "discord.js";
+import { BaseInteraction, Client, GatewayIntentBits, Message } from "discord.js";
 import { loadSlash, commandSlash, commandPrefix } from "./commandsLoader";
 import { moddb } from "../db/moderation";
 import { verifyRegChannelName } from "../funcsSuporte/verifys";
@@ -60,7 +60,7 @@ client.on("interactionCreate", async (interaction: BaseInteraction) => {
 	} else if (interaction.isButton()) {
 
 		try{
-			await require(`../buttons/${interaction.customId}.ts`).execute(interaction)
+			await require(`../buttons/${interaction.customId}.${process.env.lang}`).execute(interaction)
 		} catch (err) {
 			console.log(err)
 		};
@@ -68,10 +68,9 @@ client.on("interactionCreate", async (interaction: BaseInteraction) => {
 	} else if (interaction.isStringSelectMenu()){
 
 		try{
-			await require(`../StringSelects/${interaction.customId}.ts`).execute(interaction)
+			await require(`../stringSelects/${interaction.customId}.${process.env.lang}`).execute(interaction)
 		} catch (err) {
 			console.log(err)
 		};
-
 	};
 });

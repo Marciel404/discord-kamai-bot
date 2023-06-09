@@ -13,7 +13,7 @@ export function loadCommandsPrefix(path: fs.PathLike){
             for (const name of subFolderPath ) {
                 fs.readdir(`${path}/${[name]}`, (error, files: string[]) => {
                     files.forEach((files: string) => {
-                        if (files.endsWith(".ts")) {
+                        if (files.endsWith(`.${process.env.lang}`)) {
                             let command = require(`.${path}/${name}/${files}`)
                             commandPrefix.set(command.name, command)
                             if (command.aliases && command.aliases.length >= 1) {
@@ -37,7 +37,7 @@ export function loadCommandsSlash(path: fs.PathLike) {
             for (const name of subFolderPath){
                 fs.readdir(`${path}/${[name]}`, (error, files: String[]) => {
                     files.forEach((files: String) => {
-                        if (files.endsWith(".ts")) {
+                        if (files.endsWith(`.${process.env.lang}`)) {
                             let command = require(`.${path}/${name}/${files}`)
                             commands.push(command.data)
                             commandSlash.set(command.data.name, command)

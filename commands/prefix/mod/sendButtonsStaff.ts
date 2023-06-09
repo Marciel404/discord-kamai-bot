@@ -18,6 +18,11 @@ module.exports = {
         .setLabel("BAN")
         .setStyle(4)
 
+        const bUnBan = new ButtonBuilder()
+        .setCustomId("unbanButton")
+        .setLabel("UNBAN")
+        .setStyle(4)
+
         const bAdv = new ButtonBuilder()
         .setCustomId("advertenciaButton")
         .setLabel("ADVERTENCIA")
@@ -34,7 +39,7 @@ module.exports = {
         .setStyle(3)
 
         const row = new ActionRowBuilder<any>()
-        .addComponents(bBan,bAdv,bNtf,bCg)
+        .addComponents(bBan,bUnBan,bAdv,bNtf,bCg)
 
         await msg.channel.send({components:[row]})
 
