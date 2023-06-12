@@ -2,7 +2,6 @@ import { BaseInteraction, Client, GatewayIntentBits, Message } from "discord.js"
 import { loadSlash, commandSlash, commandPrefix } from "./commandsLoader";
 import { moddb } from "../db/moderation";
 import { verifyRegChannelName } from "../funcsSuporte/verifys";
-
 export const configData = require(`./config${process.env.bot}.json`)
 
 export const client = new Client({

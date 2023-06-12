@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc --outDir \"dir\"",
+    "build": "tsc --outDir \"D:\\Programação\\Bots\\TS and JS\\Kamai\\1Grifo\"",
     "start": "ts-node index.ts"
   },
   "author": "Marciel404",

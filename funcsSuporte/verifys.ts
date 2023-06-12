@@ -4,8 +4,8 @@ import { configData } from "../utils/loader";
 
 export function verifyRoles(msg: Message | Interaction , roles: Array<string>) {
     let v = false;
-    for (const r of Object.values(msg.member!.roles)[0]["_roles"]){
-        if (roles.indexOf(r) == 1){
+    for (const r of roles){
+        if (Object.values(msg.member!.roles)[0]["_roles"].indexOf(r) == 1){
             v = true
         };
     };
