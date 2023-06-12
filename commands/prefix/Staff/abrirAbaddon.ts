@@ -1,5 +1,5 @@
 import { Colors, Message } from "discord.js";
-import { configData } from "../../../utils/loader";
+import { configData } from "../../../utils/loader"
 
 module.exports={
     name: "open",

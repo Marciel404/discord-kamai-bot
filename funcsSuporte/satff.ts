@@ -1,5 +1,5 @@
 import { EmbedBuilder, GuildMember, StringSelectMenuInteraction } from "discord.js";
-import { configData } from "../utils/loader";
+import { configData } from "../utils/loader"
 import { verifyAdvertenciaEntry } from "./verifys";
 import moment from "moment";
 

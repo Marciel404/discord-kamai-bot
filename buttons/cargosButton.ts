@@ -1,5 +1,5 @@
 import { ButtonInteraction, StringSelectMenuOptionBuilder } from "discord.js";
-import { configData } from "../utils/loader";
+import { configData } from "../utils/loader"
 import { verifyRoles } from "../funcsSuporte/verifys";
 import { ActionRowBuilder, StringSelectMenuBuilder } from "@discordjs/builders";
 

@@ -1,6 +1,6 @@
 import { Client, GuildMember, Interaction, Message } from "discord.js"
 import { memberManegements } from "../db/moderation"
-import { configData } from "../utils/loader";
+import { configData } from "../utils/loader"
 
 export function verifyRoles(msg: Message | Interaction , roles: Array<string>) {
     let v = false;

@@ -1,5 +1,5 @@
 import { ActionRowBuilder, ButtonBuilder, EmbedBuilder, StringSelectMenuInteraction } from "discord.js";
-import { configData } from "../utils/loader";
+import { configData } from "../utils/loader"
 import { RegsAtivos } from "../db/moderation";
 
 export async function execute(interaction: StringSelectMenuInteraction){

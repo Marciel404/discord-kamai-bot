@@ -2,6 +2,7 @@ import { BaseInteraction, Client, GatewayIntentBits, Message } from "discord.js"
 import { loadSlash, commandSlash, commandPrefix } from "./commandsLoader";
 import { moddb } from "../db/moderation";
 import { verifyRegChannelName } from "../funcsSuporte/verifys";
+
 export const configData = require(`./config${process.env.bot}`)
 
 export const client = new Client({
@@ -56,7 +57,6 @@ client.on("interactionCreate", async (interaction: BaseInteraction) => {
 				await interaction.reply({ content: `${error}`, ephemeral: true });
 			};
 		};
-
 	} else if (interaction.isButton()) {
 
 		try{

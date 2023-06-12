@@ -1,6 +1,6 @@
 import { Colors, Message } from "discord.js";
 import fs from "node:fs"
-import { configData } from "../utils/loader";
+import { configData } from "../utils/loader"
 
 export function generateEmbedHelp(msg: Message){
     let l = ""
