@@ -1,7 +1,8 @@
-{
+module.exports = {
 
   "guild": "612117634909208576",
   "prefix": "&",
+  "lang": "js",
 
   "roles":{
 
