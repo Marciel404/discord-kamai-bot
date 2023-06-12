@@ -2,7 +2,7 @@ import { BaseInteraction, Client, GatewayIntentBits, Message } from "discord.js"
 import { loadSlash, commandSlash, commandPrefix } from "./commandsLoader";
 import { moddb } from "../db/moderation";
 import { verifyRegChannelName } from "../funcsSuporte/verifys";
-export const configData = require(`./config${process.env.bot}.json`)
+export const configData = require(`./config${process.env.bot}`)
 
 export const client = new Client({
     intents: [
@@ -56,10 +56,11 @@ client.on("interactionCreate", async (interaction: BaseInteraction) => {
 				await interaction.reply({ content: `${error}`, ephemeral: true });
 			};
 		};
+
 	} else if (interaction.isButton()) {
 
 		try{
-			await require(`../buttons/${interaction.customId}.${process.env.lang}`).execute(interaction)
+			await require(`../buttons/${interaction.customId}`).execute(interaction)
 		} catch (err) {
 			console.log(err)
 		};
@@ -67,7 +68,7 @@ client.on("interactionCreate", async (interaction: BaseInteraction) => {
 	} else if (interaction.isStringSelectMenu()){
 
 		try{
-			await require(`../stringSelects/${interaction.customId}.${process.env.lang}`).execute(interaction)
+			await require(`../stringSelects/${interaction.customId}`).execute(interaction)
 		} catch (err) {
 			console.log(err)
 		};

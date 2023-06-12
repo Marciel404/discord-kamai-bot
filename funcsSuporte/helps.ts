@@ -90,7 +90,7 @@ function fullcommand() {
 
     let l = ""
 
-    const modcmd = fs.readdirSync(`./commands/prefix/Adm`).filter(file => file.endsWith(`.ts`));
+    const modcmd = fs.readdirSync(`./commands/prefix/Adm`).filter(file => file.endsWith(configData.lang));
     modcmd.forEach(commandName =>{
         if (l.indexOf("Administração") == -1){
             l += "\n**Administração**\n"
@@ -115,7 +115,7 @@ function fullcommand() {
 function getModCommands() {
 
     let s = "";
-    const modcmd = fs.readdirSync(`./commands/prefix/Mod`).filter(file => file.endsWith(`.ts`));
+    const modcmd = fs.readdirSync(`./commands/prefix/Mod`).filter(file => file.endsWith(configData.lang));
     modcmd.forEach(commandName =>{
         if (s.indexOf("Moderação") == -1){
             s += "\n****Moderação**\n"
@@ -131,7 +131,7 @@ function getModCommands() {
 
 function getStaffCommands() {
     let s = "";
-    const staffcmd = fs.readdirSync(`./commands/prefix/Staff`).filter(file => file.endsWith(`.ts`));
+    const staffcmd = fs.readdirSync(`./commands/prefix/Staff`).filter(file => file.endsWith(configData.lang));
     staffcmd.forEach(commandName =>{
         if (s.indexOf("Staff") == -1){
             s += "\n**Staff**\n"
@@ -146,7 +146,7 @@ function getStaffCommands() {
 
 function getStaffeCapsCommands() {
     let s = "";
-    const scapscmd = fs.readdirSync(`./commands/prefix/staff e caps`).filter(file => file.endsWith(`.ts`));
+    const scapscmd = fs.readdirSync(`./commands/prefix/staff e caps`).filter(file => file.endsWith(configData.lang));
     scapscmd.forEach(commandName =>{
         if (s.indexOf("Staff e Capitães") == -1){
             s += "\n**Staff e Captães**\n"
@@ -164,7 +164,7 @@ function getStaffeCapsCommands() {
 
 function getCapsCommands() {
     let s = "";
-    const capscmd = fs.readdirSync(`./commands/prefix/Caps`).filter(file => file.endsWith(`.ts`));
+    const capscmd = fs.readdirSync(`./commands/prefix/Caps`).filter(file => file.endsWith(configData.lang));
     capscmd.forEach(commandName =>{
         if (s.indexOf("Capitães") == -1){
             s += "\n**Capitães**\n"
@@ -182,7 +182,7 @@ function getCapsCommands() {
 
 function getEligosCommands() {
     let s = "";
-    const karaokecmd = fs.readdirSync(`./commands/prefix/EquipeKaraoke`).filter(file => file.endsWith(`.ts`));
+    const karaokecmd = fs.readdirSync(`./commands/prefix/EquipeKaraoke`).filter(file => file.endsWith(configData.lang));
     karaokecmd.forEach(commandName =>{
         if (s.indexOf("Eligos") == -1){
             s += "\n**Eligos**\n"
@@ -200,7 +200,7 @@ function getEligosCommands() {
 
 function getEquipeEventosCommands() {
     let s = "";
-    const eventoscmd = fs.readdirSync(`./commands/prefix/EquipeEventos`).filter(file => file.endsWith(`.ts`));
+    const eventoscmd = fs.readdirSync(`./commands/prefix/EquipeEventos`).filter(file => file.endsWith(configData.lang));
     eventoscmd.forEach(commandName =>{
         if (s.indexOf("Gremorys") == -1){
             s += "\n**Gremorys**\n"
@@ -218,7 +218,7 @@ function getEquipeEventosCommands() {
 
 function getCallPvCommands() {
     let s = "";
-    const callpv = fs.readdirSync(`./commands/prefix/CallPv`).filter(file => file.endsWith(`.ts`));
+    const callpv = fs.readdirSync(`./commands/prefix/CallPv`).filter(file => file.endsWith(configData.lang));
     callpv.forEach(commandName =>{
         if (s.indexOf("CallPv") == -1){
             s += "\n**CallPv**\n"
@@ -236,7 +236,7 @@ function getCallPvCommands() {
 
 function getPublicCommands() {
     let s = "";
-    const eventoscmd = fs.readdirSync(`./commands/prefix/Publicos`).filter(file => file.endsWith(`.ts`));
+    const eventoscmd = fs.readdirSync(`./commands/prefix/Publicos`).filter(file => file.endsWith(configData.lang));
     eventoscmd.forEach(commandName =>{
         if (s.indexOf("Publicos") == -1){
             s += "\n**Publicos**\n"
