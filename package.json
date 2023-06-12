@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc --outDir "",
+    "build": "tsc --outDir \"\"",
     "start": "ts-node index.ts"
   },
   "author": "Marciel404",
