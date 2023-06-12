@@ -3,6 +3,7 @@ module.exports = {
   "guild": "834172082349670432",
   "prefix": "&",
   "lang": "ts",
+  "database_name":"Grifo_Kamai_Canary",
 
   "roles": {
 
