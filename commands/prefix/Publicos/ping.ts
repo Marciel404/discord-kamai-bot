@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 
-module.exports = {
+export = {
     name: "ping",
     aliases: ["ms"],
     description: "Envia meu delay",

@@ -1,7 +1,7 @@
 import { Colors, Message } from "discord.js";
-import { configData } from "../../../utils/loader"
+import { configData } from "../../..";
 
-module.exports={
+export = {
     name: "open",
     aliases: ["abrir"],
     description: "Abre a sala de abaddon", 
@@ -88,7 +88,7 @@ async function open(msg: Message){
                 console.log(error)
             }
 
-        }, 20000)
+        }, 5000)
     } catch (error) {
         console.log(error)
     }

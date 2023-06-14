@@ -1,8 +1,8 @@
 import { ActionRowBuilder, ButtonBuilder, Message } from "discord.js"
 import { verifyRoles } from "../../../funcsSuporte/verifys"
-import { configData } from "../../../utils/loader"
+import { configData } from "../../..";
 
-module.exports = {
+export = {
     name: "sendbuttonsstaff",
     aliases: ["sendbts"],
     description: "Envia os botoes de Registros Ativos",
@@ -12,7 +12,7 @@ module.exports = {
     ],
     async execute( msg: Message ){
 
-        if (!verifyRoles(msg,this.roles)) return
+        if (!verifyRoles(msg, this.roles)) return
 
         const bBan = new ButtonBuilder()
         .setCustomId("banButton")

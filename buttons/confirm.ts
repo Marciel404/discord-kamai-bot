@@ -1,6 +1,6 @@
 import { ButtonInteraction, EmbedBuilder } from "discord.js";
 import { verifyRoles } from "../funcsSuporte/verifys";
-import { client, configData } from "../utils/loader";
+import { configData } from "..";
 import moment from "moment";
 import { RegsAtivos, adcAdvertencia } from "../db/moderation";
 import { msgDelete } from "../funcsSuporte/messages";
@@ -30,7 +30,7 @@ export async function execute(interaction: ButtonInteraction) {
         
             for (const m of interaction.message.embeds[0].description!.split("\n")){
         
-                let user = await client.users.fetch(m.split(" ")[m.split(" ").length-1].replace(/[<@>]/g, ""))
+                let user = await interaction.client.users.fetch(m.split(" ")[m.split(" ").length-1].replace(/[<@>]/g, ""))
                 const author = await interaction.guild!.members.fetch(interaction.message.embeds[0].footer!.text)
                 const aprovador = interaction.member
                 const reason = interaction.message.embeds[0].fields[0].value

@@ -1,9 +1,8 @@
 import { BaseInteraction, Client, GatewayIntentBits, Message } from "discord.js";
-import { loadSlash, commandSlash, commandPrefix } from "./commandsLoader";
+import { loadSlash, commandSlash, commandPrefix, loadCommandsPrefix } from "./commandsLoader";
 import { moddb } from "../db/moderation";
 import { verifyRegChannelName } from "../funcsSuporte/verifys";
-
-export const configData = require(`./config${process.env.bot}`)
+import { configData } from "..";
 
 export const client = new Client({
     intents: [
@@ -26,16 +25,11 @@ client.on("messageCreate", async (msg: Message) => {
 	if (!msg.content.startsWith(configData.prefix) || msg.author.bot || !msg.guild) return;
 	const commandName: string =  msg.content.toLowerCase().split(" ")[0].substring(configData.prefix.length);
 	if (commandName.length == 0) return;
-	const command = commandPrefix.get(commandName);
 
 	try {
-		await command.execute(msg)
+		await loadCommandsPrefix("./commands/prefix", commandName, msg)
 	} catch (err) {
-		if (String(err).includes("Cannot read properties of undefined (reading 'execute')")){
-			await msg.reply({content: `Não encontrei o comando ${commandName} nos meus comandos`})
-		} else {
-			await msg.reply({content: `Error: ${err}`})
-		};
+		await msg.reply({content: `Error: ${err}`})
 	};
 });
 

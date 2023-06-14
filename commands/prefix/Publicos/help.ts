@@ -1,7 +1,7 @@
 import { Message } from "discord.js";
 import { generateEmbedHelp } from "../../../funcsSuporte/helps";
 
-module.exports = {
+export = {
     name: "help",
     aliases: ["ajuda"],
     description: "Envia meus comandos",

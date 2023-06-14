@@ -1,11 +1,11 @@
 import { Client, GuildMember, Interaction, Message } from "discord.js"
 import { memberManegements } from "../db/moderation"
-import { configData } from "../utils/loader"
+import { configData } from "..";
 
 export function verifyRoles(msg: Message | Interaction , roles: Array<string>) {
     let v = false;
     for (const r of roles){
-        if (Object.values(msg.member!.roles)[0]["_roles"].indexOf(r) == 1){
+        if (Object.values(msg.member!.roles)[0]["_roles"].indexOf(r) == 0){
             v = true
         };
     };

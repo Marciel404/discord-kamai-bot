@@ -1,7 +1,7 @@
-import { Colors, Message, OverwriteType, PermissionOverwriteManager, PermissionOverwrites, VoiceChannel } from "discord.js"
-import { configData } from "../../../utils/loader"
+import { Colors, Message } from "discord.js"
+import { configData } from "../../..";
 
-module.exports={
+export = {
     name: "close",
     aliases: ["fechar"],
     description: "fecha a sala do abaddon",

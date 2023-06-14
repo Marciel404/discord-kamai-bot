@@ -1,5 +1,5 @@
 import { ButtonInteraction, EmbedBuilder, GuildMember } from "discord.js"
-import { configData } from "../utils/loader"
+import { configData } from "../utils/loader";
 import { RegsAtivos, adcAdvertencia } from "../db/moderation"
 import { verifyRoles } from "../funcsSuporte/verifys"
 import moment from "moment"

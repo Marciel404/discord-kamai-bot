@@ -1,7 +1,7 @@
 import { ButtonInteraction, EmbedBuilder } from "discord.js"
 import { verifyRoles } from "../funcsSuporte/verifys"
 import { client } from "../utils/loader"
-import { configData } from "../utils/loader"
+import { configData } from "../utils/loader";
 import moment from "moment"
 import { RegsAtivos } from "../db/moderation"
 import { msgDelete } from "../funcsSuporte/messages"

@@ -1,4 +1,4 @@
-module.exports = {
+export = {
 
   "guild": "834172082349670432",
   "prefix": "&",

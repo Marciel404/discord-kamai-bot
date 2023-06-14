@@ -6,7 +6,7 @@ import {
     StringSelectMenuBuilder, 
     StringSelectMenuOptionBuilder
     } from "discord.js";
-import { configData } from "../utils/loader"
+import { configData } from "..";
 import { verifyRoles } from "../funcsSuporte/verifys"
 import { motivosList } from "../stringSelects/motivos";
 import { msgDelete } from "../funcsSuporte/messages";

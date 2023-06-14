@@ -8,7 +8,7 @@ import {
     } from "discord.js";
 import { verifyRoles } from "../funcsSuporte/verifys"
 import { motivosList } from "../stringSelects/motivos";
-import { configData } from "../utils/loader"
+import { configData } from "..";
 import { msgDelete } from "../funcsSuporte/messages";
 
 const roles: Array<any> = [
