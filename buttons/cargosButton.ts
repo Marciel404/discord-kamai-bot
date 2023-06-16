@@ -14,7 +14,7 @@ const roles: Array<any> = [
 
 export async function execute(interaction: ButtonInteraction) {
     
-    if (!verifyRoles(interaction, roles)) return await interaction.reply({content: "Sem permissão"});
+    if (!verifyRoles(interaction.member!, roles)) return await interaction.reply({content: "Sem permissão"});
 
     const initR = new StringSelectMenuBuilder()
     .setCustomId("initRoles")

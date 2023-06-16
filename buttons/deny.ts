@@ -9,7 +9,7 @@ const roles: Array<any> = [
 
 export async function execute(interaction: ButtonInteraction) {
 
-    if (verifyRoles(interaction, roles) || interaction.user.id == interaction.message.embeds[0].footer!.text) {
+    if (verifyRoles(interaction.member!, roles) || interaction.user.id == interaction.message.embeds[0].footer!.text) {
         await interaction.message.delete();
     }
 

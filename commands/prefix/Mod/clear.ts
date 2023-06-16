@@ -13,7 +13,7 @@ export = {
     ],
     async execute(msg: Message){
 
-        if (!verifyRoles(msg, this.roles)) return
+        if (!verifyRoles(msg.member!, this.roles)) return
 
         let channel: any = msg.guild?.channels.cache.get(msg.channel.id);
 

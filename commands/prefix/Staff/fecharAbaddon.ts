@@ -11,7 +11,7 @@ export = {
         configData["roles"]["staff"]["staff2"]
     ],
     async execute (msg: Message){
-        if (!verifyRoles(msg, this.roles)) return
+        if (!verifyRoles(msg.member!, this.roles)) return
         try {
 
             let channel: any = await msg.guild!.channels!.fetch(configData.channels.abaddon_voice)

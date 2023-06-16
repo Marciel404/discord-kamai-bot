@@ -2,6 +2,7 @@ import { EmbedBuilder, GuildMember, StringSelectMenuInteraction } from "discord.
 import { configData } from "..";
 import { verifyAdvertenciaEntry } from "./verifys";
 import moment from "moment";
+import { adcNotify } from "../db/moderation";
 
 export async function notifyMember(interaction: StringSelectMenuInteraction, reason: string) {
 
@@ -17,6 +18,7 @@ export async function notifyMember(interaction: StringSelectMenuInteraction, rea
 
         let member = await interaction.guild!.members.fetch(m.split(" ")[m.split(" ").length-1].replace(/[<@>]/g, ""));
         const author = interaction.member;
+        adcNotify(author, member, reason, moment(new Date(dt)).format("DD/MM/YYYY HH:mm"))
 
         try {
             
@@ -58,7 +60,6 @@ Ou seja, relaxe`)
                 content: `${member}`,
                 embeds: [eR]
             });
-
         };
     };
 }

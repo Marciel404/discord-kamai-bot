@@ -12,7 +12,7 @@ export = {
     ],
     async execute( msg: Message ){
 
-        if (!verifyRoles(msg, this.roles)) return
+        if (!verifyRoles(msg.member!, this.roles)) return
 
         const bBan = new ButtonBuilder()
         .setCustomId("banButton")

@@ -12,7 +12,7 @@ export = {
         configData["roles"]["staff"]["ormenus"],
     ],
     async execute(msg: Message){
-        if (!verifyRoles(msg, this.roles)) return
+        if (!verifyRoles(msg.member!, this.roles)) return
         
         const msgArgs = msg.content.split(" ");
         if (!msg.content.split(" ")[1].replace(/[<@>]/g, "")?.match(/[0-9]/)) return await msg.reply({content: "Mencione o membro"});

@@ -17,7 +17,7 @@ const roles: Array<any> =[
 ]
 export async function execute(interaction: ButtonInteraction) {
 
-    if (!verifyRoles(interaction, roles)) return await interaction.reply({content: "Sem permissão", ephemeral: true})
+    if (!verifyRoles(interaction.member!, roles)) return await interaction.reply({content: "Sem permissão", ephemeral: true})
     
     let selecMenu = new StringSelectMenuBuilder()
     .setCustomId("motivos")

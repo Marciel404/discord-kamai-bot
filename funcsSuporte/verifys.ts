@@ -1,11 +1,11 @@
-import { GuildMember, Interaction, Message } from "discord.js"
-const { memberManegements, regsATVSRETURN } = require("../db/moderation")
+import { APIGuildMember, GuildMember, Interaction, Message, VoiceState } from "discord.js"
+const { memberManegements } = require("../db/moderation")
 import { configData } from "..";
 
-export function verifyRoles(msg: Message | Interaction , roles: Array<string>) {
+export function verifyRoles(member: GuildMember | APIGuildMember , roles: Array<string>) {
     let v = false;
     for (const r of roles){
-        if (Object.values(msg.member!.roles)[0]["_roles"].indexOf(r) >= 0){
+        if (Object.values(member.roles)[0]["_roles"].indexOf(r) >= 0){
             v = true
         };
     };

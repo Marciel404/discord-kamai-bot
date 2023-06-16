@@ -17,7 +17,7 @@ export async function execute(interaction: StringSelectMenuInteraction){
 
     switch (interaction.values[0]) {
         case "eligos":
-            if (verifyRoles(interaction,rolesD) || verifyRoles(interaction, rolesE)){
+            if (verifyRoles(interaction.member!, rolesD) || verifyRoles(interaction.member!, rolesE)){
                 for (const i of cargos2[interaction.values[0]]){
                     cargoEquipe.addOptions(
                         new StringSelectMenuOptionBuilder()
@@ -30,7 +30,7 @@ export async function execute(interaction: StringSelectMenuInteraction){
             return await interaction.reply({content: "Sem permissão", ephemeral: true})
 
         case "vagantes":
-            if (verifyRoles(interaction,rolesD) || verifyRoles(interaction, rolesV)){
+            if (verifyRoles(interaction.member!, rolesD) || verifyRoles(interaction.member!, rolesV)){
                 for (const i of cargos2[interaction.values[0]]){
                     cargoEquipe.addOptions(
                         new StringSelectMenuOptionBuilder()
@@ -43,7 +43,7 @@ export async function execute(interaction: StringSelectMenuInteraction){
             return await interaction.reply({content: "Sem permissão", ephemeral: true})
 
         case "naberios":
-            if (verifyRoles(interaction,rolesD) || verifyRoles(interaction, rolesN)){
+            if (verifyRoles(interaction.member!, rolesD) || verifyRoles(interaction.member!, rolesN)){
                 for (const i of cargos2[interaction.values[0]]){
                     cargoEquipe.addOptions(
                         new StringSelectMenuOptionBuilder()
@@ -56,7 +56,7 @@ export async function execute(interaction: StringSelectMenuInteraction){
             return await interaction.reply({content: "Sem permissão", ephemeral: true})
 
         case "gremorys":
-            if (verifyRoles(interaction,rolesD) || verifyRoles(interaction, rolesG)){
+            if (verifyRoles(interaction.member!, rolesD) || verifyRoles(interaction.member!, rolesG)){
                 for (const i of cargos2[interaction.values[0]]){
                     cargoEquipe.addOptions(
                         new StringSelectMenuOptionBuilder()

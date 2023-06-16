@@ -15,7 +15,7 @@ export = {
         configData["roles"]["capitaes_evento"]
     ],
     async execute(msg: Message) {
-        if (!verifyRoles(msg, this.roles)) return
+        if (!verifyRoles(msg.member!, this.roles)) return
         let selecMenu = new StringSelectMenuBuilder()
         .setCustomId("optionsEmbed")
         .setMinValues(1)
