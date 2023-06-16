@@ -1,6 +1,11 @@
-import { ActionRowBuilder, ButtonBuilder, EmbedBuilder, StringSelectMenuInteraction } from "discord.js";
+import {
+    ActionRowBuilder,
+    ButtonBuilder,
+    EmbedBuilder,
+    StringSelectMenuInteraction
+    } from "discord.js";
 import { configData } from "..";
-import { RegsAtivos } from "../db/moderation";
+const {RegsAtivos} = require("../db/moderation")
 
 export async function execute(interaction: StringSelectMenuInteraction){
     const valueI = interaction.values[0].split(" ");

@@ -1,5 +1,5 @@
-import { Client, GuildMember, Interaction, Message } from "discord.js"
-import { memberManegements } from "../db/moderation"
+import { GuildMember, Interaction, Message } from "discord.js"
+const { memberManegements, regsATVSRETURN } = require("../db/moderation")
 import { configData } from "..";
 
 export function verifyRoles(msg: Message | Interaction , roles: Array<string>) {
@@ -10,32 +10,6 @@ export function verifyRoles(msg: Message | Interaction , roles: Array<string>) {
         };
     };
     return v
-}
-
-export async function verifyRegChannelName(client: Client, configData: any, moddb: any){
-    console.log("Verificação de primeira instancia")
-    let qnt = await moddb.findOne({"_id": "kamaiMod"})
-    await client.guilds.fetch(configData["guild"])
-    .then(async (guild) => {
-        await guild.channels.fetch(configData["channels"]["registrosAtivos"])
-        .then(async (channel) => {
-            if (channel?.name != `registros-ativos-${qnt["regsAtivos"]}`){
-                await channel?.edit({name: `registros-ativos-${qnt["regsAtivos"]}`})
-            }
-        })
-    })
-    setInterval(async () => {
-        let qnt = await moddb.findOne({"_id": "kamaiMod"})
-		await client.guilds.fetch(configData["guild"])
-		.then(async (guild) => {
-			await guild.channels.fetch(configData["channels"]["registrosAtivos"])
-			.then(async (channel) => {
-				if (channel?.name != `registros-ativos-${qnt["regsAtivos"]}`){
-					await channel?.edit({name: `registros-ativos-${qnt["regsAtivos"]}`})
-				}
-			})
-		})
-    }, 300000)
 }
 
 export async function verifyAdvertenciaEntry(member: GuildMember){

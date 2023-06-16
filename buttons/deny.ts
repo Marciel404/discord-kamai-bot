@@ -1,7 +1,7 @@
 import { ButtonInteraction } from "discord.js";
 import { verifyRoles } from "../funcsSuporte/verifys";
 import { configData } from "..";
-import { RegsAtivos } from "../db/moderation";
+const {RegsAtivos} = require("../db/moderation")
 
 const roles: Array<any> = [
     configData["roles"]["staff"]["asmodeus"],

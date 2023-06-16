@@ -15,7 +15,7 @@ export = {
     ],
     async execute(msg: Message) {
         let selecMenu = new StringSelectMenuBuilder()
-        .setCustomId("OpçõesEmbed")
+        .setCustomId("optionsEmbed")
         .setMinValues(1)
         .setPlaceholder("O que ira fazer")
 

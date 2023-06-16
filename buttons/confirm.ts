@@ -1,8 +1,8 @@
-import { ButtonInteraction, EmbedBuilder } from "discord.js";
+import { ButtonInteraction, Colors, EmbedBuilder } from "discord.js";
 import { verifyRoles } from "../funcsSuporte/verifys";
 import { configData } from "..";
 import moment from "moment";
-import { RegsAtivos, adcAdvertencia } from "../db/moderation";
+const {RegsAtivos, adcAdvertencia} = require("../db/moderation")
 import { msgDelete } from "../funcsSuporte/messages";
 import { functionAdvRoles } from "../funcsSuporte/satff";
 
@@ -75,6 +75,37 @@ export async function execute(interaction: ButtonInteraction) {
             RegsAtivos(-1)
             break
 
+        case "Desbanimento":
+
+            eR.setDescription("**Desbanimento**")
+            eR.setColor(Colors.Green)
+
+            for (const m of interaction.message.embeds[0].description!.split("\n")){
+        
+                let user = await interaction.client.users.fetch(m.split(" ")[m.split(" ").length-1].replace(/[<@>]/g, ""))
+                const author = interaction.member
+        
+                try {
+                    eR.setFields(
+                        {name: "Membro desbanido", value: `${user.username}`, inline: false},
+                        {name: "Desbanido por", value: `${author}`,inline: false},
+                        {name:"Data", value: `${(moment(new Date(dt))).format("DD/MM/YYYY HH:mm")}`, inline: false}
+                    )
+                    await interaction.guild!.bans.remove(user.id);
+                    const channel: any = await interaction.guild!.channels.fetch(configData["channels"]["modlog"])
+                    await channel.send({
+                        embeds: [eR]
+                    })
+                } catch (err) {
+                    let msg = await interaction.channel!.send({content: `Não conseguir desbanir o membro ${user.username}`});
+                    msgDelete(msg,3000)
+                };
+            }
+
+            msgDelete(interaction.message,0)
+
+            break
+
         case "Advertencia":
 
             eR.setTitle("Advertencia")
@@ -127,6 +158,7 @@ export async function execute(interaction: ButtonInteraction) {
             msgDelete(interaction.message,0)
             RegsAtivos(-1)
             break
+
         case "Remover cargo":
             for (const m of interaction.message.embeds[0].description!.split("\n")){
         
@@ -138,5 +170,6 @@ export async function execute(interaction: ButtonInteraction) {
             msgDelete(interaction.message,0)
             RegsAtivos(-1)
             break
+
     }
 }

@@ -1,6 +1,6 @@
 import moment from 'moment';
-const { MongoClient } = require("mongodb")
 
+const { MongoClient } = require("mongodb")
 const cluster = new MongoClient(process.env.mongoKet)
 const db = cluster.db(process.env.database_name)
 export const moddb = db.collection("moderação")
@@ -64,7 +64,12 @@ export async function adcNotify(author: any, member: any, motivo: string, data: 
 }
 export async function rmvNotify(warnid: any) {
 
-    memberManegements.findOneAndUpdate({"Notifys": {"$elemMatch": {"notify_id": warnid}}},
-                         {"$pull": {"Notifys": {"notify_id": warnid}}})
+    memberManegements.findOneAndUpdate(
+        {"Notifys": {"$elemMatch": {"notify_id": warnid}}},
+        {"$pull": {"Notifys": {"notify_id": warnid}}})
     
+}
+
+export async function regsATVSRETURN() {
+    return await moddb.findOne({"_id": "kamaiMod"})
 }

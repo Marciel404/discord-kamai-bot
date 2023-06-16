@@ -1,7 +1,5 @@
-import { Routes, Collection, Message } from "discord.js";
+import { Routes, Collection } from "discord.js";
 import fs from "fs";
-import { configData } from "..";
-import { generateEmbedHelp } from "../funcsSuporte/helps";
 
 const {REST} = require("discord.js");
 const rest = new REST().setToken(process.env.token);

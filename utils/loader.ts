@@ -1,7 +1,5 @@
 import { BaseInteraction, Client, GatewayIntentBits, Message } from "discord.js";
-import { loadSlash, commandSlash, commandPrefix, loadCommandsPrefix } from "./commandsLoader";
-import { moddb } from "../db/moderation";
-import { verifyRegChannelName } from "../funcsSuporte/verifys";
+import { loadSlash, commandSlash, loadCommandsPrefix } from "./commandsLoader";
 import { configData } from "..";
 
 export const client = new Client({
@@ -17,7 +15,6 @@ export const client = new Client({
 client.once("ready", (async (self: Client) => {
     loadSlash(self.application?.id);
     console.log("Eu entrei como " + self.user?.username);
-	verifyRegChannelName(self, configData, moddb)
 }));
 
 client.on("messageCreate", async (msg: Message) => {

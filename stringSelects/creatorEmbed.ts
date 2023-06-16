@@ -1,4 +1,12 @@
-import { ActionRowBuilder, Colors, EmbedBuilder, Message, StringSelectMenuBuilder, StringSelectMenuInteraction, StringSelectMenuOptionBuilder, range } from "discord.js";
+import {
+    ActionRowBuilder,
+    Colors,
+    EmbedBuilder,
+    StringSelectMenuBuilder,
+    StringSelectMenuInteraction,
+    StringSelectMenuOptionBuilder,
+    range
+    } from "discord.js";
 import embDb from "../utils/embDb";
 import { row } from "../funcsSuporte/components";
 
@@ -411,7 +419,7 @@ export async function execute(interaction: StringSelectMenuInteraction) {
             var msgSavem: any = await interaction.channel!.awaitMessages({ filter, max: 1, time: 120000, errors: [`Time`] })
             
             await msgSavem.first().delete()
-            await new embDb().saveEmb(dataEmbed, msgSavem.first().content, interaction.user.username)
+            await embDb.saveEmb(dataEmbed, msgSavem.first().content, interaction.user.username)
 
             await interaction.followUp({ content:`Seu embed foi salvo`,  embeds: [embedArray[interaction.user.id]], ephemeral: true });
 
@@ -420,7 +428,7 @@ export async function execute(interaction: StringSelectMenuInteraction) {
         case "12":
             await interaction.followUp({content:"Pronto", ephemeral: true})
             let selecMenu = new StringSelectMenuBuilder()
-            .setCustomId("OpçõesEmbed")
+            .setCustomId("optionsEmbed")
             .setMinValues(1)
             .setPlaceholder("O que ira fazer")
 

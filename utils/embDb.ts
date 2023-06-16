@@ -64,4 +64,4 @@ class embedDb {
     }
 }
 
-export = embedDb
+export = new embedDb()

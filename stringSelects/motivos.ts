@@ -6,7 +6,7 @@ import {
     } from "discord.js";
 
 import { notifyMember } from "../funcsSuporte/satff";
-import { RegsAtivos } from "../db/moderation";
+const {RegsAtivos} = require("../db/moderation")
 
 export const motivosList = [
     {
@@ -156,9 +156,7 @@ export async function execute(interaction: StringSelectMenuInteraction){
     const row = new ActionRowBuilder<any>()
     .addComponents(button1, button2);
 
-    RegsAtivos(1)
-
     await interaction.update({content: "Foi", embeds: [], components: []});
-    await interaction.channel?.send({embeds: [embed], components:[row]});
+    await interaction.channel!.send({embeds: [embed], components:[row]});
     
 };
