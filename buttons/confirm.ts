@@ -2,7 +2,7 @@ import { ButtonInteraction, Colors, EmbedBuilder } from "discord.js";
 import { verifyRoles } from "../funcsSuporte/verifys";
 import { configData } from "..";
 import moment from "moment";
-const {RegsAtivos, adcAdvertencia} = require("../db/moderation")
+import { adcAdvertencia } from "../db/moderation";
 import { msgDelete } from "../funcsSuporte/messages";
 import { functionAdvRoles } from "../funcsSuporte/satff";
 
@@ -72,7 +72,6 @@ export async function execute(interaction: ButtonInteraction) {
             }
 
             msgDelete(interaction.message,0)
-            RegsAtivos(-1)
             break
 
         case "Desbanimento":
@@ -144,7 +143,6 @@ export async function execute(interaction: ButtonInteraction) {
             };
 
             msgDelete(interaction.message,0);
-            RegsAtivos(-1)
             break
 
         case "Adicionar cargo":
@@ -156,7 +154,6 @@ export async function execute(interaction: ButtonInteraction) {
 
             }
             msgDelete(interaction.message,0)
-            RegsAtivos(-1)
             break
 
         case "Remover cargo":
@@ -168,7 +165,6 @@ export async function execute(interaction: ButtonInteraction) {
 
             }
             msgDelete(interaction.message,0)
-            RegsAtivos(-1)
             break
 
     }

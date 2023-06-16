@@ -1,5 +1,6 @@
 import { ActionRowBuilder, Colors, Message, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, range } from "discord.js";
 import { configData } from "../../..";
+import { verifyRoles } from "../../../funcsSuporte/verifys";
 
 export = {
     name: "embed",
@@ -14,6 +15,7 @@ export = {
         configData["roles"]["capitaes_evento"]
     ],
     async execute(msg: Message) {
+        if (!verifyRoles(msg, this.roles)) return
         let selecMenu = new StringSelectMenuBuilder()
         .setCustomId("optionsEmbed")
         .setMinValues(1)

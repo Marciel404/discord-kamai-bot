@@ -1,5 +1,6 @@
 import { Message } from "discord.js"
 import { configData } from "../../..";
+import { verifyRoles } from "../../../funcsSuporte/verifys";
 
 export = {
     name: "say",
@@ -14,6 +15,8 @@ export = {
         configData["roles"]["capitaes_evento"]
     ],
     async execute(msg: Message) {
+
+        if (!verifyRoles(msg, this.roles)) return
 
         if (!msg.content.toLowerCase().split(" ")[1]) return await msg.reply({content: "Argumento canal necessario"})
         if (!msg.content.toLowerCase().split(" ")[2]) return await msg.reply({content: "Argumento canal mensagem"})

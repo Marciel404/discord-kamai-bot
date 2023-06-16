@@ -1,5 +1,6 @@
 import { Colors, Message } from "discord.js";
 import { configData } from "../../..";
+import { verifyRoles } from "../../../funcsSuporte/verifys";
 
 export = {
     name: "open",
@@ -10,6 +11,8 @@ export = {
         configData["roles"]["staff"]["staff2"]
     ],
     async execute(msg: Message){
+
+        if (!verifyRoles(msg, this.roles)) return
         try {
 
             let channel: any = msg.guild!.channels.cache.get(configData.channels.abaddon_voice)

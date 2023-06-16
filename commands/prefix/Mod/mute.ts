@@ -1,12 +1,19 @@
 import { Colors, Message, TextChannel } from "discord.js";
 import moment from "moment";
 import { configData } from "../../..";
+import { verifyRoles } from "../../../funcsSuporte/verifys";
 
 export = {
     name: "tempmute",
     aliases: ["mute", "mutar"],
     description: "Muta um membro por uma quantidade de tempo",
+    roles: [
+        configData["roles"]["staff"]["asmodeus"],
+        configData["roles"]["staff"]["astaroth"],
+        configData["roles"]["staff"]["ormenus"]
+    ],
     async execute(msg: Message){
+        if (!verifyRoles(msg, this.roles)) return
 
         const msgArgs = msg.content.split(" ")
         if (!msg.content.split(" ")[1].replace(/[<@>]/g, "")?.match(/[0-9]/)) return await msg.reply({content: "Mencione o membro"})

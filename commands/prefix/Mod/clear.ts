@@ -1,5 +1,6 @@
 import { Message } from "discord.js";
 import { configData } from "../../..";
+import { verifyRoles } from "../../../funcsSuporte/verifys";
 
 export = {
     name: "clear",
@@ -11,6 +12,8 @@ export = {
         configData["roles"]["staff"]["ormenus"],
     ],
     async execute(msg: Message){
+
+        if (!verifyRoles(msg, this.roles)) return
 
         let channel: any = msg.guild?.channels.cache.get(msg.channel.id);
 
