@@ -6,12 +6,12 @@ export = {
     aliases: [],
     description: "Envia uma mensagem",
     roles: [
-        configData.roles.staff.staff1,
-        configData.roles.staff.staff2,
-        configData.roles.capitaes_karaoke,
-        configData.roles.capitaes_poem,
-        configData.roles.capitaes_arte,
-        configData.roles.capitaes_evento
+        configData["roles"]["staff"]["staff1"],
+        configData["roles"]["staff"]["staff2"],
+        configData["roles"]["capitaes_karaoke"],
+        configData["roles"]["capitaes_poem"],
+        configData["roles"]["capitaes_arte"],
+        configData["roles"]["capitaes_evento"]
     ],
     async execute(msg: Message) {
 

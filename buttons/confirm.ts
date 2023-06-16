@@ -13,7 +13,7 @@ const roles: Array<any> = [
 
 export async function execute(interaction: ButtonInteraction) {
 
-    if (!verifyRoles(interaction, roles)) return await interaction.reply({content: "Sem permissão"});
+    if (!verifyRoles(interaction, roles)) return await interaction.reply({content: "Sem permissão", ephemeral: true});
 
     const time = new Date()
     const dt = new Date().setHours(time.getHours()-3)
@@ -72,7 +72,8 @@ export async function execute(interaction: ButtonInteraction) {
             }
 
             msgDelete(interaction.message,0)
-            return RegsAtivos(-1)
+            RegsAtivos(-1)
+            break
 
         case "Advertencia":
 
@@ -112,7 +113,8 @@ export async function execute(interaction: ButtonInteraction) {
             };
 
             msgDelete(interaction.message,0);
-            return RegsAtivos(-1)
+            RegsAtivos(-1)
+            break
 
         case "Adicionar cargo":
             for (const m of interaction.message.embeds[0].description!.split("\n")){
@@ -123,7 +125,8 @@ export async function execute(interaction: ButtonInteraction) {
 
             }
             msgDelete(interaction.message,0)
-            return RegsAtivos(-1)
+            RegsAtivos(-1)
+            break
         case "Remover cargo":
             for (const m of interaction.message.embeds[0].description!.split("\n")){
         
@@ -133,6 +136,7 @@ export async function execute(interaction: ButtonInteraction) {
 
             }
             msgDelete(interaction.message,0)
-            return RegsAtivos(-1)
+            RegsAtivos(-1)
+            break
     }
 }

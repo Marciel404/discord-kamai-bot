@@ -17,8 +17,8 @@ export async function loadCommandsPrefix(path:  fs.PathLike, command: string = "
             if (fs.readdirSync(`${path}/${name}`).length >= 1){
                 let subFolderPath = fs.readdirSync(`${path}/${name}`).filter(file => file.endsWith(".ts") || file.endsWith(".js"))
                 subFolderPath.forEach( async commandName => {
-                    let cmd = require(`.${path}/${name}/${commandName}`)
-                    if (cmd.name == `${command}` || cmd.aliases == `${command}`){
+                    let cmd =  require(`.${path}/${name}/${commandName}`)
+                    if (cmd.name == `${command}` || cmd.aliases.includes(command)){
                         try {
                             await cmd.execute(msg)
                         } catch (err) {

@@ -5,7 +5,7 @@ import { configData } from "..";
 export function verifyRoles(msg: Message | Interaction , roles: Array<string>) {
     let v = false;
     for (const r of roles){
-        if (Object.values(msg.member!.roles)[0]["_roles"].indexOf(r) == 0){
+        if (Object.values(msg.member!.roles)[0]["_roles"].indexOf(r) >= 0){
             v = true
         };
     };

@@ -5,6 +5,10 @@ export = {
     name: "close",
     aliases: ["fechar"],
     description: "fecha a sala do abaddon",
+    roles: [
+        configData["roles"]["staff"]["staff1"],
+        configData["roles"]["staff"]["staff2"]
+    ],
     async execute (msg: Message){
         try {
 

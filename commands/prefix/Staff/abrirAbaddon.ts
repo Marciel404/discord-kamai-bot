@@ -4,7 +4,11 @@ import { configData } from "../../..";
 export = {
     name: "open",
     aliases: ["abrir"],
-    description: "Abre a sala de abaddon", 
+    description: "Abre a sala de abaddon",
+    roles: [
+        configData["roles"]["staff"]["staff1"],
+        configData["roles"]["staff"]["staff2"]
+    ],
     async execute(msg: Message){
         try {
 
