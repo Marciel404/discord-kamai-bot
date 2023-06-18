@@ -12,6 +12,8 @@ export = {
     ],
     async execute( msg: Message ){
 
+        if (!msg.guild) return
+
         if (!verifyRoles(msg.member!, this.roles)) return
 
         const bBan = new ButtonBuilder()

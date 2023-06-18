@@ -10,9 +10,9 @@ const roles: Array<any> = [
 export async function execute(interaction: ButtonInteraction) {
 
     if (verifyRoles(interaction.member!, roles) || interaction.user.id == interaction.message.embeds[0].footer!.text) {
-        await interaction.message.delete();
+        return await interaction.message.delete();
     }
 
-    return await interaction.reply({content:"Sem permissão", ephemeral: true});
+    await interaction.reply({content:"Sem permissão", ephemeral: true});
 
 }

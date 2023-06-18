@@ -34,6 +34,9 @@ export async function execute(interaction: ButtonInteraction) {
                 const author = await interaction.guild!.members.fetch(interaction.message.embeds[0].footer!.text)
                 const aprovador = interaction.member
                 const reason = interaction.message.embeds[0].fields[0].value
+                const guildRecoveryBan = interaction.client.guilds.cache.get(configData["guildRecoveryBan"])!
+                const c: any = guildRecoveryBan.channels.cache.find(channel => channel.type == 0 && channel.name.toLowerCase().includes("regras"))
+                let invite = await guildRecoveryBan.invites.create(c, {unique:true,reason:"ban invite",maxUses:1, maxAge:604800})
         
                 try {
         
@@ -44,7 +47,10 @@ export async function execute(interaction: ButtonInteraction) {
                             {name: "Motivo", value: `${reason}`, inline: false},
                             {name:"Data", value: `${(moment(new Date(dt))).format("DD/MM/YYYY HH:mm")}`, inline: false}
                         )
-                        await user.send({embeds: [eR]})
+                        await user.send({
+                            content: `${invite.url}`,
+                            embeds: [eR]
+                        })
                     } catch (err) {
                     }
         

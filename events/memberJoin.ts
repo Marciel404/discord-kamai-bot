@@ -1,8 +1,11 @@
 import { GuildMember } from "discord.js";
 import { verifyAdvertenciaEntry } from "../funcsSuporte/verifys";
 import { client } from "../utils";
+import { configData } from "..";
 
-//Verify warns member join
+//Verifys member join
 client.on("guildMemberAdd", async (member: GuildMember) => {
-    await verifyAdvertenciaEntry(member)
+    if( member.guild.id === configData["guild"]){
+        await verifyAdvertenciaEntry(member)
+    }
 })

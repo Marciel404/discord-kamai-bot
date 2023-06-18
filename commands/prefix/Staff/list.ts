@@ -12,15 +12,25 @@ export = {
         configData["roles"]["staff"]["staff2"]
     ],
     async execute(msg: Message) {
+
+        if (!msg.guild) return
+
         const msgArgs = msg.content.split(" ")
+
         if (!verifyRoles(msg.member!, this.roles)) return
+
         if (!msgArgs[1]) return await msg.reply({content: "Id da advertencia necessario"})
+
         if(await warn_list(msgArgs[1].replace(/[<@>]/g,""))) {
+
             await msg.reply({
                 embeds: [{description: `${await warn_list(msgArgs[1].replace(/[<@>]/g,""))}`}]
             })
+
         } else {
+            
             await msg.reply({content:"Esse membro não possue advertencias"})
+            
         }
     }
 }

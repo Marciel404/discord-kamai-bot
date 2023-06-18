@@ -11,10 +11,14 @@ export = {
         configData["roles"]["staff"]["staff2"]
     ],
     async execute (msg: Message){
+        if (!msg.guild) return
+
         if (!verifyRoles(msg.member!, this.roles)) return
+
         try {
 
             let channel: any = await msg.guild!.channels!.fetch(configData.channels.abaddon_voice)
+
             if (!channel.permissionsFor(msg.guild!.roles.everyone).has("Connect")){
                 return await msg.reply({content: "Os portões de abaddon já estão fechados"})
             }
@@ -47,8 +51,9 @@ export = {
             await channel.permissionOverwrites.create(msg.guild!.id,{Connect:false})
 
         } catch (error) {
-            console.log(error)
-        }
 
+            console.log(error)
+
+        }
     }
 }

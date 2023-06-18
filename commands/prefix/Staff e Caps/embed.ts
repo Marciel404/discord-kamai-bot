@@ -15,7 +15,11 @@ export = {
         configData["roles"]["capitaes_evento"]
     ],
     async execute(msg: Message) {
+
+        if (!msg.guild) return
+
         if (!verifyRoles(msg.member!, this.roles)) return
+
         let selecMenu = new StringSelectMenuBuilder()
         .setCustomId("optionsEmbed")
         .setMinValues(1)
@@ -28,8 +32,10 @@ export = {
                 .setValue(`${i+1}`)
             )
         }
+
         const row = new ActionRowBuilder<any>()
         .addComponents(selecMenu)
+        
         await msg.reply({embeds: [
             {
                 title: "O que deseja fazer com o embed", 

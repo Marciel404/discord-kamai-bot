@@ -52,9 +52,19 @@ export function loadCommandsSlash(path: fs.PathLike) {
 
 };
 export function loadEvents(path: string) {
-    let events = fs.readdirSync(path).filter(file => file.endsWith(".ts") || file.endsWith(".js"))
+
+    let events = fs.readdirSync(path)
     for (const name of events){
-        require(`.${path}/${name}`)
+        if (name.endsWith(".ts") || name.endsWith(".js")){
+            require(`.${path}/${name}`)
+        } else {
+            const subevents = fs.readdirSync(`${path}/${name}`)
+            for (const subName of subevents){
+                if (subName.endsWith(".ts") || subName.endsWith(".js")){
+                    require(`.${path}/${name}/${subName}`)
+                }
+            }
+        }
     }
     
 }

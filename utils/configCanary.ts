@@ -1,6 +1,7 @@
 export = {
 
   "guild": "834172082349670432",
+  "guildRecoveryBan": "929181582571503658",
   "prefix": "&",
   "lang": "ts",
 
@@ -48,6 +49,7 @@ export = {
 
   "channels": {
 
+    "scamlog": "1119642531832012921",
     "anun_evento": "834172084451541042",
     "participantes_evento": "834172084451541047",
     "modlog": "834172083578732586",

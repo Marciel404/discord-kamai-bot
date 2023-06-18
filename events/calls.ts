@@ -16,7 +16,7 @@ const roles: Array<any> = [
 // Call PV administrator
 client.on("voiceStateUpdate", async (old_state: VoiceState, new_state: VoiceState) =>{
     if (new_state.channel?.id === configData["calls"]["espera"] && verifyRoles(new_state.member!, roles)){
-        const channel: any = new_state.guild.channels.cache.find(channel => channel.type === 2 && channel.name === `PV [${new_state.member?.displayName}]`)
+        const channel: any = new_state.guild.channels.cache.find(channel => channel.type === ChannelType.GuildVoice && channel.name === `PV [${new_state.member?.displayName}]`)
         if (channel){
             new_state.member!.voice.setChannel(channel)
         } else {
@@ -33,7 +33,7 @@ client.on("voiceStateUpdate", async (old_state: VoiceState, new_state: VoiceStat
                             type: OverwriteType.Member
                         },
                         {
-                            id:everyone!.id,
+                            id: everyone!.id,
                             deny: [PermissionFlagsBits.Connect],
                             allow: [PermissionFlagsBits.Stream], 
                             type: OverwriteType.Role,

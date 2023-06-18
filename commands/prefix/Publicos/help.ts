@@ -6,9 +6,12 @@ export = {
     aliases: ["ajuda"],
     description: "Envia meus comandos",
     async execute(msg: Message) {
-        
+
+        if (!msg.guild) return
+
         await msg.reply({
             embeds: [generateEmbedHelp(msg)]
         })
+
     }
 }

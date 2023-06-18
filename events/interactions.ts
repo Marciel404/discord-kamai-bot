@@ -2,7 +2,7 @@ import { BaseInteraction } from "discord.js";
 import { commandSlash } from "../utils/Loaders";
 import { client } from "../utils/index";
 
-//Slash commands administrator
+//Interactions administrator
 client.on("interactionCreate", async (interaction: BaseInteraction) => {
 	if (interaction.isChatInputCommand()){
 
