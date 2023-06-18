@@ -1,6 +1,5 @@
-import moment from 'moment';
+const { MongoClient } = require("mongodb");
 
-const { MongoClient } = require("mongodb")
 const cluster = new MongoClient(process.env.mongoKet)
 const db = cluster.db(process.env.database_name)
 export const moddb = db.collection("moderação")
@@ -49,17 +48,17 @@ export async function rmvAdvertencia(warnid: any){
 }
 export async function adcNotify(author: any, member: any, motivo: string, data: string){
     moddb.updateOne(
-        {"_id": "kamaiMod"}, {"$inc": {"NtfsQnt": 1}}, {upsert: true}
+        {_id: "kamaiMod"}, {"$inc": {"NtfsQnt": 1}}, {upsert: true}
     )
-    const ntf = await moddb.findOne({"_id": "kamaiMod"})
+    const ntf = await moddb.findOne({_id: "kamaiMod"})
     memberManegements.updateOne(
-        {"_id": member.id},
-        {"$push": {
-            "Notifys": {
-                "author": `${author}`,
-                "motivo": `${motivo}`,
-                "data": data,
-                "notify_id": ntf["NtfsQnt"]
+        {_id: member.id},
+        {$push: {
+            Notifys: {
+                author: `${author}`,
+                motivo: `${motivo}`,
+                data: data,
+                notify_id: ntf["NtfsQnt"]
             }
         }
         },
@@ -76,7 +75,6 @@ export async function rmvNotify(warnid: any) {
         return false
     }
 }
-
 export async function warn_list(user_id: string) {
 
     try {
@@ -106,7 +104,6 @@ export async function warn_list(user_id: string) {
       console.log(err)
     }
 }
-  
 export async function notifyList(user_id: string) {
   
     try {

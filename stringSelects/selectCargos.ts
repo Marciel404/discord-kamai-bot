@@ -1,6 +1,6 @@
 import { ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuInteraction, StringSelectMenuOptionBuilder } from "discord.js";
 import { configData } from "..";
-import { verifyRoles } from "../funcsSuporte/verifys";
+import { verifyRolesPermissions } from "../funcsSuporte/verifys";
 import { cargos2 } from "./initRoles";
 
 const rolesD: Array<any> = [configData["roles"]["staff"]["asmodeus"], configData["roles"]["staff"]["astaroth"]];
@@ -17,7 +17,7 @@ export async function execute(interaction: StringSelectMenuInteraction){
 
     switch (interaction.values[0]) {
         case "eligos":
-            if (verifyRoles(interaction.member!, rolesD) || verifyRoles(interaction.member!, rolesE)){
+            if (verifyRolesPermissions(interaction.member!, rolesD) || verifyRolesPermissions(interaction.member!, rolesE)){
                 for (const i of cargos2[interaction.values[0]]){
                     cargoEquipe.addOptions(
                         new StringSelectMenuOptionBuilder()
@@ -27,10 +27,11 @@ export async function execute(interaction: StringSelectMenuInteraction){
                 }
                 return await interaction.update({components: [row.addComponents(cargoEquipe)]})
             }
-            return await interaction.reply({content: "Sem permissão", ephemeral: true})
+            await interaction.reply({content: "Sem permissão", ephemeral: true})
+            break
 
         case "vagantes":
-            if (verifyRoles(interaction.member!, rolesD) || verifyRoles(interaction.member!, rolesV)){
+            if (verifyRolesPermissions(interaction.member!, rolesD) || verifyRolesPermissions(interaction.member!, rolesV)){
                 for (const i of cargos2[interaction.values[0]]){
                     cargoEquipe.addOptions(
                         new StringSelectMenuOptionBuilder()
@@ -40,10 +41,11 @@ export async function execute(interaction: StringSelectMenuInteraction){
                 }
                 return await interaction.update({components: [row.addComponents(cargoEquipe)]})
             } 
-            return await interaction.reply({content: "Sem permissão", ephemeral: true})
+            await interaction.reply({content: "Sem permissão", ephemeral: true})
+            break
 
         case "naberios":
-            if (verifyRoles(interaction.member!, rolesD) || verifyRoles(interaction.member!, rolesN)){
+            if (verifyRolesPermissions(interaction.member!, rolesD) || verifyRolesPermissions(interaction.member!, rolesN)){
                 for (const i of cargos2[interaction.values[0]]){
                     cargoEquipe.addOptions(
                         new StringSelectMenuOptionBuilder()
@@ -53,10 +55,11 @@ export async function execute(interaction: StringSelectMenuInteraction){
                 }
                 return await interaction.update({components: [row.addComponents(cargoEquipe)]})
             } 
-            return await interaction.reply({content: "Sem permissão", ephemeral: true})
+            await interaction.reply({content: "Sem permissão", ephemeral: true})
+            break
 
         case "gremorys":
-            if (verifyRoles(interaction.member!, rolesD) || verifyRoles(interaction.member!, rolesG)){
+            if (verifyRolesPermissions(interaction.member!, rolesD) || verifyRolesPermissions(interaction.member!, rolesG)){
                 for (const i of cargos2[interaction.values[0]]){
                     cargoEquipe.addOptions(
                         new StringSelectMenuOptionBuilder()
@@ -66,6 +69,7 @@ export async function execute(interaction: StringSelectMenuInteraction){
                 }
                 return await interaction.update({components: [row.addComponents(cargoEquipe)]})
             } 
-            return await interaction.reply({content: "Sem permissão", ephemeral: true})
+            await interaction.reply({content: "Sem permissão", ephemeral: true})
+            break
     }
 };

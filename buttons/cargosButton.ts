@@ -1,6 +1,6 @@
 import { ButtonInteraction, StringSelectMenuOptionBuilder } from "discord.js";
 import { configData } from "..";
-import { verifyRoles } from "../funcsSuporte/verifys";
+import { verifyRolesPermissions } from "../funcsSuporte/verifys";
 import { ActionRowBuilder, StringSelectMenuBuilder } from "@discordjs/builders";
 
 const roles: Array<any> = [
@@ -14,7 +14,7 @@ const roles: Array<any> = [
 
 export async function execute(interaction: ButtonInteraction) {
     
-    if (!verifyRoles(interaction.member!, roles)) return await interaction.reply({content: "Sem permissão"});
+    if (!verifyRolesPermissions(interaction.member!, roles)) return await interaction.reply({content: "Sem permissão"});
 
     const initR = new StringSelectMenuBuilder()
     .setCustomId("initRoles")

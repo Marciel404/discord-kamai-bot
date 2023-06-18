@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 import { configData } from "../../..";
-import { verifyRoles } from "../../../funcsSuporte/verifys";
+import { verifyRolesPermissions } from "../../../funcsSuporte/verifys";
 
 export = {
     name: "membermessagedelete",
@@ -16,7 +16,7 @@ export = {
         const msgArgs = msg.content.split(" ")
         if (!msg.guild) return
         if (msgArgs.length == 0 || !msgArgs[1]?.match(/[0-9]/)) return await msg.reply({content: "Mencione o membro"})
-        if (!verifyRoles(msg.member!, this.roles)) return
+        if (!verifyRolesPermissions(msg.member!, this.roles)) return
         let channels = await msg.guild.channels.fetch()
         for (const c of channels!){
             try{

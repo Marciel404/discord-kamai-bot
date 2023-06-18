@@ -1,6 +1,6 @@
 import { ActionRowBuilder, Colors, Message, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, range } from "discord.js";
 import { configData } from "../../..";
-import { verifyRoles } from "../../../funcsSuporte/verifys";
+import { verifyRolesPermissions } from "../../../funcsSuporte/verifys";
 
 export = {
     name: "embed",
@@ -18,7 +18,7 @@ export = {
 
         if (!msg.guild) return
 
-        if (!verifyRoles(msg.member!, this.roles)) return
+        if (!verifyRolesPermissions(msg.member!, this.roles)) return
 
         let selecMenu = new StringSelectMenuBuilder()
         .setCustomId("optionsEmbed")

@@ -1,6 +1,6 @@
 import { AuditLogEvent, Colors, EmbedBuilder, VoiceState } from "discord.js";
 import { client } from "../../utils";
-import { verifyRoles } from "../../funcsSuporte/verifys";
+import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 import { configData } from "../..";
 
 client.on("voiceStateUpdate", async (old_state: VoiceState, new_state: VoiceState) => {
@@ -13,7 +13,7 @@ client.on("voiceStateUpdate", async (old_state: VoiceState, new_state: VoiceStat
         let auditInfos = auditlog.entries.first()
         let author = new_state.guild.members.cache.get(auditInfos!.executor!.id)
 
-        if (auditInfos?.action == 24 && verifyRoles(author!, [configData["roles"]["equipe_karaoke"]])) {
+        if (auditInfos?.action == 24 && verifyRolesPermissions(author!, [configData["roles"]["equipe_karaoke"]])) {
 
             if (!auditInfos!.changes[0].new){
 
@@ -35,7 +35,7 @@ client.on("voiceStateUpdate", async (old_state: VoiceState, new_state: VoiceStat
         let auditInfos = auditlog.entries.first()
         let author = new_state.guild.members.cache.get(auditInfos!.executor!.id)
 
-        if (auditInfos?.action == 24 && verifyRoles(author!, [configData["roles"]["equipe_karaoke"]])) {
+        if (auditInfos?.action == 24 && verifyRolesPermissions(author!, [configData["roles"]["equipe_karaoke"]])) {
 
             if (auditInfos!.changes[0].new){
 

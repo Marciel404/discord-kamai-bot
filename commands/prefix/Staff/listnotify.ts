@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 import { notifyList } from "../../../db/moderation";
-import { verifyRoles } from "../../../funcsSuporte/verifys";
+import { verifyRolesPermissions } from "../../../funcsSuporte/verifys";
 import { configData } from "../../..";
 
 export = {
@@ -17,7 +17,7 @@ export = {
 
         if (!msg.guild) return
 
-        if (!verifyRoles(msg.member!, this.roles)) return
+        if (!verifyRolesPermissions(msg.member!, this.roles)) return
 
         if (!msgArgs[1]) return await msg.reply({content: "Id da advertencia necessario"})
 

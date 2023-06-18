@@ -6,7 +6,7 @@ export = {
     description: "Envia meu delay",
     async execute(msg: Message) {
 
-        if (!msg.guild) return
+        if (!msg.guild) return;
 
         try {
 
@@ -22,6 +22,6 @@ export = {
 
         } catch (error) {
             console.error(error)
-        }
+        };
     }
-}
+};

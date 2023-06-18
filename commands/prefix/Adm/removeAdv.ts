@@ -1,6 +1,6 @@
 import { Message } from "discord.js"
 import { configData } from "../../..";
-import { verifyRoles } from "../../../funcsSuporte/verifys";
+import { verifyRolesPermissions } from "../../../funcsSuporte/verifys";
 import { rmvAdvertencia } from "../../../db/moderation";
 
 export = {
@@ -17,7 +17,7 @@ export = {
 
         const msgArgs = msg.content.split(" ")
 
-        if (!verifyRoles(msg.member!, this.roles)) return
+        if (!verifyRolesPermissions(msg.member!, this.roles)) return
 
         if (!msgArgs[1]?.match(/[0-9]/)) return await msg.reply({content: "Id da advertencia necessario"})
 

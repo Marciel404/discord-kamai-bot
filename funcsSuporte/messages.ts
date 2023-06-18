@@ -10,3 +10,4 @@ export async function msgDelete(message: Message, time: number){
             });
     }, time);
 };
+

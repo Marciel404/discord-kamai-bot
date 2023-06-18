@@ -7,11 +7,11 @@ export = {
     description: "Envia meus comandos",
     async execute(msg: Message) {
 
-        if (!msg.guild) return
+        if (!msg.guild) return;
 
         await msg.reply({
             embeds: [generateEmbedHelp(msg)]
-        })
+        });
 
     }
-}
+};

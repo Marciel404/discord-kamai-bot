@@ -1,5 +1,5 @@
 import { ButtonInteraction } from "discord.js";
-import { verifyRoles } from "../funcsSuporte/verifys";
+import { verifyRolesPermissions } from "../funcsSuporte/verifys";
 import { configData } from "..";
 
 const roles: Array<any> = [
@@ -9,7 +9,7 @@ const roles: Array<any> = [
 
 export async function execute(interaction: ButtonInteraction) {
 
-    if (verifyRoles(interaction.member!, roles) || interaction.user.id == interaction.message.embeds[0].footer!.text) {
+    if (verifyRolesPermissions(interaction.member!, roles) || interaction.user.id == interaction.message.embeds[0].footer!.text) {
         return await interaction.message.delete();
     }
 

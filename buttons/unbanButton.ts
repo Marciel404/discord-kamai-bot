@@ -7,7 +7,7 @@ import {
     } from "discord.js";
 import { msgDelete } from "../funcsSuporte/messages";
 import { configData } from "..";
-import { verifyRoles } from "../funcsSuporte/verifys";
+import { verifyRolesPermissions } from "../funcsSuporte/verifys";
 
 const roles: Array<any> = [
     configData["roles"]["staff"]["asmodeus"],
@@ -16,7 +16,7 @@ const roles: Array<any> = [
 
 export async function execute(interaction: ButtonInteraction) {
 
-    if (!verifyRoles(interaction.member!, roles)) return await interaction.reply({content: "Sem permissão", ephemeral: true})
+    if (!verifyRolesPermissions(interaction.member!, roles)) return await interaction.reply({content: "Sem permissão", ephemeral: true})
 
     await interaction.reply({content: "Envie os ids", ephemeral: true})
     const collectorFilter = (m: Message) => m.author.id === interaction.user.id

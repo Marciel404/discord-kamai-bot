@@ -1,6 +1,6 @@
 import { Colors, Message } from "discord.js"
 import { configData } from "../../..";
-import { verifyRoles } from "../../../funcsSuporte/verifys";
+import { verifyRolesPermissions } from "../../../funcsSuporte/verifys";
 
 export = {
     name: "close",
@@ -13,7 +13,7 @@ export = {
     async execute (msg: Message){
         if (!msg.guild) return
 
-        if (!verifyRoles(msg.member!, this.roles)) return
+        if (!verifyRolesPermissions(msg.member!, this.roles)) return
 
         try {
 

@@ -36,5 +36,4 @@ export async function execute(interaction: StringSelectMenuInteraction){
         await interaction.channel!.send({embeds:[embed], components: [row]})
     };
     await interaction.update({content: "Foi", embeds: [], components: []})
-    RegsAtivos(1)
 };

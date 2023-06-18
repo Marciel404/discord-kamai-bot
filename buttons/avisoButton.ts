@@ -6,7 +6,7 @@ import {
     StringSelectMenuBuilder,
     StringSelectMenuOptionBuilder
     } from "discord.js";
-import { verifyRoles } from "../funcsSuporte/verifys"
+import { verifyRolesPermissions } from "../funcsSuporte/verifys"
 import { motivosList } from "../stringSelects/motivos";
 import { configData } from "..";
 import { msgDelete } from "../funcsSuporte/messages";
@@ -18,7 +18,7 @@ const roles: Array<any> = [
 
 export async function execute(interaction: ButtonInteraction) {
 
-    if (!verifyRoles(interaction.member!, roles)) return await interaction.reply({content: "Sem permissão", ephemeral: true})
+    if (!verifyRolesPermissions(interaction.member!, roles)) return await interaction.reply({content: "Sem permissão", ephemeral: true})
 
     let selecMenu = new StringSelectMenuBuilder()
     .setCustomId("motivos")

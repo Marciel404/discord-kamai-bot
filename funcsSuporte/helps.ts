@@ -5,9 +5,9 @@ import { configData } from "..";
 export function generateEmbedHelp(msg: Message){
     let l = ""
     let roles = Object.values(msg.member!.roles)[0]["_roles"]
-    if (roles.indexOf(configData.roles.staff.asmodeus) == 0 || roles.indexOf(configData.roles.staff.astaroth) == 0){
-        l += fullcommand()
-    } else if (roles.indexOf(configData.roles.staff.ormenus) == 0){
+    if (roles.indexOf(configData.roles.staff.asmodeus) >= 0 || roles.indexOf(configData.roles.staff.astaroth) >= 0){
+        l += fullcommand();
+    } else if (roles.indexOf(configData.roles.staff.ormenus) >= 0){
 
         if (l.indexOf(getModCommands()) == -1){
             l += getModCommands();
@@ -21,7 +21,7 @@ export function generateEmbedHelp(msg: Message){
             l += getStaffeCapsCommands();
         };
 
-    } else if (roles.indexOf(configData.roles.staff.acacus) == 0){
+    } else if (roles.indexOf(configData.roles.staff.acacus) >= 0){
 
         if (l.indexOf(getStaffCommands()) == -1){
             l += getStaffCommands();
@@ -32,47 +32,31 @@ export function generateEmbedHelp(msg: Message){
         };
 
     } else if (
-            roles.indexOf(configData.roles.capitaes_karaoke) == 0 ||
-            roles.indexOf(configData.roles.capitaes_poem) == 0 ||
-            roles.indexOf(configData.roles.capitaes_arte) == 0 ||
-            roles.indexOf(configData.roles.capitaes_evento) == 0 
+            roles.indexOf(configData.roles.capitaes_karaoke) >= 0 ||
+            roles.indexOf(configData.roles.capitaes_poem) >= 0 ||
+            roles.indexOf(configData.roles.capitaes_arte) >= 0 ||
+            roles.indexOf(configData.roles.capitaes_evento) >= 0 
         ){
-
-        if (l.indexOf(getCapsCommands()) == -1){
-            l += getCapsCommands();
-        };
 
         if (l.indexOf(getStaffeCapsCommands()) == -1){
             l += getStaffeCapsCommands();
         };
 
-    } else if (roles.indexOf(configData.roles.equipe_karaoke) == 0){
+    } else if (roles.indexOf(configData.roles.equipe_karaoke) >= 0){
 
         if (l.indexOf(getEligosCommands()) == -1){
             l += getEligosCommands();
         };
 
     } else if (
-            roles.indexOf(configData.roles.equipe_eventos) == 0 ||
-            roles.indexOf(configData.roles.capitaes_eventos) == 0){
+            roles.indexOf(configData.roles.equipe_eventos) >= 0 ||
+            roles.indexOf(configData.roles.capitaes_eventos) >= 0){
 
         if (l.indexOf(getEligosCommands()) == -1){
             l += getEligosCommands();
         };
 
-    } else if (
-        roles.indexOf(configData.roles.ntb) == 0 ||
-        roles.indexOf(configData.roles.nvl100) == 0 ||
-        roles.indexOf(configData.roles.capitaes_arte) == 0 ||
-        roles.indexOf(configData.roles.staff.staff1) == 0 ||
-        roles.indexOf(configData.roles.staff.staff2) == 0 
-    ){
-
-        if (l.indexOf(getCallPvCommands()) == -1){
-            l += getCallPvCommands();
-        };
-
-    }
+    };
 
     l += getPublicCommands()
     return{
@@ -82,8 +66,8 @@ export function generateEmbedHelp(msg: Message){
         thumbnail:{
             url: `${msg.client!.user.displayAvatarURL()}`
         },
-    }
-}
+    };
+};
 
 function fullcommand(){
 
@@ -93,23 +77,24 @@ function fullcommand(){
     modcmd.forEach(commandName =>{
         if (l.indexOf("Administração") == -1){
             l += "\n**Administração**\n"
-        }
-        let cmd = require(`../commands/prefix/Adm/${commandName}`)
-        if (l.indexOf(`-${cmd.name}`) == -1){
-            l += `-${cmd.name}: ${cmd.description}\n--aliases: ${cmd.aliases}\n`
-        }
-    })
+        };
+        let cmd = require(`../commands/prefix/Adm/${commandName}`);
+        if (l.indexOf(`- ${cmd.name}`) == -1){
+            l += `- ${cmd.name}: ${cmd.description}\n`
+            if (cmd.aliases.length > 0){
+                l += `- - aliases: ${cmd.aliases}\n\n`
+            }
+        };
+    });
 
-    l += getModCommands()
-    l += getStaffCommands()
-    l += getStaffeCapsCommands()
-    l += getCapsCommands()
-    l += getEligosCommands()
-    l += getEquipeEventosCommands()
-    l += getCallPvCommands()
+    l += getModCommands();
+    l += getStaffCommands();
+    l += getStaffeCapsCommands();
+    l += getEligosCommands();
+    l += getEquipeEventosCommands();
 
     return l
-}
+};
 
 function getModCommands(){
 
@@ -120,12 +105,17 @@ function getModCommands(){
             s += "\n**Moderação**\n"
         }
         let cmd = require(`../commands/prefix/Mod/${commandName}`)
-        s += `-${cmd.name}: ${cmd.description}\n--aliases: ${cmd.aliases}\n`
+        if (s.indexOf(`- ${cmd.name}`) == -1){
+            s += `- ${cmd.name}: ${cmd.description}\n`
+            if (cmd.aliases.length > 0){
+                s += `- - aliases: ${cmd.aliases}\n\n`
+            }
+        };
         
-    })
+    });
 
     return s
-}
+};
 
 
 function getStaffCommands(){
@@ -136,11 +126,16 @@ function getStaffCommands(){
             s += "\n**Staff**\n"
         }
         let cmd = require(`../commands/prefix/Staff/${commandName}`)
-        s += `-${cmd.name}: ${cmd.description}\n--aliases: ${cmd.aliases}\n`
-    })
+        if (s.indexOf(`- ${cmd.name}`) == -1){
+            s += `- ${cmd.name}: ${cmd.description}\n`
+            if (cmd.aliases.length > 0){
+                s += `- - aliases: ${cmd.aliases}\n\n`
+            }
+        };
+    });
 
     return s
-}
+};
 
 
 function getStaffeCapsCommands(){
@@ -151,32 +146,17 @@ function getStaffeCapsCommands(){
             s += "\n**Staff e Captães**\n"
         }
         let cmd = require(`../commands/prefix/Staff e Caps/${commandName}`)
-        if (s.indexOf(`-${cmd.name}`) == -1){
-            s += `-${cmd.name}: ${cmd.description}\n--aliases: ${cmd.aliases}\n`
+        if (s.indexOf(`- ${cmd.name}`) == -1){
+            s += `- ${cmd.name}: ${cmd.description}\n`
+            if (cmd.aliases.length > 0){
+                s += `- - aliases: ${cmd.aliases}\n\n`
+            }
         };
         
-    })
+    });
 
     return s
-}
-
-
-function getCapsCommands(){
-    let s = "";
-    const capscmd = fs.readdirSync(`./commands/prefix/Caps`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
-    capscmd.forEach(commandName =>{
-        if (s.indexOf("Capitães") == -1){
-            s += "\n**Capitães**\n"
-        }
-        let cmd = require(`../commands/prefix/Caps/${commandName}`)
-        if (s.indexOf(`-${cmd.name}`) == -1){
-            s += `-${cmd.name}: ${cmd.description}\n--aliases: ${cmd.aliases}\n`
-        };
-        
-    })
-
-    return s
-}
+};
 
 
 function getEligosCommands(){
@@ -185,16 +165,19 @@ function getEligosCommands(){
     karaokecmd.forEach(commandName =>{
         if (s.indexOf("Eligos") == -1){
             s += "\n**Eligos**\n"
-        }
+        };
         let cmd = require(`../commands/prefix/EquipeKaraoke/${commandName}`)
-        if (s.indexOf(`-${cmd.name}`) == -1){
-            s += `-${cmd.name}: ${cmd.description}\n--aliases: ${cmd.aliases}\n`
+        if (s.indexOf(`- ${cmd.name}`) == -1){
+            s += `- ${cmd.name}: ${cmd.description}\n`
+            if (cmd.aliases.length > 0){
+                s += `- - aliases: ${cmd.aliases}\n\n`
+            }
         };
         
-    })
+    });
 
     return s
-}
+};
 
 
 function getEquipeEventosCommands(){
@@ -205,26 +188,11 @@ function getEquipeEventosCommands(){
             s += "\n**Gremorys**\n"
         }
         let cmd = require(`../commands/prefix/EquipeEventos/${commandName}`)
-        if (s.indexOf(`-${cmd.name}`) == -1){
-            s += `-${cmd.name}: ${cmd.description}\n--aliases: ${cmd.aliases}\n`
-        };
-        
-    })
-
-    return s
-}
-
-
-function getCallPvCommands(){
-    let s = "";
-    const callpv = fs.readdirSync(`./commands/prefix/CallPv`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
-    callpv.forEach(commandName =>{
-        if (s.indexOf("CallPv") == -1){
-            s += "\n**CallPv**\n"
-        }
-        let cmd = require(`../commands/prefix/CallPv/${commandName}`)
-        if (s.indexOf(`-${cmd.name}`) == -1){
-            s += `-${cmd.name}: ${cmd.description}\n--aliases: ${cmd.aliases}\n`
+        if (s.indexOf(`- ${cmd.name}`) == -1){
+            s += `- ${cmd.name}: ${cmd.description}\n`
+            if (cmd.aliases.length > 0){
+                s += `- - aliases: ${cmd.aliases}\n\n`
+            }
         };
         
     })
@@ -241,12 +209,14 @@ function getPublicCommands(){
             s += "\n**Publicos**\n"
         };
         let cmd = require(`../commands/prefix/Publicos/${commandName}`)
-        if (s.indexOf(`-${cmd.name}`) == -1){
-            s += `-${cmd.name}: ${cmd.description}\n--aliases: ${cmd.aliases}\n`
+        if (s.indexOf(`- ${cmd.name}`) == -1){
+            s += `- ${cmd.name}: ${cmd.description}\n`
+            if (cmd.aliases.length > 0){
+                s += `- - aliases: ${cmd.aliases}\n\n`
+            }
         };
         
     });
 
     return s
 };
-

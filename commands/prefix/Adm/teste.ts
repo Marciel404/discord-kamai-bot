@@ -1,8 +1,9 @@
 import { Message } from "discord.js"
 import { configData } from "../../..";
+import moment from "moment";
 
 export = {
-    name: "anunciar_evento",
+    name: "somartimes",
     aliases: ["anun_evento"],
     description: "Anuncia um evento",
     roles: [
@@ -12,6 +13,8 @@ export = {
         configData["roles"]["staff"]["staff2"]
     ],
     async execute(msg: Message) {
-        await msg.reply({content: "Em desenvolvimento"})
+        let msgArgs = msg.content.split(" ")
+        console.log(msgArgs[1])
+        await msg.reply({content: `${moment(new Date().setTime(parseInt(msgArgs[1])) - new Date().setTime(parseInt(msgArgs[2])))}`})
     },
 }

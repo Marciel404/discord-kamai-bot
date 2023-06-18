@@ -113,21 +113,21 @@ export async function execute(interaction: StringSelectMenuInteraction){
     
                     if (member.roles.highest.position >= client.roles.highest.position){
                         let msg = await interaction.channel!.send({content: `Não consego adicionar cargo a o membro ${member}`});
-                        await msgDelete(msg,3000)
+                        await msgDelete(msg,3000);
                     } else {
                         desc += `${member}\n`
-                    }
+                    };
     
                 } catch {
     
                     let msg = await interaction.channel!.send({content: `${i.replace(/[<@>]/g, "")} não é um usuario ou não está no servidor`});
-                    await msgDelete(msg,3000)
+                    await msgDelete(msg,3000);
                     
                 };
             }
             if (desc.length == 0) {
                 await interaction.editReply({content: "Não consegui adicionar cargo a ninguem"});
-                msgDelete(message,0)
+                msgDelete(message,0);
                 return
             };
             

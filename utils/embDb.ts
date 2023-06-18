@@ -6,7 +6,7 @@ import { JsonDB, Config } from "node-json-db";
 class embedDb {
     dbemb: JsonDB = new JsonDB(new Config(options.db_name, true, true))
 
-    async saveEmb(embed: any,embName: any,embCreator: any){
+    async saveEmb(embed: any, embName: any, embCreator: any){
 
         var newEmb: any = {};
         if(await this.dbemb.exists(`/last`)){

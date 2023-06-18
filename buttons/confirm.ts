@@ -1,5 +1,5 @@
 import { ButtonInteraction, Colors, EmbedBuilder } from "discord.js";
-import { verifyRoles } from "../funcsSuporte/verifys";
+import { verifyRolesPermissions } from "../funcsSuporte/verifys";
 import { configData } from "..";
 import moment from "moment";
 import { adcAdvertencia } from "../db/moderation";
@@ -13,7 +13,7 @@ const roles: Array<any> = [
 
 export async function execute(interaction: ButtonInteraction) {
 
-    if (!verifyRoles(interaction.member!, roles)) return await interaction.reply({content: "Sem permissão", ephemeral: true});
+    if (!verifyRolesPermissions(interaction.member!, roles)) return await interaction.reply({content: "Sem permissão", ephemeral: true});
 
     const time = new Date()
     const dt = new Date().setHours(time.getHours()-3)

@@ -1,5 +1,5 @@
 import { ActionRowBuilder, ButtonBuilder, Message } from "discord.js"
-import { verifyRoles } from "../../../funcsSuporte/verifys"
+import { verifyRolesPermissions } from "../../../funcsSuporte/verifys"
 import { configData } from "../../..";
 
 export = {
@@ -14,7 +14,7 @@ export = {
 
         if (!msg.guild) return
 
-        if (!verifyRoles(msg.member!, this.roles)) return
+        if (!verifyRolesPermissions(msg.member!, this.roles)) return
 
         const bBan = new ButtonBuilder()
         .setCustomId("banButton")
