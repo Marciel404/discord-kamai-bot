@@ -31,15 +31,16 @@ export async function loadCommandsPrefix(path:  fs.PathLike, command: string = "
 }
 export function loadCommandsSlash(path: fs.PathLike) {
     try {
-
         fs.readdir(path, (error, subFolderPath: Array<String>) => {
             for (const name of subFolderPath){
                 fs.readdir(`${path}/${[name]}`, (error, files: String[]) => {
                     files.forEach((files: String) => {
                         if (files.endsWith(".ts") || files.endsWith(".js")) {
                             let command = require(`.${path}/${name}/${files}`)
-                            commands.push(command.data)
-                            commandSlash.set(command.data.name, command)
+                            if (command.data){
+                                commands.push(command.data)
+                                commandSlash.set(command.data.name, command)
+                            }
                         };
                     });
                 });
@@ -79,4 +80,4 @@ export async function loadSlash(CLIENT_ID: any){
     }
 }
 
-loadCommandsSlash("./commands/slash")
+loadCommandsSlash("./commands")
