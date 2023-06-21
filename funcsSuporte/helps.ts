@@ -73,12 +73,12 @@ function fullcommand(){
 
     let l = ""
 
-    const modcmd = fs.readdirSync(`./commands/prefix/Adm`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
+    const modcmd = fs.readdirSync(`./commands/Adm`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
     modcmd.forEach(commandName =>{
         if (l.indexOf("Administração") == -1){
             l += "\n**Administração**\n"
         };
-        let cmd = require(`../commands/prefix/Adm/${commandName}`);
+        let cmd = require(`../commands/Adm/${commandName}`);
         if (l.indexOf(`- ${cmd.name}`) == -1){
             l += `- ${cmd.name}: ${cmd.description}\n`
             if (cmd.aliases.length > 0){
@@ -99,12 +99,12 @@ function fullcommand(){
 function getModCommands(){
 
     let s = "";
-    const modcmd = fs.readdirSync(`./commands/prefix/Mod`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
+    const modcmd = fs.readdirSync(`./commands/Mod`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
     modcmd.forEach(commandName =>{
         if (s.indexOf("Moderação") == -1){
             s += "\n**Moderação**\n"
         }
-        let cmd = require(`../commands/prefix/Mod/${commandName}`)
+        let cmd = require(`../commands/Mod/${commandName}`)
         if (s.indexOf(`- ${cmd.name}`) == -1){
             s += `- ${cmd.name}: ${cmd.description}\n`
             if (cmd.aliases.length > 0){
@@ -120,12 +120,12 @@ function getModCommands(){
 
 function getStaffCommands(){
     let s = "";
-    const staffcmd = fs.readdirSync(`./commands/prefix/Staff`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
+    const staffcmd = fs.readdirSync(`./commands/Staff`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
     staffcmd.forEach(commandName =>{
         if (s.indexOf("Staff") == -1){
             s += "\n**Staff**\n"
         }
-        let cmd = require(`../commands/prefix/Staff/${commandName}`)
+        let cmd = require(`../commands/Staff/${commandName}`)
         if (s.indexOf(`- ${cmd.name}`) == -1){
             s += `- ${cmd.name}: ${cmd.description}\n`
             if (cmd.aliases.length > 0){
@@ -140,12 +140,12 @@ function getStaffCommands(){
 
 function getStaffeCapsCommands(){
     let s = "";
-    const scapscmd = fs.readdirSync(`./commands/prefix/Staff e Caps`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
+    const scapscmd = fs.readdirSync(`./commands/Staff e Caps`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
     scapscmd.forEach(commandName =>{
         if (s.indexOf("Staff e Capitães") == -1){
             s += "\n**Staff e Captães**\n"
         }
-        let cmd = require(`../commands/prefix/Staff e Caps/${commandName}`)
+        let cmd = require(`../commands/Staff e Caps/${commandName}`)
         if (s.indexOf(`- ${cmd.name}`) == -1){
             s += `- ${cmd.name}: ${cmd.description}\n`
             if (cmd.aliases.length > 0){
@@ -161,12 +161,12 @@ function getStaffeCapsCommands(){
 
 function getEligosCommands(){
     let s = "";
-    const karaokecmd = fs.readdirSync(`./commands/prefix/EquipeKaraoke`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
+    const karaokecmd = fs.readdirSync(`./commands/EquipeKaraoke`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
     karaokecmd.forEach(commandName =>{
         if (s.indexOf("Eligos") == -1){
             s += "\n**Eligos**\n"
         };
-        let cmd = require(`../commands/prefix/EquipeKaraoke/${commandName}`)
+        let cmd = require(`../commands/EquipeKaraoke/${commandName}`)
         if (s.indexOf(`- ${cmd.name}`) == -1){
             s += `- ${cmd.name}: ${cmd.description}\n`
             if (cmd.aliases.length > 0){
@@ -182,12 +182,12 @@ function getEligosCommands(){
 
 function getEquipeEventosCommands(){
     let s = "";
-    const eventoscmd = fs.readdirSync(`./commands/prefix/EquipeEventos`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
+    const eventoscmd = fs.readdirSync(`./commands/EquipeEventos`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
     eventoscmd.forEach(commandName =>{
         if (s.indexOf("Gremorys") == -1){
             s += "\n**Gremorys**\n"
         }
-        let cmd = require(`../commands/prefix/EquipeEventos/${commandName}`)
+        let cmd = require(`../commands/EquipeEventos/${commandName}`)
         if (s.indexOf(`- ${cmd.name}`) == -1){
             s += `- ${cmd.name}: ${cmd.description}\n`
             if (cmd.aliases.length > 0){
@@ -203,12 +203,12 @@ function getEquipeEventosCommands(){
 
 function getPublicCommands(){
     let s = "";
-    const eventoscmd = fs.readdirSync(`./commands/prefix/Publicos`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
+    const eventoscmd = fs.readdirSync(`./commands/Publicos`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
     eventoscmd.forEach(commandName =>{
         if (s.indexOf("Publicos") == -1){
             s += "\n**Publicos**\n"
         };
-        let cmd = require(`../commands/prefix/Publicos/${commandName}`)
+        let cmd = require(`../commands/Publicos/${commandName}`)
         if (s.indexOf(`- ${cmd.name}`) == -1){
             s += `- ${cmd.name}: ${cmd.description}\n`
             if (cmd.aliases.length > 0){
