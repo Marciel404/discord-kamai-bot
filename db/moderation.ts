@@ -25,7 +25,7 @@ export async function adcAdvertencia(author: any, member: any, aprovador: any, m
             "aprovador": `${aprovador}`,
             "motivo": `${motivo}`,
             "data": `${data}`,
-            "warn_id": warn["AdvsQnt"]
+            "warn_id": `${warn["AdvsQnt"]}`
         }
     }
     memberManegements.updateOne(
@@ -34,7 +34,7 @@ export async function adcAdvertencia(author: any, member: any, aprovador: any, m
         {upsert: true}
     )
 }
-export async function rmvAdvertencia(warnid: any){
+export async function rmvAdvertencia(warnid: string){
     const time = new Date()
     const dt = new Date().setHours(time.getHours()-3)
 
@@ -58,14 +58,14 @@ export async function adcNotify(author: any, member: any, motivo: string, data: 
                 author: `${author}`,
                 motivo: `${motivo}`,
                 data: data,
-                notify_id: ntf["NtfsQnt"]
+                notify_id: `${ntf["NtfsQnt"]}`
             }
         }
         },
         {upsert: true}
     )
 }
-export async function rmvNotify(warnid: any) {
+export async function rmvNotify(warnid: string) {
     if (await memberManegements.findOne({"Notifys": {"$elemMatch": {"notify_id": warnid}}})) {
         await memberManegements.findOneAndUpdate(
             {"Notifys": {"$elemMatch": {"notify_id": warnid}}},

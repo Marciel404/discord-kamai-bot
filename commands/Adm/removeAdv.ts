@@ -21,7 +21,7 @@ export = {
 
         if (!msgArgs[1]?.match(/[0-9]/)) return await msg.reply({content: "Id da advertencia necessario"})
 
-        if (await rmvAdvertencia(Number(msgArgs[1]))){
+        if (await rmvAdvertencia(msgArgs[1])){
 
             await msg.reply({content: "Advertenia removida"})
 

@@ -11,7 +11,7 @@ client.on("messageCreate", async (msg: Message) => {
 	if (commandName.length == 0) return;
 
 	try {
-		await loadCommandsPrefix("./commands/prefix", commandName, msg)
+		await loadCommandsPrefix("./commands", commandName, msg)
 	} catch (err) {
 		await msg.reply({content: `Error: ${err}`})
 	};

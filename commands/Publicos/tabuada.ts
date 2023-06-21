@@ -2,6 +2,9 @@ import {
     SlashCommandBuilder,
     EmbedBuilder,
     range,
+    ChatInputCommandInteraction,
+    Message,
+    InteractionType,
   }  from "discord.js";
 
 export = {
@@ -17,14 +20,14 @@ export = {
     name: "tabuada",
     description: "Envia a tabuada de um numero até 10",
     aliases: [],
-    async execute(arg: any) {
+    async execute(arg: Message | ChatInputCommandInteraction) {
 
       let valor = 0;
-      if (arg.type == 0){
+      if (arg.type != InteractionType.ApplicationCommand){
         if (!arg.content.split(" ")[1]?.match(/[0-9]/)) return await arg.reply({content: "argumento valor necessario"})
         valor = parseInt(arg.content.split(" ")[1])
       } else {
-        valor = arg.options.get("numero")!["value"] as number
+        valor = arg.options.getNumber("numero")!
       }
 
       if (valor <= 0) { return await arg.reply({content: "O numero precisa ser maior que 0", ephemeral: true})}
