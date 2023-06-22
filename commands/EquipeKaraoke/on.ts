@@ -1,24 +1,33 @@
-import { Message } from "discord.js"
+import { ChatInputCommandInteraction, InteractionType, Message, SlashCommandBuilder } from "discord.js"
 import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 import { karaokeAct } from "../../db/eligos";
 import moment from "moment-timezone";
 
 export = {
+    data: new SlashCommandBuilder()
+    .setName("on")
+    .setDescription("Poe em estado de disponivel"),
     name: "on",
     aliases: [],
     description: "Poe em estado de disponivel",
     roles: [
         configData["roles"]["equipe_karaoke"]
     ],
-    async execute(msg: Message) {
+    async execute(msg: Message | ChatInputCommandInteraction) {
 
         if (!msg.guild) return
-        if (msg.channel.id != configData["channels"]["reinoEligos"]) return
+        if (msg.channel!.id != configData["channels"]["reinoEligos"]) return
         if (!verifyRolesPermissions(msg.member!, this.roles)) return
+        let author;
+        if (msg.type != InteractionType.ApplicationCommand){
+            author = msg.author
+        } else {
+            author = msg.user
+        }
 
         try{
-            const doc = await karaokeAct.findOne({_id: msg.author.id})
+            const doc = await karaokeAct.findOne({_id: author.id})
             if (doc && doc["avaliable"]["state"]){
     
                 var t = moment(doc["avaliable"]["since"]).tz("America/Sao_Paulo").toNow().replace("in ","")
@@ -26,9 +35,9 @@ export = {
 
             } else {
                 await karaokeAct.updateOne(
-                    {_id: msg.author.id},
+                    {_id: author.id},
                     {$set: {
-                        _id: msg.author.id,
+                        _id: author.id,
                         avaliable: {state: true, since: new Date().getTime()}
                     }},
                     {upsert: true}

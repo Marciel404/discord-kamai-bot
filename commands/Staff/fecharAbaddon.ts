@@ -1,16 +1,19 @@
-import { Colors, Message } from "discord.js"
+import { ChatInputCommandInteraction, Colors, Message, SlashCommandBuilder } from "discord.js"
 import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 
 export = {
+    data: new SlashCommandBuilder()
+    .setName("close")
+    .setDescription("Fecha a sala do abaddon"),
     name: "close",
     aliases: ["fechar"],
-    description: "fecha a sala do abaddon",
+    description: "Fecha a sala do abaddon",
     roles: [
         configData["roles"]["staff"]["staff1"],
         configData["roles"]["staff"]["staff2"]
     ],
-    async execute (msg: Message){
+    async execute (msg: Message | ChatInputCommandInteraction){
 
         if (!msg.guild) return
         if (!verifyRolesPermissions(msg.member!, this.roles)) return
@@ -20,10 +23,10 @@ export = {
             let channel: any = await msg.guild!.channels!.fetch(configData.channels.abaddon_voice)
 
             if (!channel.permissionsFor(msg.guild!.roles.everyone).has("Connect")){
-                return await msg.reply({content: "Os portões de abaddon já estão fechados"})
+                return await msg.reply({content: "Os portões de abaddon já estão fechados", ephemeral: true})
             }
 
-            await msg.channel.send({embeds:[{
+            await msg.channel!.send({embeds:[{
                 thumbnail:{url:"https://i.imgur.com/dFlhEmM.png"},
                 description:`Luz Obscura
                 Que Clareia a escuridão

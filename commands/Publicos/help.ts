@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "discord.js";
+import { ChatInputCommandInteraction, Message, SlashCommandBuilder } from "discord.js";
 import { generateEmbedHelp } from "../../funcsSuporte/helps";
 
 export = {
@@ -8,7 +8,7 @@ export = {
     name: "help",
     aliases: ["ajuda"],
     description: "Envia meus comandos",
-    async execute(msg: any) {
+    async execute(msg: Message | ChatInputCommandInteraction) {
 
         if (!msg.guild) return;
 

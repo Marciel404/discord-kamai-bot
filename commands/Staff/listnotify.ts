@@ -1,32 +1,49 @@
-import { Message } from "discord.js";
+import { ChatInputCommandInteraction, InteractionType, Message, SlashCommandBuilder } from "discord.js";
 import { notifyList } from "../../db/moderation";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 import { configData } from "../..";
 
 export = {
+    data: new SlashCommandBuilder()
+    .setName("listnotify")
+    .setDescription("Envia a lista de notificações de um membro")
+    .addUserOption((option) => 
+        option
+        .setName("member")
+        .setDescription("Um membro para ver as notificações")
+        .setRequired(true)
+    ),
     name: "listnotify",
     aliases: [],
-    description: "Envia a lista de advertencias de um membro",
+    description: "Envia a lista de notificações de um membro",
     roles: [
         configData["roles"]["staff"]["staff1"],
         configData["roles"]["staff"]["staff2"]
     ],
-    async execute(msg: Message) {
+    async execute(msg: Message | ChatInputCommandInteraction) {
 
-        const msgArgs = msg.content.split(" ")
         if (!msg.guild) return
         if (!verifyRolesPermissions(msg.member!, this.roles)) return
-        if (!msgArgs[1]) return await msg.reply({content: "Id da advertencia necessario"})
+        
+        let Id: string;
+        if (msg.type != InteractionType.ApplicationCommand){
+            const msgArgs = msg.content.split(" ")
+            if (!msgArgs[1]) return await msg.reply({content: "Id do membro necessario"})
+            Id = msgArgs[1].replace(/[<@>]/g, "")
+        } else {
+            Id = msg.options.getUser("member")!.id
+        }
 
-        if(await notifyList(msgArgs[1].replace(/[<@>]/g,""))) {
+        if(await notifyList(Id)) {
 
             await msg.reply({
-                embeds: [{description: `${await notifyList(msgArgs[1].replace(/[<@>]/g,""))}`}]
+                embeds: [{description: `${await notifyList(Id)}`}],
+                ephemeral: true
             })
 
         } else {
 
-            await msg.reply({content:"Esse membro não possue advertencias"})
+            await msg.reply({content:"Esse membro não possue notificações", ephemeral: true})
 
         }
     }

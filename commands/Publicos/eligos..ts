@@ -34,30 +34,38 @@ export = {
         }
 
         if (regs_avaliables.length > 0){
+
             if (regs_in_karaoke.length > 0){
+
                 for (const caps of (await msg.guild.members.fetch())
                 .filter(member => Object.values(member.roles)[0]._roles.indexOf(configData["roles"]["capitaes_karaoke"]) >= 0)){
+
                     try{
                        await caps[1].send(`Pediram ajuda no karaoke, porém já tem alguns eligos no karaoke ${regs_in_karaoke}`)
                     } catch (err){
                     }
+
                 }
+
             }
-            
+
             let channelReges: any = await msg.guild.channels.fetch(configData["channels"]["reinoEligos"])
             await channelReges.send(`Pediram ajuda no karaoke ${regs_avaliables}`)
 
         } else if (regs_in_karaoke.length > 0){
-            
+
             for (const caps of (await msg.guild.members.fetch())
             .filter(member => Object.values(member.roles)[0]._roles.indexOf(configData["roles"]["capitaes_karaoke"]) >= 0)){
+
                 try{
                     await caps[1].send(`Pediram ajuda no Karaoke mas não tem ninguém disponivel, e tem alguns eligos no karaoke ${regs_in_karaoke}`)
                 } catch (err){
                 }
+
             }
-            
+
         } else {
+
             for (const caps of (await msg.guild.members.fetch())
             .filter(member => Object.values(member.roles)[0]._roles.indexOf(configData["roles"]["capitaes_karaoke"]) >= 0)){
                 try{
@@ -65,6 +73,7 @@ export = {
                 } catch (err){
                 }
             }
+
         }
 
     }

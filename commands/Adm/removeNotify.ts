@@ -1,9 +1,17 @@
-import { ChatInputCommandInteraction, InteractionType, Message } from "discord.js"
+import { 
+    ChatInputCommandInteraction,
+    InteractionType,
+    Message, 
+    SlashCommandBuilder
+    } from "discord.js"
 import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 import { rmvNotify } from "../../db/moderation";
 
 export = {
+    data: new SlashCommandBuilder()
+    .setName("removenotify")
+    .setDescription("Remove uma notificação de um membro"),
     name: "removenotify",
     aliases: ["rntf", "rmvnotify"],
     roles: [

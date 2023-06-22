@@ -21,7 +21,7 @@ client.on("voiceStateUpdate", async (old_state: VoiceState, new_state: VoiceStat
     if (new_state.channel?.id === configData["calls"]["espera"] && verifyRolesPermissions(new_state.member!, roles)){
         const channel: any = new_state.guild.channels.cache.find(channel => channel.type === ChannelType.GuildVoice && channel.name === `PV [${new_state.member?.displayName}]`)
         if (channel){
-            new_state.member!.voice.setChannel(channel)
+            await new_state.member!.voice.setChannel(channel)
         } else {
             const callPv = await new_state.guild.channels.create(
                 {

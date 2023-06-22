@@ -1,9 +1,12 @@
-import { Message } from "discord.js"
+import { ChatInputCommandInteraction, InteractionType, Message, SlashCommandBuilder } from "discord.js"
 import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 import { rmvAdvertencia } from "../../db/moderation";
 
 export = {
+    data: new SlashCommandBuilder()
+    .setName("removeadv")
+    .setDescription("Remove uma advertencia de um membro"),
     name: "removeadv",
     aliases: ["radv", "rmvadv"],
     roles: [
@@ -11,17 +14,21 @@ export = {
         configData["roles"]["staff"]["astaroth"]
     ],
     description: "Remove uma advertencia de um membro",
-    async execute(msg: Message) {
+    async execute(msg: Message | ChatInputCommandInteraction) {
 
         if (!msg.guild) return
 
-        const msgArgs = msg.content.split(" ")
-
         if (!verifyRolesPermissions(msg.member!, this.roles)) return
 
-        if (!msgArgs[1]?.match(/[0-9]/)) return await msg.reply({content: "Id da advertencia necessario"})
+        let valor = "";
+        if (msg.type != InteractionType.ApplicationCommand){
+            if (!msg.content.split(" ")[1]?.match(/[0-9]/)) return await msg.reply({content: "Id da notificação necessario"})
+            valor = msg.content.split(" ")[1]
+        } else {
+            valor = msg.options.getString("id")!
+        }
 
-        if (await rmvAdvertencia(msgArgs[1])){
+        if (await rmvAdvertencia(valor)){
 
             await msg.reply({content: "Advertenia removida"})
 

@@ -1,22 +1,32 @@
-import { ActionRowBuilder, ButtonBuilder, Message } from "discord.js"
+import { 
+    ActionRowBuilder,
+    ButtonBuilder,
+    ChatInputCommandInteraction,
+    Message,
+    SlashCommandBuilder 
+    } from "discord.js"
 import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 
 export = {
+    data: new SlashCommandBuilder()
+    .setName("lista_evento")
+    .setDescription("Envia a lista para as pessoas entrarem no evento"),
     name: "lista_evento",
     aliases: ["levento"],
-    description: "Anuncia um evento",
+    description: "Envia a lista para as pessoas entrarem no evento",
     roles: [
         configData["roles"]["equipe_evento"],
         configData["roles"]["capitaes_evento"],
         configData["roles"]["staff"]["staff1"],
         configData["roles"]["staff"]["staff2"]
     ],
-    async execute(msg: Message) {
+    async execute(msg: Message | ChatInputCommandInteraction) {
+        
         if (!msg.guild) return
         if (!verifyRolesPermissions(msg.member!, this.roles)) return
 
-        await msg.reply({content: "Enviado"})
+        await msg.reply({content: "Enviado", ephemeral: true})
 
         const b1 = new ButtonBuilder()
         .setCustomId("entrarLista")

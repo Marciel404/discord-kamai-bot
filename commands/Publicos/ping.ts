@@ -1,4 +1,4 @@
-import { APIApplicationCommandInteraction, ChatInputCommandInteraction, Message, SlashCommandBuilder } from "discord.js";
+import { ChatInputCommandInteraction, Message, SlashCommandBuilder } from "discord.js";
 
 export = {
     data: new SlashCommandBuilder()
@@ -7,7 +7,7 @@ export = {
     name: "ping",
     aliases: ["ms"],
     description: "Envia meu delay",
-    async execute(msg: ChatInputCommandInteraction) {
+    async execute(msg: Message | ChatInputCommandInteraction) {
 
         if (!msg.guild) return;
 

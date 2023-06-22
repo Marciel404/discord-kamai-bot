@@ -1,8 +1,8 @@
-import { Colors, Message } from "discord.js";
+import { ChatInputCommandInteraction, Colors, Message } from "discord.js";
 import fs from "node:fs"
 import { configData } from "..";
 
-export function generateEmbedHelp(msg: Message){
+export function generateEmbedHelp(msg: Message | ChatInputCommandInteraction){
     let l = ""
     let roles = Object.values(msg.member!.roles)[0]["_roles"]
     if (roles.indexOf(configData.roles.staff.asmodeus) >= 0 || roles.indexOf(configData.roles.staff.astaroth) >= 0){

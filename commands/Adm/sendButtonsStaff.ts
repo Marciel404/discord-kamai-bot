@@ -1,8 +1,18 @@
-import { ActionRowBuilder, ButtonBuilder, Message } from "discord.js"
+import { 
+    ActionRowBuilder,
+    ButtonBuilder,
+    ChatInputCommandInteraction,
+    InteractionType,
+    Message,
+    SlashCommandBuilder
+    } from "discord.js"
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys"
 import { configData } from "../..";
 
 export = {
+    date: new SlashCommandBuilder()
+    .setName("sendbuttonsstaff")
+    .setDescription("Envia os botões do registros ativos"),
     name: "sendbuttonsstaff",
     aliases: ["sendbts"],
     description: "Envia os botoes de Registros Ativos",
@@ -10,7 +20,7 @@ export = {
         configData["roles"]["staff"]["asmodeus"],
         configData["roles"]["staff"]["astaroth"]
     ],
-    async execute( msg: Message ){
+    async execute( msg: Message | ChatInputCommandInteraction){
 
         if (!msg.guild) return
         if (!verifyRolesPermissions(msg.member!, this.roles)) return
@@ -43,8 +53,9 @@ export = {
         const row = new ActionRowBuilder<any>()
         .addComponents(bBan,bUnBan,bAdv,bNtf,bCg)
 
-        await msg.channel.send({components:[row]})
-
-        await msg.delete()
+        await msg.channel!.send({components:[row]})
+        if (msg.type != InteractionType.ApplicationCommand){
+            await msg.delete()
+        }
     }
 }

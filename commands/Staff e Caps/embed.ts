@@ -1,8 +1,11 @@
-import { ActionRowBuilder, Colors, Message, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, range } from "discord.js";
+import { ActionRowBuilder, ChatInputCommandInteraction, Colors, Message, SlashCommandBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, range } from "discord.js";
 import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 
 export = {
+    data: new SlashCommandBuilder()
+    .setName("embed")
+    .setDescription("Utilize o comando emb e siga os passos 😎"),
     name: "embed",
     aliases: ["emb"],
     description: "Utilize o comando emb e siga os passos 😎",
@@ -14,7 +17,7 @@ export = {
         configData["roles"]["capitaes_arte"],
         configData["roles"]["capitaes_evento"]
     ],
-    async execute(msg: Message) {
+    async execute(msg: Message | ChatInputCommandInteraction) {
 
         if (!msg.guild) return
         if (!verifyRolesPermissions(msg.member!, this.roles)) return
@@ -45,9 +48,9 @@ export = {
 3- Deletar embed
 4- Traz um embed que não esta dentro ainda no bot, mas esta em um canal
 5- Editar uma mensagem que contem um embed`,
-                footer: {text: `${msg.author.id}`}
+                footer: {text: `${msg.member?.user.id}`}
             }
-        ], components: [row]})
+        ], components: [row], ephemeral: true})
 
     }
 }

@@ -5,7 +5,6 @@ import {
     StringSelectMenuInteraction
     } from "discord.js";
 import { configData } from "..";
-const {RegsAtivos} = require("../db/moderation")
 
 export async function execute(interaction: StringSelectMenuInteraction){
     const valueI = interaction.values[0].split(" ");

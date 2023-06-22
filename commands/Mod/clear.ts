@@ -1,8 +1,25 @@
-import { Message } from "discord.js";
+import { ChatInputCommandInteraction, InteractionType, Message, SlashCommandBuilder } from "discord.js";
 import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 
 export = {
+    data: new SlashCommandBuilder()
+    .setName("clear")
+    .setDescription("Limpa uma certa quantidade de mensagens")
+    .addNumberOption((option) =>
+        option
+        .setName("qnt")
+        .setDescription("Quantidade de mensagens")
+        .setMinValue(1)
+        .setMaxValue(100)
+        .setRequired(true)
+    )
+    .addChannelOption((option) =>
+        option
+        .setName("channel")
+        .setDescription("Canal para limpar as mensagens")
+        .setRequired(false)
+    ),
     name: "clear",
     aliases: [],
     description: "Limpa uma certa quantidade de mensagens",
@@ -11,20 +28,35 @@ export = {
         configData["roles"]["staff"]["astaroth"],
         configData["roles"]["staff"]["ormenus"],
     ],
-    async execute(msg: Message){
+    async execute(msg: Message | ChatInputCommandInteraction){
 
-        if (!msg.guild) return
-        if (!verifyRolesPermissions(msg.member!, this.roles)) return
+        if (!msg.guild) return;
 
-        let channel: any = msg.guild?.channels.cache.get(msg.channel.id);
+        if (!verifyRolesPermissions(msg.member!, this.roles)) return;
 
-        if (!msg.content.split(" ")[1]?.match(/[0-9]/)) return await msg.reply({content:"Argumento quantidade necessario"});
+        let channel: any = msg.guild?.channels.cache.get(msg.channel!.id);
 
-        if (msg.content.split(" ")[2])  channel = msg.guild?.channels.cache.get(msg.content.split(" ")[2].replace(/[<#>]/g, ""));
+        let qnt: number = 0;
 
-        let qnt = Number(msg.content.split(" ")[1]);
+        if (msg.type != InteractionType.ApplicationCommand){
 
-        await msg.delete();
+            if (!msg.content.split(" ")[1]?.match(/[0-9]/)) return await msg.reply({content:"Argumento quantidade necessario"});
+
+            if (msg.content.split(" ")[2]) channel = msg.guild?.channels.cache.get(msg.content.split(" ")[2].replace(/[<#>]/g, ""));
+
+            qnt = Number(msg.content.split(" ")[1]);
+
+            await msg.delete();
+
+        } else {
+
+            qnt = msg.options.getNumber("qnt")!;
+
+            if (msg.options.getChannel("channel")) channel = msg.options.getChannel("channel");
+
+            await msg.reply({content: "Começando", ephemeral: true})
+
+        };
 
         if (qnt > 100) {
 
@@ -40,7 +72,7 @@ export = {
 
         } else {
 
-            await msg.channel.send({content: "Não consegui apagar nenhuma mensagem por serem mais antigas que 14 dias"});
+            await msg.channel!.send({content: "Não consegui apagar nenhuma mensagem por serem mais antigas que 14 dias"});
 
         };
 
