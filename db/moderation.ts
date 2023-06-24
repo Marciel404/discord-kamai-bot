@@ -5,10 +5,10 @@ const db = cluster.db(process.env.database_name)
 export const moddb = db.collection("moderação")
 export const memberManegements = db.collection("memberManegements")
 
-export function RegsAtivos(qnt: any){
+export function adcTicket(qnt: any){
     moddb.updateOne(
         {_id: "kamaiMod"},
-        {$inc: {"regsAtivos": qnt}},
+        {$inc: {"tickets": qnt}},
         {upsert: true}
     )
 }
