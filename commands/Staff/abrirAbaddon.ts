@@ -1,4 +1,4 @@
-import { Colors, Message, SlashCommandBuilder, ChatInputCommandInteraction, InteractionType, User } from "discord.js";
+import { Colors, Message, SlashCommandBuilder, ChatInputCommandInteraction, InteractionType, User, TextChannel } from "discord.js";
 import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 
@@ -27,9 +27,9 @@ export = {
 
         try {
 
-            let channel: any = msg.guild!.channels.cache.get(configData.channels.abaddon_voice)
+            let channel = await msg.guild!.channels.fetch(configData.channels.abaddon_voice)
 
-            if (channel.permissionsFor(msg.guild!.roles.everyone).has("Connect")){
+            if (channel!.permissionsFor(msg.guild.roles.everyone).has("Connect")){
                 return await msg.reply({content: "Os portões de abaddon já estão abertos", ephemeral: true})
             }
 
@@ -88,9 +88,7 @@ export = {
                 }
             }
         } catch (error) {
-
             console.log(error)
-
         }
     }
 }
@@ -100,7 +98,7 @@ async function open(msg: Message){
 
         await msg.delete()
 
-        let abaddon: any = msg.guild!.channels.cache.get(configData.channels.abaddon_voice)
+        let abaddon: any = await msg.guild!.channels.fetch(configData.channels.abaddon_voice)
         
         var welcome = await msg.channel.send({embeds:[{
             thumbnail:{url:"https://media2.giphy.com/media/6G118Ea8ppWuCAhMDw/giphy.gif?cid=790b761104af5a82e6d44948502f7b25dd42bc4e6931159d&rid=giphy.gif&ct=s"},
@@ -122,7 +120,7 @@ async function open(msg: Message){
                     color: Colors.Red
                 }]})
 
-                await abaddon!.permissionOverwrites.create(msg.guild!.id,{Connect:true})
+                await abaddon!.permissionOverwrites.edit(msg.guild!.id,{Connect:true})
 
             } catch (error) {
 

@@ -51,7 +51,9 @@ export async function rmvAdvertencia(warnid: string){
 }
 export async function adcNotify(author: any, member: any, motivo: string, data: string){
     await moddb.updateOne(
-        {_id: "kamaiMod"}, {"$inc": {"NtfsQnt": 1}}, {upsert: true}
+        {_id: "kamaiMod"},
+        {"$inc": {"NtfsQnt": 1}},
+        {upsert: true}
     )
     moddb.findOne({_id: "kamaiMod"})
     .then( async (opt: any) => {

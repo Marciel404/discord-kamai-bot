@@ -143,7 +143,7 @@ function getStaffeCapsCommands(){
     const scapscmd = fs.readdirSync(`./commands/Staff e Caps`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
     scapscmd.forEach(commandName =>{
         if (s.indexOf("Staff e Capitães") == -1){
-            s += "\n**Staff e Captães**\n"
+            s += "\n**Staff e Capitães**\n"
         }
         let cmd = require(`../commands/Staff e Caps/${commandName}`)
         if (s.indexOf(`- ${cmd.name}`) == -1){

@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Message, SlashCommandBuilder, TextChannel, VoiceChannel } from "discord.js";
+import { ChatInputCommandInteraction, Message, SlashCommandBuilder } from "discord.js";
 import { configData } from "../..";
 import { karaokeAct } from "../../db/eligos";
 

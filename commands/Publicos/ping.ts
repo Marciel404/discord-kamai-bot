@@ -20,7 +20,7 @@ export = {
             
             await pingingMsg.edit({ embeds: [{
                 color: 0x57f287,
-                description: `**Pong!** meu ping é de ${pingingMsg.createdTimestamp - msg.createdTimestamp} ms`
+                description: `**Pong!** \nMeu ping é de ${Date.now() - msg.createdTimestamp}ms\nO ping da api é ${Math.round(msg.client.ws.ping)}ms`
             }]});
 
         } catch (error) {

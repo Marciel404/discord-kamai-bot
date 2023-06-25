@@ -51,12 +51,10 @@ export = {
                 color: Colors.Red
             }]})
 
-            await channel.permissionOverwrites.create(msg.guild!.id,{Connect:false})
+            await channel!.permissionOverwrites.edit(msg.guild!.id,{Connect:false})
 
         } catch (error) {
-
             console.log(error)
-
         }
     }
 }

@@ -20,15 +20,15 @@ export async function loadCommandsPrefix(path:  fs.PathLike, command: string = "
                             await cmd.execute(msg)
                         } catch (err) {
                             await msg.reply({content: `${err}`})
-                        }
-                    }
-                })
-            }
-        }
+                        };
+                    };
+                });
+            };
+        };
     } catch (err) {
         console.log(err)
-    }
-}
+    };
+};
 export function loadCommandsSlash(path: fs.PathLike) {
     try {
         fs.readdir(path, (error, subFolderPath: Array<String>) => {
@@ -40,7 +40,7 @@ export function loadCommandsSlash(path: fs.PathLike) {
                             if (command.data){
                                 commands.push(command.data)
                                 commandSlash.set(command.data.name, command)
-                            }
+                            };
                         };
                     });
                 });
@@ -63,12 +63,11 @@ export function loadEvents(path: string) {
             for (const subName of subevents){
                 if (subName.endsWith(".ts") || subName.endsWith(".js")){
                     require(`.${path}/${name}/${subName}`)
-                }
-            }
-        }
-    }
-    
-}
+                };
+            };
+        };
+    };
+};
 export async function loadSlash(CLIENT_ID: any){
 
     try {
@@ -77,7 +76,7 @@ export async function loadSlash(CLIENT_ID: any){
     } catch (error) {
 
         console.log(error);
-    }
-}
+    };
+};
 
 loadCommandsSlash("./commands")
