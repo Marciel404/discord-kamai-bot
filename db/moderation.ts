@@ -13,30 +13,33 @@ export function adcTicket(qnt: any){
     )
 }
 export async function adcAdvertencia(author: any, member: any, aprovador: any, motivo: string, data: string){
-    moddb.updateOne(
+    await moddb.updateOne(
         {_id: "kamaiMod"},
         {$inc: {"AdvsQnt": 1}},
         {upsert: true}
     )
-    const warn = await moddb.findOne({"_id": "kamaiMod"})
-    const insert = {"advertencias": {
-            "points": 1,
-            "author": `${author}`,
-            "aprovador": `${aprovador}`,
-            "motivo": `${motivo}`,
-            "data": `${data}`,
-            "warn_id": `${warn["AdvsQnt"]}`
-        }
-    }
-    memberManegements.updateOne(
-        {_id: member.id},
-        {$push: insert},
-        {upsert: true}
-    )
+    moddb.findOne({"_id": "kamaiMod"})
+    .then(async (opt: any) => {
+        memberManegements.updateOne(
+            {_id: member.id},
+            {$push: {
+                    "advertencias": {
+                        "points": 1,
+                        "author": `${author}`,
+                        "aprovador": `${aprovador}`,
+                        "motivo": `${motivo}`,
+                        "data": `${data}`,
+                        "warn_id": `${opt["AdvsQnt"]}`
+                    }
+                }
+            },
+            {upsert: true}
+        )
+    })
+
 }
 export async function rmvAdvertencia(warnid: string){
     const time = new Date()
-    const dt = new Date().setHours(time.getHours()-3)
 
     if (await memberManegements.findOne({"advertencias": {"$elemMatch": {"warn_id": warnid}}})) {
         await memberManegements.findOneAndUpdate({"advertencias": {"$elemMatch": {"warn_id": warnid}}},
@@ -47,23 +50,25 @@ export async function rmvAdvertencia(warnid: string){
     }
 }
 export async function adcNotify(author: any, member: any, motivo: string, data: string){
-    moddb.updateOne(
+    await moddb.updateOne(
         {_id: "kamaiMod"}, {"$inc": {"NtfsQnt": 1}}, {upsert: true}
     )
-    const ntf = await moddb.findOne({_id: "kamaiMod"})
-    memberManegements.updateOne(
-        {_id: member.id},
-        {$push: {
-            Notifys: {
-                author: `${author}`,
-                motivo: `${motivo}`,
-                data: data,
-                notify_id: `${ntf["NtfsQnt"]}`
+    moddb.findOne({_id: "kamaiMod"})
+    .then( async (opt: any) => {
+        memberManegements.updateOne(
+            {_id: member.id},
+            {$push: {
+                Notifys: {
+                    author: `${author}`,
+                    motivo: `${motivo}`,
+                    data: data,
+                    notify_id: `${opt["NtfsQnt"]}`
+                }
             }
-        }
-        },
-        {upsert: true}
-    )
+            },
+            {upsert: true}
+        )
+    })
 }
 export async function rmvNotify(warnid: string) {
     if (await memberManegements.findOne({"Notifys": {"$elemMatch": {"notify_id": warnid}}})) {

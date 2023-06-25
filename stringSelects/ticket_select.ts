@@ -2,6 +2,7 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle, CategoryChannel, ChannelT
 import { row } from "../funcsSuporte/components";
 import { configData } from "..";
 import moment from "moment";
+import { moddb } from "../db/moderation";
 
 export async function execute(interaction: StringSelectMenuInteraction) {
 
@@ -99,19 +100,19 @@ export async function execute(interaction: StringSelectMenuInteraction) {
     await interaction.followUp(
         {
             content:'Ticket criado com sucesso',
-            components:[new ActionRowBuilder<any>()
+            components:[
+                new ActionRowBuilder<any>()
                 .addComponents(
-                new ButtonBuilder()
-                    .setLabel('Atalho para o ticket')
-                    .setURL(`https://discordapp.com/channels/${interaction.guild!.id}/${channel.id}`)
-                    .setStyle(5),
+                    new ButtonBuilder()
+                        .setLabel('Atalho para o ticket')
+                        .setURL(`https://discordapp.com/channels/${interaction.guild!.id}/${channel.id}`)
+                        .setStyle(5)
                 )],
             ephemeral:true
         }
     )
 
-    const e = new EmbedBuilder(
-    )
+    const e = new EmbedBuilder()
     e.setTitle(`Ticket de ${member.username}`)
     e.setDescription(`Aberto ${moment(dt).format("HH:mm DD/MM/YYYY")}`)
     e.setFooter({text: member.id})
@@ -193,7 +194,19 @@ export async function execute(interaction: StringSelectMenuInteraction) {
         {
             content:`${member} ${mention}`,
             embeds:[e],
-            components: []
+            components: [
+                new ActionRowBuilder<any>()
+                .addComponents(
+                    new ButtonBuilder()
+                    .setCustomId("closeTicket")
+                    .setLabel("🔒 Fechar ticket")
+                    .setStyle(1),
+                    new ButtonBuilder()
+                    .setLabel("Claim")
+                    .setCustomId("claim")
+                    .setStyle(1)
+                )
+            ]
         }
     )
     

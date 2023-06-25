@@ -1,68 +1,163 @@
-import { ButtonInteraction } from "discord.js"
+import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, EmbedBuilder, OverwriteType, PermissionFlagsBits } from "discord.js"
+import { configData } from ".."
+import { adcTicket, moddb } from "../db/moderation"
 
 
 export async function execute(interaction: ButtonInteraction){
-    // member = interaction.guild.get_member(int(interaction.message.embeds[0].footer.text))
 
-    // acacus = discord.utils.get(interaction.guild.roles, id=configData["roles"]["staff"]["acacus"])
+    adcTicket(1)
+    const guild = interaction.guild!
+    const member = await interaction.guild!.members.fetch(interaction.message.embeds[0].footer!.text)
+    const acacus = await interaction.guild!.roles.fetch(configData["roles"]["staff"]["acacus"])
+    const ormenus = await interaction.guild!.roles.fetch(configData["roles"]["staff"]["ormenus"])
+    const astaroth = await interaction.guild!.roles.fetch(configData["roles"]["staff"]["astaroth"])
+    const asmodeus = await interaction.guild!.roles.fetch(configData["roles"]["staff"]["acacus"])
 
-    // overwrites = {
+    interaction.guild!.channels.fetch(interaction.channel!.id)
+    .then(async (channel) => {
+        await channel?.edit(
+            {
+                name: `ticket-${member.id}`,
+                permissionOverwrites:[
 
-    //     member: discord.PermissionOverwrite(read_messages=True, attach_files=True),
-    //     acacus: discord.PermissionOverwrite(read_messages=True, attach_files=True),
-    //     interaction.guild.default_role: discord.PermissionOverwrite(read_messages=False),
+                    {
+                        id: member.id,
+                        allow:[
+                            PermissionFlagsBits.ViewChannel,
+                            PermissionFlagsBits.SendMessages,
+                            PermissionFlagsBits.AttachFiles
+                        ],
+                        type: OverwriteType.Member
+                    },
+                    {
+                        id: guild!.id,
+                        deny:[PermissionFlagsBits.ViewChannel],
+                        type: OverwriteType.Role
+                    },
+                    {
+                        id: acacus!.id,
+                        allow: [
+                            PermissionFlagsBits.ViewChannel,
+                            PermissionFlagsBits.SendMessages,
+                            PermissionFlagsBits.AttachFiles
+                        ],
+                        type: OverwriteType.Role
+                    },
+                    {
+                        id: ormenus!.id,
+                        allow: [
+                            PermissionFlagsBits.ViewChannel,
+                            PermissionFlagsBits.SendMessages,
+                            PermissionFlagsBits.AttachFiles
+                        ],
+                        type: OverwriteType.Role
+                    },
+                    {
+                        id: astaroth!.id,
+                        allow: [
+                            PermissionFlagsBits.ViewChannel,
+                            PermissionFlagsBits.SendMessages,
+                            PermissionFlagsBits.AttachFiles
+                        ],
+                        type: OverwriteType.Role
+                    },
+                    {
+                        id: asmodeus!.id,
+                        allow: [
+                            PermissionFlagsBits.ViewChannel,
+                            PermissionFlagsBits.SendMessages,
+                            PermissionFlagsBits.AttachFiles
+                        ],
+                        type: OverwriteType.Role
+                    }
+                ]
+            }
+        )
 
-    // }
+        const ee = new EmbedBuilder()
 
-    // await interaction.channel.edit(overwrites=overwrites)
+        let cs: any;
 
-    // await interaction.message.delete()
+        switch (channel?.parentId){
 
-    // e = discord.Embed(title=f'Ticket de {member} aberto 🔓')
-    // e.set_footer(text=member.id)
+            case configData["categories"]["ticket_chats"]:
 
-    // try:
-    //     p = await interaction.channel.webhooks()
-    //     web = await selfbot.fetch_webhook(p[0].id)
-    //     await web.send(embed=e, view=claim())
-    // except:
-    //     await interaction.channel.send(embed=e, view=claimButton())
+                ee.addFields({name: "INFO", value: `Ticket de: ${member}\nAção: Aberto`, inline: false})
+                ee.addFields({name: "Tipo", value: "Problemas em Chats"})
+                ee.setFooter({text:`author: ${interaction.user.username}`, iconURL:interaction.user.displayAvatarURL()})
+                ee.setColor(0xE67E22)
 
-    // e = NewFunctionsPYC.EmbedBuilder()
+                cs = await interaction.guild!.channels.fetch(configData["logs"]["log_create_chats"])
 
-    // if interaction.channel.category.id == configData["categories"]["ticket_chats"]:
+                await cs.send({embeds: [ee]})
 
-    //     e.add_field(name="INFO", value=f"Ticket de: {member.mention}\nAção: Aberto", inline=False)
-    //     e.add_field(name="Tipo", value=f"Problemas em Chats")
-    //     e.set_footer(text=f"author: {interaction.user.name}", icon_url=interaction.user.display_avatar.url)
-    //     e.set_color(0xE67E22)
+                break
 
-    //     await interaction.guild.get_channel(configData["logs"]["log_create_chats"]).send(embed=e.build())
+            case configData["categories"]["ticket_calls"]:
 
-    // elif interaction.channel.category.id == configData["categories"]["ticket_calls"]:
+                ee.addFields({name:"INFO", value: `Ticket de: ${member}\nAção: Aberto`, inline: false})
+                ee.addFields({name:"Tipo", value:"Problemas em Call"})
+                ee.setFooter({text:`author: ${interaction.user.username}`, iconURL:interaction.user.displayAvatarURL()})
+                ee.setColor(0xE67E22)
 
-    //     e.add_field(name="INFO", value=f"Ticket de: {member.mention}\nAção: Aberto", inline=False)
-    //     e.add_field(name="Tipo", value=f"Problemas em Calls")
-    //     e.set_footer(text=f"author: {interaction.user.name}", icon_url=interaction.user.display_avatar.url)
-    //     e.set_color(0xE67E22)
+                cs = await interaction.guild!.channels.fetch(configData["logs"]["log_create_calls"])
 
-    //     await interaction.guild.get_channel(configData["logs"]["log_create_calls"]).send(embed=e.build())
+                await cs.send({embeds: [ee]})
 
-    // elif interaction.channel.category.id == configData["categories"]["ticket_privado"]:
+                break
 
-    //     e.add_field(name="INFO", value=f"Ticket de: {member.mention}\nAção: Aberto", inline=False)
-    //     e.add_field(name="Tipo", value=f"Problemas em Privado")
-    //     e.set_footer(text=f"author: {interaction.user.name}", icon_url=interaction.user.display_avatar.url)
-    //     e.set_color(0xE67E22)
+            case configData["categories"]["ticket_privado"]:
 
-    //     await interaction.guild.get_channel(configData["logs"]["log_create_privado"]).send(embed=e.build())
+                ee.addFields({name:"INFO", value: `Ticket de: ${member}\nAção: Aberto`, inline: false})
+                ee.addFields({name:"Tipo", value:"Problemas em Privado"})
+                ee.setFooter({text:`author: ${interaction.user.username}`, iconURL:interaction.user.displayAvatarURL()})
+                ee.setColor(0xE67E22)
 
-    // elif interaction.channel.category.id == configData["categories"]["ticket_outros"]:
+                cs = await interaction.guild!.channels.fetch(configData["logs"]["log_create_privado"])
 
-    //     e.add_field(name="INFO", value=f"Ticket de: {member.mention}\nAção: Aberto", inline=False)
-    //     e.add_field(name="Tipo", value=f"Problemas em Outros")
-    //     e.set_footer(text=f"author: {interaction.user.name}", icon_url=interaction.user.display_avatar.url)
-    //     e.set_color(0xE67E22)
+                await cs.send({embeds: [ee]})
 
-    //     await interaction.guild.get_channel(configData["logs"]["log_create_outros"]).send(embed=e.build())
+                break
+
+            case configData["categories"]["ticket_outros"]:
+
+                ee.addFields({name:"INFO", value: `Ticket de: ${member}\nAção: Aberto`, inline: false})
+                ee.addFields({name:"Tipo", value:"Problemas em Outros"})
+                ee.setFooter({text:`author: ${interaction.user.username}`, iconURL:interaction.user.displayAvatarURL()})
+                ee.setColor(0xE67E22)
+
+                cs = await interaction.guild!.channels.fetch(configData["logs"]["log_create_outros"])
+
+                await cs.send({embeds: [ee]})
+
+                break
+
+        }
+    })
+    .catch((error) => {})
+
+    await interaction.message.delete()
+
+    const e = new EmbedBuilder()
+    e.setTitle(`Ticket de ${member.displayName} aberto 🔓`)
+    e.setFooter({text: `${member.id}`})
+
+    await interaction.channel!.send(
+        {
+            embeds: [e],
+            components: [
+                new ActionRowBuilder<any>()
+                .addComponents(
+                    new ButtonBuilder()
+                    .setCustomId("closeTicket")
+                    .setLabel("🔒 Fechar ticket")
+                    .setStyle(1),
+                    new ButtonBuilder()
+                    .setLabel("Claim")
+                    .setCustomId("claim")
+                    .setStyle(1)
+                )
+            ]
+        }
+    )
 }

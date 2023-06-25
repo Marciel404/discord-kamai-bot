@@ -35,15 +35,12 @@ export async function execute(interaction: ButtonInteraction) {
         e.setFooter({text:`author: ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL()})
         e.setColor(0xE74C3C)
 
-        await cs.send({embeds: [e]})
-
         cs = await interaction.guild.channels.fetch(configData["logs"]["log_create_chats"])
 
         await cs.send({embeds: [e]})
 
-    }
-
-    else if (channelTicket.parentId == configData["categories"]["ticket_calls"]){
+    };
+    if (channelTicket.parentId == configData["categories"]["ticket_calls"]){
 
         cs = await interaction.guild.channels.fetch(configData["logs"]["log_transcript_calls"])
 
@@ -58,9 +55,8 @@ export async function execute(interaction: ButtonInteraction) {
 
         await cs.send({embeds: [e]})
     
-    }
-
-    else if (channelTicket.parentId == configData["categories"]["ticket_privado"]){
+    };
+    if (channelTicket.parentId == configData["categories"]["ticket_privado"]){
 
         cs = await interaction.guild.channels.fetch(configData["logs"]["log_transcript_privado"])
         
@@ -71,16 +67,12 @@ export async function execute(interaction: ButtonInteraction) {
         e.setFooter({text:`author: ${interaction.user.username}`, iconURL:interaction.user.displayAvatarURL()})
         e.setColor(0xE74C3C)
 
-        await cs.send({embeds: [e]})
-
         cs = await interaction.guild.channels.fetch(configData["logs"]["log_create_privado"])
 
         await cs.send({embeds: [e]})
 
-    }
-        
-
-    else if (channelTicket.parentId == configData["categories"]["ticket_outros"]){
+    };
+    if (channelTicket.parentId == configData["categories"]["ticket_outros"]){
         cs = await interaction.guild.channels.fetch(configData["logs"]["log_transcript_outros"])
         
         await cs.send({content:`Ticket de ${member.displayName}`, files: [attachment]})
@@ -90,14 +82,11 @@ export async function execute(interaction: ButtonInteraction) {
         e.setFooter({text:`author: ${interaction.user.username}`, iconURL:interaction.user.displayAvatarURL()})
         e.setColor(0xE74C3C)
 
-        await cs.send({embeds: [e]})
-
         cs = await interaction.guild.channels.fetch(configData["logs"]["log_create_outros"])
 
         await cs.send({embeds: [e]})
     
-    }
-
+    };
     await interaction.channel!.delete()
 
 }

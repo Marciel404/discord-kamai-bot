@@ -1,18 +1,17 @@
-import { ButtonInteraction, EmbedBuilder, OverwriteType, PermissionFlagsBits } from "discord.js"
+import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, EmbedBuilder, OverwriteType, PermissionFlagsBits } from "discord.js"
 import { adcTicket, moddb } from "../db/moderation"
 import { configData } from ".."
 
 export async function execute(interaction: ButtonInteraction){
 
     adcTicket(1)
-
+    const qnt = await moddb.findOne({_id:"kamaiMod"})
     const guild = interaction.guild!
     const member = await interaction.guild!.members.fetch(interaction.message.embeds[0].footer!.text)
     const acacus = await interaction.guild!.roles.fetch(configData["roles"]["staff"]["acacus"])
     const ormenus = await interaction.guild!.roles.fetch(configData["roles"]["staff"]["ormenus"])
     const astaroth = await interaction.guild!.roles.fetch(configData["roles"]["staff"]["astaroth"])
     const asmodeus = await interaction.guild!.roles.fetch(configData["roles"]["staff"]["acacus"])
-
     const e = new EmbedBuilder()
     e.setDescription(`🔒Ticket de ${member} fechado por ${interaction.user} \nClique no 🔓 para abrir`)
     e.setFooter({text: member.id})
@@ -22,7 +21,7 @@ export async function execute(interaction: ButtonInteraction){
         
         await channel?.edit(
             {
-                name: `closed-${await moddb.findOne({_id:"kamaiMod"})["tickets"]}`,
+                name: `fechado-0${qnt["tickets"]+1}`,
                 permissionOverwrites:[
 
                     {
@@ -78,6 +77,7 @@ export async function execute(interaction: ButtonInteraction){
                 ]
             }
         )
+        .catch((error)=>{})
 
         const ee = new EmbedBuilder()
 
@@ -87,7 +87,7 @@ export async function execute(interaction: ButtonInteraction){
 
                 ee.addFields({name:"INFO", value:`Ticket de: ${member}\nAção: Fechado`, inline:false})
                 ee.addFields({name:"Tipo", value:"Problemas em Chats"})
-                ee.setFooter({text:`author: ${interaction.member}`, iconURL:interaction.user.displayAvatarURL()})
+                ee.setFooter({text:`author: ${interaction.user.username}`, iconURL:interaction.user.displayAvatarURL()})
                 ee.setColor(0xFEE75C)
 
                 interaction.guild!.channels.fetch(configData["logs"]["log_create_chats"])
@@ -101,7 +101,7 @@ export async function execute(interaction: ButtonInteraction){
 
                 ee.addFields({name:"INFO", value:`Ticket de: ${member}\nAção: Fechado`, inline:false})
                 ee.addFields({name:"Tipo", value:"Problemas em Calls"})
-                ee.setFooter({text:`author: ${interaction.member}`, iconURL:interaction.user.displayAvatarURL()})
+                ee.setFooter({text:`author: ${interaction.user.username}`, iconURL:interaction.user.displayAvatarURL()})
                 ee.setColor(0xFEE75C)
 
                 interaction.guild!.channels.fetch(configData["logs"]["log_create_calls"])
@@ -116,7 +116,7 @@ export async function execute(interaction: ButtonInteraction){
 
                 ee.addFields({name:"INFO", value:`Ticket de: ${member}\nAção: Fechado`, inline:false})
                 ee.addFields({name:"Tipo", value:"Problemas em Privado"})
-                ee.setFooter({text:`author: ${interaction.member}`, iconURL:interaction.user.displayAvatarURL()})
+                ee.setFooter({text:`author: ${interaction.user.username}`, iconURL:interaction.user.displayAvatarURL()})
                 ee.setColor(0xFEE75C)
 
                 interaction.guild!.channels.fetch(configData["logs"]["log_create_privado"])
@@ -131,7 +131,7 @@ export async function execute(interaction: ButtonInteraction){
 
                 ee.addFields({name:"INFO", value:`Ticket de: ${member}\nAção: Fechado`, inline:false})
                 ee.addFields({name:"Tipo", value:"Problemas em Outros"})
-                ee.setFooter({text:`author: ${interaction.member}`, iconURL:interaction.user.displayAvatarURL()})
+                ee.setFooter({text:`author: ${interaction.user.username}`, iconURL:interaction.user.displayAvatarURL()})
                 ee.setColor(0xFEE75C)
 
                 interaction.guild!.channels.fetch(configData["logs"]["log_create_outros"])
@@ -150,7 +150,19 @@ export async function execute(interaction: ButtonInteraction){
     await interaction.channel!.send(
         {
             embeds:[e],
-            components:[]
+            components:[
+                new ActionRowBuilder<any>()
+                .addComponents(
+                    new ButtonBuilder()
+                    .setLabel("🔓 Abrir ticket")
+                    .setCustomId("openTicket")
+                    .setStyle(1),
+                    new ButtonBuilder()
+                    .setLabel("🛑 Deletar Ticket")
+                    .setCustomId("deleteTicket")
+                    .setStyle(1)
+                )
+            ]
         }
     )
 

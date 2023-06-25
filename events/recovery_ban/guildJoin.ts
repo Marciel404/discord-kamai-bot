@@ -1,4 +1,4 @@
-import { Colors, GuildMember, OverwriteType, PartialGuildMember, PermissionFlagsBits, TextChannel } from "discord.js";
+import { Colors, GuildMember, PartialGuildMember, PermissionFlagsBits } from "discord.js";
 import { client } from "../../utils";
 import { configData } from "../..";
 
@@ -16,7 +16,7 @@ client.on("guildMemberAdd", async (member: GuildMember | PartialGuildMember)  =>
                     permissionOverwrites: [
                         {id: member.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AttachFiles], type: 1},
                         {id: member.guild.id, deny: [PermissionFlagsBits.ViewChannel], type: 0},
-                        {id: asmodeus.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AttachFiles], type: 0,},
+                        {id: asmodeus.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AttachFiles], type: 0},
                         {id: astaroth.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AttachFiles], type: 0},
                         {id: ormenus.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AttachFiles], type: 0, deny: [PermissionFlagsBits.SendMessages]},
                         {id: acacus.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AttachFiles], type: 0, deny: [PermissionFlagsBits.SendMessages]},

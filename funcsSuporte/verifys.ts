@@ -1,4 +1,4 @@
-import { APIGuildMember, GuildMember, Interaction, Message, VoiceState } from "discord.js"
+import { APIGuildMember, GuildMember } from "discord.js"
 const { memberManegements } = require("../db/moderation")
 import { configData } from "..";
 

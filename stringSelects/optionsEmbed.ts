@@ -21,6 +21,7 @@ export async function execute(interaction: StringSelectMenuInteraction){
     switch (interaction.values[0]){
 
         case "1":
+
             await interaction.deferReply({ephemeral: true})
 
             if (!embListed) return await interaction.followUp({ embeds: [{ description: "Nenhum embed registrado ainda", color: Colors.Red }], ephemeral: true })
