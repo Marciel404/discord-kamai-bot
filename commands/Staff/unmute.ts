@@ -35,8 +35,7 @@ export = {
         if (msg.type != InteractionType.ApplicationCommand){
             const msgArgs = msg.content.split(" ")
             if (!msg.content.split(" ")[1]?.replace(/[<@>]/g, "")?.match(/[0-9]/)) return await msg.reply({content: "Mencione o membro"})
-            if (!msgArgs[2]) return await msg.reply({content: "Diga o tempo de mute"})
-            reason = (msgArgs[3]) ? msg.content.substring(msgArgs.slice(0, 3).join(" ").length + 1) : "Motivo não informado";
+            reason = (msgArgs[3]) ? msg.content.substring(msgArgs.slice(0, 2).join(" ").length + 1) : "Motivo não informado";
             Id = msg.content.split(" ")[1].replace(/[<@>]/g, "")
         } else {
             Id = msg.options.getUser("member")!.id;
