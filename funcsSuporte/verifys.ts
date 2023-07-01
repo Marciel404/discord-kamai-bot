@@ -49,20 +49,12 @@ export async function verifyAdvertenciaEntry(member: GuildMember){
 export async function verifyRolesEntry(member: GuildMember){
 
     try{
-
-        let roles = await memberManegements.findOne({"_id": member.id})
-        for(var r1 in roles){
-            if (r1 == "roles"){
-                for(var r2 of roles[r1]){
-                    try {
-                        await member.roles.add(r2, "Verificação de cargo de entrada")
-                    } catch {
-                    }
-                }
-            }
+        let doc = await memberManegements.findOne({ "_id": member.id, "roles": { "$exists": true } })
+    
+        if (doc?.roles){
+          await member.roles.add(doc["roles"], )
+        }else{
         }
-
-
     } catch (err){
     }
 }
