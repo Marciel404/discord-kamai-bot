@@ -17,7 +17,8 @@ export = {
         .setName("content")
         .setDescription("Conteudo para enviar")
         .setRequired(true)
-    ),
+    )
+    .setDMPermission(false),
     name: "say",
     aliases: [],
     description: "Envia uma mensagem",
@@ -27,7 +28,8 @@ export = {
         configData["roles"]["capitaes_karaoke"],
         configData["roles"]["capitaes_poem"],
         configData["roles"]["capitaes_arte"],
-        configData["roles"]["capitaes_evento"]
+        configData["roles"]["capitaes_evento"],
+        configData["roles"]["staff"]["staffRECOVERY"]
     ],
     async execute(msg: Message | ChatInputCommandInteraction) {
 

@@ -12,7 +12,8 @@ import { configData } from "../..";
 export = {
     date: new SlashCommandBuilder()
     .setName("sendbuttonsstaff")
-    .setDescription("Envia os botões do registros ativos"),
+    .setDescription("Envia os botões do registros ativos")
+    .setDMPermission(false),
     name: "sendbuttonsstaff",
     aliases: ["sendbts"],
     description: "Envia os botoes de Registros Ativos",

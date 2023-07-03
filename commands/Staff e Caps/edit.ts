@@ -24,7 +24,8 @@ export = {
         .setName("content")
         .setDescription("Conteudo para modificar")
         .setRequired(true)
-    ),
+    )
+    .setDMPermission(false),
     name: "edit",
     aliases: [],
     description: "edita o conteudo de uma mensage enviada pelo bot",

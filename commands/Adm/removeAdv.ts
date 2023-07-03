@@ -6,7 +6,8 @@ import { rmvAdvertencia } from "../../db/moderation";
 export = {
     data: new SlashCommandBuilder()
     .setName("removeadv")
-    .setDescription("Remove uma advertencia de um membro"),
+    .setDescription("Remove uma advertencia de um membro")
+    .setDMPermission(false),
     name: "removeadv",
     aliases: ["radv", "rmvadv"],
     roles: [
@@ -28,14 +29,10 @@ export = {
             valor = msg.options.getString("id")!
         }
 
-        if (await rmvAdvertencia(valor)){
-
+        if (await rmvAdvertencia(valor, msg.guild)){
             await msg.reply({content: "Advertenia removida"})
-
         } else {
-
             await msg.reply({content: "Não encontrei essa advertencia"})
-
         }
 
     },

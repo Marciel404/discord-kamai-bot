@@ -6,7 +6,8 @@ import { karaokeAct } from "../../db/eligos";
 export = {
     data: new SlashCommandBuilder()
     .setName("off")
-    .setDescription("Poe em estado de indisponivel"),
+    .setDescription("Poe em estado de indisponivel")
+    .setDMPermission(false),
     name: "off",
     aliases: [],
     description: "Poe em estado de indisponivel",

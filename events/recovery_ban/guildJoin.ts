@@ -5,10 +5,10 @@ import { configData } from "../..";
 client.on("guildMemberAdd", async (member: GuildMember | PartialGuildMember)  =>{
 
     if (member.guild.id == configData["guildRecoveryBan"]){
-        const asmodeus = member.guild.roles.cache.find(role => role.name.toLowerCase().includes("asmodeus"))!
-        const astaroth = member.guild.roles.cache.find(role => role.name.toLowerCase().includes("astaroth"))!
-        const ormenus = member.guild.roles.cache.find(role => role.name.toLowerCase().includes("ormenus"))!
-        const acacus = member.guild.roles.cache.find(role => role.name.toLowerCase().includes("acacus"))!
+        const asmodeus = await member.guild.roles.fetch(configData["roles"]["staff"]["asmodeusRECOVERY"])
+        const astaroth = await member.guild.roles.fetch(configData["roles"]["staff"]["astarothRECOVERY"])
+        const ormenus = await member.guild.roles.fetch(configData["roles"]["staff"]["ormenusRECOVERY"])
+        const acacus = await member.guild.roles.fetch(configData["roles"]["staff"]["acacusRECOVERY"])
         try{
             let ticket = await member.guild.channels.create(
                 {
@@ -16,10 +16,10 @@ client.on("guildMemberAdd", async (member: GuildMember | PartialGuildMember)  =>
                     permissionOverwrites: [
                         {id: member.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AttachFiles], type: 1},
                         {id: member.guild.id, deny: [PermissionFlagsBits.ViewChannel], type: 0},
-                        {id: asmodeus.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AttachFiles], type: 0},
-                        {id: astaroth.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AttachFiles], type: 0},
-                        {id: ormenus.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AttachFiles], type: 0, deny: [PermissionFlagsBits.SendMessages]},
-                        {id: acacus.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AttachFiles], type: 0, deny: [PermissionFlagsBits.SendMessages]},
+                        {id: asmodeus!.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AttachFiles], type: 0},
+                        {id: astaroth!.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AttachFiles], type: 0},
+                        {id: ormenus!.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AttachFiles], type: 0, deny: [PermissionFlagsBits.SendMessages]},
+                        {id: acacus!.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AttachFiles], type: 0, deny: [PermissionFlagsBits.SendMessages]},
                     ]
                 }
             )

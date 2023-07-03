@@ -4,7 +4,8 @@ import { generateEmbedHelp } from "../../funcsSuporte/helps";
 export = {
     data: new SlashCommandBuilder()
     .setName("help")
-    .setDescription("Envia meus comandos"),
+    .setDescription("Envia meus comandos")
+    .setDMPermission(false),
     name: "help",
     aliases: ["ajuda"],
     description: "Envia meus comandos",

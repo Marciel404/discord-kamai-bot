@@ -11,7 +11,8 @@ import { rmvNotify } from "../../db/moderation";
 export = {
     data: new SlashCommandBuilder()
     .setName("removenotify")
-    .setDescription("Remove uma notificação de um membro"),
+    .setDescription("Remove uma notificação de um membro")
+    .setDMPermission(false),
     name: "removenotify",
     aliases: ["rntf", "rmvnotify"],
     roles: [

@@ -32,10 +32,15 @@ export = {
 
       staff1: "834172082500927489",
       staff2: "834172082489131044",
+      staffRECOVERY: "44899842167989",
       asmodeus: "834172082500927491",
       astaroth: "834172082500927488",
       ormenus: "834172082489131046",
-      acacus: "834172082489131045"
+      acacus: "834172082489131045",
+      asmodeusRECOVERY: "7897878368222287",
+      astarothRECOVERY: "789787320023786876",
+      ormenusRECOVERY: "786760078666959578",
+      acacusRECOVERY: "27270078785797522"
 
     }
 

@@ -19,7 +19,8 @@ export = {
         .setName("channel")
         .setDescription("Canal para limpar as mensagens")
         .setRequired(false)
-    ),
+    )
+    .setDMPermission(false),
     name: "clear",
     aliases: [],
     description: "Limpa uma certa quantidade de mensagens",

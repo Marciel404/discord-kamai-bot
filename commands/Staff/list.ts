@@ -12,7 +12,8 @@ export = {
         .setName("member")
         .setDescription("Um membro para ver as advertencias")
         .setRequired(true)
-    ),
+    )
+    .setDMPermission(false),
     name: "list",
     aliases: [],
     description: "Envia a lista de advertencias de um membro",

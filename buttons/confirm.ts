@@ -6,7 +6,7 @@ import { adcAdvertencia } from "../db/moderation";
 import { msgDelete } from "../funcsSuporte/messages";
 import { functionAdvRoles } from "../funcsSuporte/satff";
 
-const roles: Array<any> = [
+const roles: Array<string> = [
     configData["roles"]["staff"]["asmodeus"],
     configData["roles"]["staff"]["astaroth"]
 ]

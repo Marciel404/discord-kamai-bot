@@ -3,7 +3,7 @@ import { configData } from "..";
 import { verifyRolesPermissions } from "../funcsSuporte/verifys";
 import { ActionRowBuilder, StringSelectMenuBuilder } from "@discordjs/builders";
 
-const roles: Array<any> = [
+const roles: Array<string> = [
     configData["roles"]["staff"]["asmodeus"],
     configData["roles"]["staff"]["astaroth"],
     configData["roles"]["capitaes_karaoke"],

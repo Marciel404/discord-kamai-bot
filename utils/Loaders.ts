@@ -3,7 +3,7 @@ import fs from "fs";
 
 const {REST} = require("discord.js");
 const rest = new REST().setToken(process.env.token);
-let commands: Array<String> = [];
+let commands: Array<string> = [];
 
 export const commandSlash: Collection<any, any> = new Collection();
 export async function loadCommandsPrefix(path:  fs.PathLike, command: string = "none", msg: any = null){
@@ -74,7 +74,6 @@ export async function loadSlash(CLIENT_ID: any){
         const data = await rest.put(Routes.applicationCommands(CLIENT_ID),{ body: commands });
         console.log(`Registrei ${data.length} Slash Commands.`);
     } catch (error) {
-
         console.log(error);
     };
 };

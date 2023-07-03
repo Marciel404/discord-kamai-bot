@@ -9,7 +9,7 @@ import { msgDelete } from "../funcsSuporte/messages";
 import { configData } from "..";
 import { verifyRolesPermissions } from "../funcsSuporte/verifys";
 
-const roles: Array<any> = [
+const roles: Array<string> = [
     configData["roles"]["staff"]["asmodeus"],
     configData["roles"]["staff"]["astaroth"]
 ]

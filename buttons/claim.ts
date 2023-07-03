@@ -40,11 +40,14 @@ export async function execute(interaction: ButtonInteraction){
                     },
                     {
                         id: guild!.id,
-                        deny:[PermissionFlagsBits.ViewChannel],
+                        deny: [PermissionFlagsBits.ViewChannel],
                         type: OverwriteType.Role
                     },
                     {
                         id: acacus!.id,
+                        allow: [
+                            PermissionFlagsBits.ViewChannel
+                        ],
                         deny: [
                             PermissionFlagsBits.SendMessages,
                             PermissionFlagsBits.AttachFiles
@@ -53,6 +56,9 @@ export async function execute(interaction: ButtonInteraction){
                     },
                     {
                         id: ormenus!.id,
+                        allow: [
+                            PermissionFlagsBits.ViewChannel
+                        ],
                         deny: [
                             PermissionFlagsBits.SendMessages,
                             PermissionFlagsBits.AttachFiles
@@ -61,6 +67,9 @@ export async function execute(interaction: ButtonInteraction){
                     },
                     {
                         id: astaroth!.id,
+                        allow: [
+                            PermissionFlagsBits.ViewChannel
+                        ],
                         deny: [
                             PermissionFlagsBits.SendMessages,
                             PermissionFlagsBits.AttachFiles
@@ -69,6 +78,9 @@ export async function execute(interaction: ButtonInteraction){
                     },
                     {
                         id: asmodeus!.id,
+                        allow: [
+                            PermissionFlagsBits.ViewChannel
+                        ],
                         deny: [
                             PermissionFlagsBits.SendMessages,
                             PermissionFlagsBits.AttachFiles

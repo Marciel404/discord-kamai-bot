@@ -5,7 +5,8 @@ import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 export = {
     data: new SlashCommandBuilder()
     .setName("open")
-    .setDescription("Abre a sala de abaddon"),
+    .setDescription("Abre a sala de abaddon")
+    .setDMPermission(false),
     name: "open",
     aliases: ["abrir"],
     description: "Abre a sala de abaddon",

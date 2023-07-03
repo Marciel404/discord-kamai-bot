@@ -109,10 +109,10 @@ export async function functionAdvRoles(member: GuildMember, author: GuildMember,
                 })
                 return "adv3"
             case roles[1]:
-                await member.timeout(2880 * 60 * 1000, "Advertencia 1")
+                await member.timeout(2880 * 60 * 1000, "Advertencia 3")
                 return await member.roles.add([roles[0], roles[1], roles[2]])
             case roles[0]:
-                await member.timeout(720 * 60 * 1000, "Advertencia 1")
+                await member.timeout(720 * 60 * 1000, "Advertencia 2")
                 return await member.roles.add([roles[0], roles[1]])
         }
     };

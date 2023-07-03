@@ -12,7 +12,8 @@ export = {
         .setName("member")
         .setDescription("Um membro para ver as notificações")
         .setRequired(true)
-    ),
+    )
+    .setDMPermission(false),
     name: "listnotify",
     aliases: [],
     description: "Envia a lista de notificações de um membro",

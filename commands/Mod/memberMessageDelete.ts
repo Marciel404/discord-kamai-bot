@@ -11,7 +11,8 @@ export = {
         .setName("member")
         .setDescription("Membro a ser limpada as mensagens")
         .setRequired(true)
-    ),
+    )
+    .setDMPermission(false),
     name: "membermessagedelete",
     aliases: ["mmdel", "mmd"],
     description: "Limpa as mensagens de um membro de todos os canais do server em um periodo de 14 dias",

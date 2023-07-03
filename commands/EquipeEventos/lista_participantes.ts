@@ -11,7 +11,8 @@ import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 export = {
     data: new SlashCommandBuilder()
     .setName("lista_evento")
-    .setDescription("Envia a lista para as pessoas entrarem no evento"),
+    .setDescription("Envia a lista para as pessoas entrarem no evento")
+    .setDMPermission(false),
     name: "lista_evento",
     aliases: ["levento"],
     description: "Envia a lista para as pessoas entrarem no evento",

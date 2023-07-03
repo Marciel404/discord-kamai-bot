@@ -1,3 +1,7 @@
+import { Guild } from "discord.js";
+import { verifyRolesPermissions } from "../funcsSuporte/verifys";
+import { configData } from "..";
+
 const { MongoClient } = require("mongodb");
 
 const cluster = new MongoClient(process.env.mongoKet)
@@ -38,13 +42,35 @@ export async function adcAdvertencia(author: any, member: any, aprovador: any, m
     })
 
 }
-export async function rmvAdvertencia(warnid: string){
-    const time = new Date()
+export async function rmvAdvertencia(warnid: string, guild: Guild){
 
     if (await memberManegements.findOne({"advertencias": {"$elemMatch": {"warn_id": warnid}}})) {
+        const member = await memberManegements.findOne({"advertencias": {"$elemMatch": {"warn_id": warnid}}})
         await memberManegements.findOneAndUpdate({"advertencias": {"$elemMatch": {"warn_id": warnid}}},
                          {"$pull": {"advertencias": {"warn_id": warnid}}})
-        return true
+
+        const m = await guild.members.fetch(member._id)!
+
+        if (member.communicationDisabledUntil){
+            await member.timeout(null, "Remoção de advertencia");
+        } 
+        if (verifyRolesPermissions(m, [configData["roles"]["adv3"]])){
+
+            await m.roles.remove(configData["roles"]["adv3"])
+            return true
+
+        } else if (verifyRolesPermissions(m, [configData["roles"]["adv2"]])){
+
+            await m.roles.remove(configData["roles"]["adv2"])
+            return true
+
+        } else if (verifyRolesPermissions(m, [configData["roles"]["adv1"]])){
+
+            await m.roles.remove(configData["roles"]["adv1"])
+            return true
+
+        }
+        
     } else {
         return false
     }

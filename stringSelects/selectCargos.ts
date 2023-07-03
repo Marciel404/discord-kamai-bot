@@ -3,11 +3,11 @@ import { configData } from "..";
 import { verifyRolesPermissions } from "../funcsSuporte/verifys";
 import { cargos2 } from "./initRoles";
 
-const rolesD: Array<any> = [configData["roles"]["staff"]["asmodeus"], configData["roles"]["staff"]["astaroth"]];
-const rolesE: Array<any> = [configData["roles"]["capitaes_karaoke"]]
-const rolesV: Array<any> = [configData["roles"]["capitaes_poem"]]
-const rolesN: Array<any> = [configData["roles"]["capitaes_arte"]]
-const rolesG: Array<any> = [configData["roles"]["capitaes_evento"]]
+const rolesD: Array<string> = [configData["roles"]["staff"]["asmodeus"], configData["roles"]["staff"]["astaroth"]];
+const rolesE: Array<string> = [configData["roles"]["capitaes_karaoke"]]
+const rolesV: Array<string> = [configData["roles"]["capitaes_poem"]]
+const rolesN: Array<string> = [configData["roles"]["capitaes_arte"]]
+const rolesG: Array<string> = [configData["roles"]["capitaes_evento"]]
 
 export async function execute(interaction: StringSelectMenuInteraction){
 
@@ -17,7 +17,9 @@ export async function execute(interaction: StringSelectMenuInteraction){
 
     switch (interaction.values[0]) {
         case "eligos":
-            if (verifyRolesPermissions(interaction.member!, rolesD) || verifyRolesPermissions(interaction.member!, rolesE)){
+            if (verifyRolesPermissions(interaction.member!, rolesD) ||
+                verifyRolesPermissions(interaction.member!, rolesE)){
+
                 for (const i of cargos2[interaction.values[0]]){
                     cargoEquipe.addOptions(
                         new StringSelectMenuOptionBuilder()
@@ -31,7 +33,9 @@ export async function execute(interaction: StringSelectMenuInteraction){
             break
 
         case "vagantes":
-            if (verifyRolesPermissions(interaction.member!, rolesD) || verifyRolesPermissions(interaction.member!, rolesV)){
+            if (verifyRolesPermissions(interaction.member!, rolesD) ||
+                verifyRolesPermissions(interaction.member!, rolesV)){
+
                 for (const i of cargos2[interaction.values[0]]){
                     cargoEquipe.addOptions(
                         new StringSelectMenuOptionBuilder()
@@ -45,7 +49,9 @@ export async function execute(interaction: StringSelectMenuInteraction){
             break
 
         case "naberios":
-            if (verifyRolesPermissions(interaction.member!, rolesD) || verifyRolesPermissions(interaction.member!, rolesN)){
+            if (verifyRolesPermissions(interaction.member!, rolesD) ||
+                verifyRolesPermissions(interaction.member!, rolesN)){
+
                 for (const i of cargos2[interaction.values[0]]){
                     cargoEquipe.addOptions(
                         new StringSelectMenuOptionBuilder()
@@ -59,7 +65,9 @@ export async function execute(interaction: StringSelectMenuInteraction){
             break
 
         case "gremorys":
-            if (verifyRolesPermissions(interaction.member!, rolesD) || verifyRolesPermissions(interaction.member!, rolesG)){
+            if (verifyRolesPermissions(interaction.member!, rolesD) ||
+                verifyRolesPermissions(interaction.member!, rolesG)){
+
                 for (const i of cargos2[interaction.values[0]]){
                     cargoEquipe.addOptions(
                         new StringSelectMenuOptionBuilder()

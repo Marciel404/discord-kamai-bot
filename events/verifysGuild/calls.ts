@@ -3,7 +3,7 @@ import { client } from "../../utils";
 import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 
-const roles: Array<any> = [
+const roles: Array<string> = [
     configData["roles"]["ntb"],
     configData["roles"]["nvl100"],
     configData["roles"]["staff"]["staff1"],

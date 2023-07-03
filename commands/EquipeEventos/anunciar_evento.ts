@@ -6,7 +6,8 @@ import embDb from "../../utils/embDb";
 export = {
     data: new SlashCommandBuilder()
     .setName("anunciar_evento")
-    .setDescription("Anuncia um evento"),
+    .setDescription("Anuncia um evento")
+    .setDMPermission(false),
     name: "anunciar_evento",
     aliases: ["anun_evento"],
     description: "Anuncia um evento",

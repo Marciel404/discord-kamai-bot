@@ -3,7 +3,8 @@ import { ChatInputCommandInteraction, Message, SlashCommandBuilder } from "disco
 export = {
     data: new SlashCommandBuilder()
     .setName("ping")
-    .setDescription("Envia meu ping"),
+    .setDescription("Envia meu ping")
+    .setDMPermission(false),
     name: "ping",
     aliases: ["ms"],
     description: "Envia meu delay",

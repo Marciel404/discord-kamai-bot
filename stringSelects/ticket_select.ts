@@ -1,8 +1,15 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, CategoryChannel, ChannelType, EmbedBuilder, GuildTextChannelType, OverwriteType, PermissionFlagsBits, Role, StringSelectMenuInteraction, TextChannel } from "discord.js";
+import {
+    ActionRowBuilder,
+    ButtonBuilder,
+    ChannelType,
+    EmbedBuilder,
+    OverwriteType,
+    PermissionFlagsBits,
+    StringSelectMenuInteraction
+    } from "discord.js";
 import { row } from "../funcsSuporte/components";
 import { configData } from "..";
 import moment from "moment";
-import { moddb } from "../db/moderation";
 
 export async function execute(interaction: StringSelectMenuInteraction) {
 

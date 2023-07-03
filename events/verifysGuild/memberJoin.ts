@@ -1,5 +1,5 @@
 import { GuildMember } from "discord.js";
-import { verifyAdvertenciaEntry, verifyRolesEntry } from "../../funcsSuporte/verifys";
+import { verifyAdvertenciaEntry } from "../../funcsSuporte/verifys";
 import { client } from "../../utils";
 import { configData } from "../..";
 
@@ -7,6 +7,5 @@ import { configData } from "../..";
 client.on("guildMemberAdd", async (member: GuildMember) => {
     if( member.guild.id === configData["guild"]){
         await verifyAdvertenciaEntry(member)
-        await verifyRolesEntry(member)
     }
 })

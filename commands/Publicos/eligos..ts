@@ -5,7 +5,8 @@ import { karaokeAct } from "../../db/eligos";
 export = {
     data: new SlashCommandBuilder()
     .setName("eligos")
-    .setDescription("Chama um eligo para reger o Karaokê"),
+    .setDescription("Chama um eligo para reger o Karaokê")
+    .setDMPermission(false),
     name: "eligos",
     aliases: ["regentes"],
     description: "Chama um eligo para reger o Karaokê",

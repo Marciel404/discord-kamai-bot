@@ -23,7 +23,8 @@ export = {
         option
         .setName("motivo")
         .setDescription("Motivo de mutar o membro")
-    ),
+    )
+    .setDMPermission(false),
     name: "tempmute",
     aliases: ["mute", "mutar"],
     description: "Muta um membro por uma quantidade de tempo",

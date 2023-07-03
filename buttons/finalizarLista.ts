@@ -2,7 +2,7 @@ import { ButtonInteraction } from "discord.js";
 import { configData } from "..";
 import { verifyRolesPermissions } from "../funcsSuporte/verifys";
 
-let roles: Array<any> = [
+let roles: Array<string> = [
     configData["roles"]["staff"]["staff1"],
     configData["roles"]["staff"]["staff2"],
     configData["roles"]["staff"]["asmodeus"],

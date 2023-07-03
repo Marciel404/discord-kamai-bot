@@ -16,7 +16,8 @@ export = {
         .setName("numero")
         .setDescription("Teste")
         .setRequired(true)
-    ),
+    )
+    .setDMPermission(false),
     name: "tabuada",
     description: "Envia a tabuada de um numero até 10",
     aliases: [],

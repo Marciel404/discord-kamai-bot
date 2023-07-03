@@ -5,7 +5,8 @@ import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 export = {
     data: new SlashCommandBuilder()
     .setName("embed")
-    .setDescription("Utilize o comando emb e siga os passos 😎"),
+    .setDescription("Utilize o comando emb e siga os passos 😎")
+    .setDMPermission(false),
     name: "embed",
     aliases: ["emb"],
     description: "Utilize o comando emb e siga os passos 😎",

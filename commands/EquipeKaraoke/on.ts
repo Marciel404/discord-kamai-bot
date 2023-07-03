@@ -7,7 +7,8 @@ import moment from "moment-timezone";
 export = {
     data: new SlashCommandBuilder()
     .setName("on")
-    .setDescription("Poe em estado de disponivel"),
+    .setDescription("Poe em estado de disponivel")
+    .setDMPermission(false),
     name: "on",
     aliases: [],
     description: "Poe em estado de disponivel",

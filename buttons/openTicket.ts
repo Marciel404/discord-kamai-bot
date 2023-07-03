@@ -1,7 +1,6 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, EmbedBuilder, OverwriteType, PermissionFlagsBits } from "discord.js"
 import { configData } from ".."
-import { adcTicket, moddb } from "../db/moderation"
-
+import { adcTicket } from "../db/moderation"
 
 export async function execute(interaction: ButtonInteraction){
 

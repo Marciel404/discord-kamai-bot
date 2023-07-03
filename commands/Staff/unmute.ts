@@ -16,7 +16,8 @@ export = {
         option
         .setName("motivo")
         .setDescription("Motivo de desmutar o membro")
-    ),
+    )
+    .setDMPermission(false),
     name: "unmute",
     aliases: ["desmutar"],
     description: "Desmuta um membro mutado",

@@ -7,6 +7,7 @@ import {
 import { configData } from "..";
 
 export async function execute(interaction: StringSelectMenuInteraction){
+    
     const valueI = interaction.values[0].split(" ");
     //await interaction.update({content:"Prontinho", embeds:[], components:[]})
     const embed = new EmbedBuilder()

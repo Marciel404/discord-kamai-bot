@@ -11,7 +11,7 @@ import { verifyRolesPermissions } from "../funcsSuporte/verifys"
 import { motivosList } from "../stringSelects/motivos";
 import { msgDelete } from "../funcsSuporte/messages";
 
-const roles: Array<any> = [
+const roles: Array<string> = [
     configData["roles"]["staff"]["staff1"],
     configData["roles"]["staff"]["staff2"]
 ]
