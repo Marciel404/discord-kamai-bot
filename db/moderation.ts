@@ -51,7 +51,7 @@ export async function rmvAdvertencia(warnid: string, guild: Guild){
 
         const m = await guild.members.fetch(member._id)!
 
-        if (member.communicationDisabledUntil){
+        if (m.communicationDisabledUntil){
             await member.timeout(null, "Remoção de advertencia");
         } 
         if (verifyRolesPermissions(m, [configData["roles"]["adv3"]])){
