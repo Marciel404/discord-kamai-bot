@@ -55,6 +55,7 @@ export = {
   channels: {
 
     scamlog: "1119642531832012921",
+    staff: "834172082829000791",
     anun_evento: "834172084451541042",
     participantes_evento: "834172084451541047",
     modlog: "834172083578732586",
@@ -65,7 +66,9 @@ export = {
     arte_post: "834172085654913062",
     poem_post: "834172086137913405",
     commands: "834172083578732590",
-    abaddon_voice: "834172087354130463"
+    abaddon_voice: "834172087354130463",
+    perguntadodia: "834172083172147202",
+    respostaperguntadodia: "834172083172147203"
 
   },
 

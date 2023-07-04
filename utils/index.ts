@@ -1,5 +1,6 @@
 import { Client, GatewayIntentBits, Options } from "discord.js";
 import { loadSlash, loadEvents } from "./Loaders";
+import { verifyQuestionOfDay } from "../funcsSuporte/verifys";
 
 export const client: any = new Client({
     makeCache: Options.cacheWithLimits({ MessageManager: 5000 }),
@@ -31,5 +32,6 @@ client.once("ready", (async (self: Client) => {
     self.user?.setStatus("idle")
     loadSlash(self.application?.id);
     loadEvents("./events")
+    await verifyQuestionOfDay(client)
     console.log("Eu entrei como " + self.user?.username);
 }));
