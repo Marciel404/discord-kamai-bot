@@ -35,7 +35,7 @@ class dbQuestions {
     }
 
     async getQuestions(){
-        if (! await this.dbquestions.exists("/questions")){
+        if (!await this.dbquestions.exists("/questions")){
             return false
         } else {
             let list: String[] = await this.dbquestions.getData("/questions") 

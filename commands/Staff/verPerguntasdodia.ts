@@ -7,14 +7,7 @@ export = {
     data: new SlashCommandBuilder()
     .setName("verperguntasdodia")
     .setDescription("Envia todas as perguntas registradas na db de perguntas")
-    .setDMPermission(false)
-    .addStringOption((option) => 
-        option
-        .setName("pergunta")
-        .setDescription("Pergunta para adicionar")
-        .setRequired(true)
-        .setMinLength(10)
-    ),
+    .setDMPermission(false),
     name: "verperguntasdodia",
     aliases: ["psdver", "vpsd"],
     description: "Envia todas as perguntas registradas na db de perguntas",
@@ -27,10 +20,10 @@ export = {
         if (!msg.guild) return
         if (!verifyRolesPermissions(msg.member!, this.roles)) return
 
-        if (! dbQuestions.getQuestions()){
+        if (!await dbQuestions.getQuestions()){
             return await msg.reply({content: "Não existe perguntas salvas na db"})
         }
-        await msg.reply({content:`Pergunta adicionada ${dbQuestions.getQuestions()}`, ephemeral: true})
+        await msg.reply({content:`Pergunta adicionada ${await dbQuestions.getQuestions()}`, ephemeral: true})
 
     }
 }

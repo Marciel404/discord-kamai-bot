@@ -26,11 +26,13 @@ export = {
 
         if (!msg.guild) return
         if (!verifyRolesPermissions(msg.member!, this.roles)) return
-        let question: string;
+        let question: string = "";
         if (msg.type != InteractionType.ApplicationCommand){
-            const msgArgs = msg.content.split(" ")
-            question = msg.content.substring(msgArgs.slice(0, 3).join(" ").length + 1)
-            
+            for (const p of msg.content.split(" ")) {
+                if (p != msg.content.split(" ")[0]) {
+                    question += `${p} `
+                }
+            }
         } else {
             question = msg.options.getString("pergunta")!
         }
