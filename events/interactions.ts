@@ -36,5 +36,6 @@ client.on("interactionCreate", async (interaction: BaseInteraction) => {
 		} catch (err) {
 			console.log(err)
 		};
+
 	};
 });

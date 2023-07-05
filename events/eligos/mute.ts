@@ -1,4 +1,4 @@
-import { AuditLogEvent, Colors, EmbedBuilder, VoiceState } from "discord.js";
+import { Colors, EmbedBuilder, VoiceState } from "discord.js";
 import { client } from "../../utils";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 import { configData } from "../..";
@@ -7,7 +7,7 @@ client.on("voiceStateUpdate", async (old_state: VoiceState, new_state: VoiceStat
 
     let embed = new EmbedBuilder()
 
-    if (old_state.selfMute && old_state.serverMute) {
+    if ( !old_state.selfMute && old_state.serverMute) {
 
         let auditlog = await new_state.guild.fetchAuditLogs({limit: 1, type: 24})
         let auditInfos = auditlog.entries.first()
@@ -29,7 +29,7 @@ client.on("voiceStateUpdate", async (old_state: VoiceState, new_state: VoiceStat
 
         }
 
-    } else if (new_state.selfMute && new_state.serverMute){
+    } else if (!new_state.selfMute && new_state.serverMute){
 
         let auditlog = await new_state.guild.fetchAuditLogs({limit: 1, type: 24})
         let auditInfos = auditlog.entries.first()

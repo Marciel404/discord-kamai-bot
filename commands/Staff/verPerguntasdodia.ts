@@ -23,7 +23,14 @@ export = {
         if (!await dbQuestions.getQuestions()){
             return await msg.reply({content: "Não existe perguntas salvas na db"})
         }
-        await msg.reply({content:`Pergunta adicionada ${await dbQuestions.getQuestions()}`, ephemeral: true})
+
+        let questionsOrg = ""
+
+        for ( const q of await dbQuestions.getQuestions() as String[]){
+            questionsOrg += `${q}\n\n`
+        }
+
+        await msg.reply({content:`Perguntas Salvas \n${questionsOrg}`, ephemeral: true})
 
     }
 }
