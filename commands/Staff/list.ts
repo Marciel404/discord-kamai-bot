@@ -34,17 +34,14 @@ export = {
         } else {
             Id = msg.options.getUser("member")!.id
         }
-        
+
         if(await warn_list(Id)) {
-
             await msg.reply({
-                embeds: [{description: `${await warn_list(Id)}`}]
+                embeds: [{description: `${await warn_list(Id)}`}],
+                ephemeral: true
             })
-
         } else {
-            
-            await msg.reply({content:"Esse membro não possue advertencias"})
-            
+            await msg.reply({content:"Esse membro não possue advertencias", ephemeral: true})
         }
     }
 }

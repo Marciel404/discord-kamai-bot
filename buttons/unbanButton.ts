@@ -34,7 +34,7 @@ export async function execute(interaction: ButtonInteraction) {
 
     const row = new ActionRowBuilder<any>()
     .addComponents(button1, button2);
-    
+
     collector.on("collect", async (message: Message) => {
 
         let desc: string = ""
@@ -51,14 +51,15 @@ export async function execute(interaction: ButtonInteraction) {
                 let msg = await interaction.channel!.send({content: `${i} não é um usuario`})
                 msgDelete(msg,3000)
             }
-                
+
         }
+
         if (desc.length == 0) {
             await interaction.editReply({content: "Não consegui desbabanir ninguem"});
             msgDelete(message,0)
             return
         }
-        
+
         embed.setDescription(desc)
 
         await interaction.channel!.send(
@@ -69,6 +70,6 @@ export async function execute(interaction: ButtonInteraction) {
         )
 
         msgDelete(message,0)
-        
+
     })   
 }
