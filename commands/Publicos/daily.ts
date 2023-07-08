@@ -50,8 +50,6 @@ export = {
 
                     timestampc = cooldowns.get(`${member.id}`).timestamp;
 
-                    await setCoolDown(member, "economy.daily.last", timestampc)
-
                 }
 
             } catch (err) {
@@ -117,7 +115,7 @@ export = {
 
             await msg.reply(
                 {
-                    content: `Você só pode utilizar esse comando em ${moment(cooldowns.get(`${member.id}`).timestamp).tz("America/Sao_Paulo").toDate()}`,
+                    content: `Você só pode utilizar esse comando em ${moment(cooldowns.get(`${member.id}`).timestamp).tz("America/Sao_Paulo").format()}`,
                     ephemeral: true
                 }
             )

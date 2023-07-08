@@ -1,4 +1,4 @@
-import { Guild, User } from "discord.js";
+import { APIUser, Guild, User } from "discord.js";
 import { verifyRolesPermissions } from "../funcsSuporte/verifys";
 import { configData } from "..";
 
@@ -10,7 +10,7 @@ export const moddb = db.collection("moderação")
 export const memberManegements = db.collection("memberManegements")
 
 
-export async function setCoolDown(member: User, cooldownType: string, cooldown: any) {
+export async function setCoolDown(member: User | APIUser, cooldownType: string, cooldown: any) {
 
     await memberManegements.updateOne(
         {_id: member.id},
