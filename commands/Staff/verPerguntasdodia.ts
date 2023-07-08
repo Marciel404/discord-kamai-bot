@@ -20,6 +20,10 @@ export = {
         if (!msg.guild) return
         if (!verifyRolesPermissions(msg.member!, this.roles)) return
 
+        if (msg.type == InteractionType.ApplicationCommand){
+            await msg.deferReply({ephemeral: true})
+        }
+
         if (!await dbQuestions.getQuestions()){
             return await msg.reply({content: "Não existe perguntas salvas na db"})
         }
@@ -28,9 +32,21 @@ export = {
 
         for ( const q of await dbQuestions.getQuestions() as String[]){
             questionsOrg += `${q}\n\n`
+            if (msg.type == InteractionType.ApplicationCommand){
+                if (questionsOrg.length == 500){
+                    await msg.followUp({content:`Perguntas Salvas \n${questionsOrg}`, ephemeral: true})
+                    questionsOrg = ""
+                } else {
+                    await msg.followUp({content:`Perguntas Salvas \n${questionsOrg}`, ephemeral: true})
+                }
+            } else {
+                if (questionsOrg.length == 500){
+                    await msg.reply({content:`Perguntas Salvas \n${questionsOrg}`})
+                    questionsOrg = ""
+                } else {
+                    await msg.reply({content:`Perguntas Salvas \n${questionsOrg}`})
+                }
+            }
         }
-
-        await msg.reply({content:`Perguntas Salvas \n${questionsOrg}`, ephemeral: true})
-
     }
 }

@@ -4,13 +4,14 @@ export = {
     data: new SlashCommandBuilder()
     .setName("avatar")
     .setDescription("Envia o avatar de um membro")
-    .setDMPermission(false)
     .addUserOption((option) => 
         option
             .setName("membro")
             .setDescription("Membro para ver o avatar")
-    ),
+    )
+    .setDMPermission(false),
     name: "avatar",
+    description: "Envia o avatar de um membro",
     aliases: ["profilepic"],
     async execute(msg: Message | ChatInputCommandInteraction){
 

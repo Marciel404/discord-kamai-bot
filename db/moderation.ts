@@ -1,4 +1,4 @@
-import { Guild } from "discord.js";
+import { Guild, User } from "discord.js";
 import { verifyRolesPermissions } from "../funcsSuporte/verifys";
 import { configData } from "..";
 
@@ -9,6 +9,39 @@ const db = cluster.db(process.env.database_name)
 export const moddb = db.collection("moderação")
 export const memberManegements = db.collection("memberManegements")
 
+
+export async function setCoolDown(member: User, cooldownType: string, cooldown: any) {
+
+    await memberManegements.updateOne(
+        {_id: member.id},
+        {$set: {[cooldownType]: cooldown}},
+        {upsert: true}
+    )
+
+}
+export async function daily_set(member: User, sequencia: Number){
+    if (sequencia == 0){
+        await memberManegements.updateOne({_id: member.id},{$set:{"economy.daily.sequencia": 0}}, {upsert:true})
+    } else {
+        await memberManegements.updateOne({_id: member.id},{$inc:{"economy.daily.sequencia": 1}}, {upsert:true})
+    }
+}
+export async function getDailyVal(member: User){
+    const val = await memberManegements.findOne({_id: member.id})
+    let streak = 1 + val.economy.daily.sequencia
+    let money = parseInt( `${Math.log10(streak) * configData.rewards.daily}` ) + configData.rewards.daily
+    await add_money(member, money)
+    return money
+}
+export async function add_money(member: User, qnt: Number){
+
+    await memberManegements.updateOne(
+        {_id: member.id},
+        {$inc: {"economy.money": qnt}},
+        {upsert: true}
+    )
+
+}
 export function adcTicket(qnt: any){
     moddb.updateOne(
         {_id: "kamaiMod"},

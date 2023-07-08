@@ -99,6 +99,9 @@ export = {
 
     log_admin: "834172082500927497"
 
+  },
+  rewards: {
+    daily: 100
   }
 
 }

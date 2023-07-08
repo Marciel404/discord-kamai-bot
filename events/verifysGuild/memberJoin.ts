@@ -5,7 +5,10 @@ import { configData } from "../..";
 
 //Verifys member join
 client.on("guildMemberAdd", async (member: GuildMember) => {
-    if( member.guild.id === configData["guild"]){
-        await verifyAdvertenciaEntry(member)
+    try {
+        if( member.guild.id === configData["guild"]){
+            await verifyAdvertenciaEntry(member)
+        }
+    } catch {
     }
 })
