@@ -111,6 +111,8 @@ export = {
 
             }
 
+            cooldowns.set(member.id, date1.add(1,"day").unix()*1000)
+
         } else {
 
             await msg.reply(
