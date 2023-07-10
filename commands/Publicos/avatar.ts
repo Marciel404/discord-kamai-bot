@@ -1,4 +1,6 @@
 import { ChatInputCommandInteraction, InteractionType, Message, SlashCommandBuilder, User } from "discord.js";
+import { configData } from "../..";
+import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 
 export = {
     data: new SlashCommandBuilder()
@@ -14,6 +16,8 @@ export = {
     description: "Envia o avatar de um membro",
     aliases: ["profilepic"],
     async execute(msg: Message | ChatInputCommandInteraction){
+
+        if (!verifyRolesPermissions(msg.member!,[configData.roles.staff.staff1, configData.roles.staff.staff2]) && msg.channel?.id != configData["channels"]["commands"]) return
 
         let member: any;
 

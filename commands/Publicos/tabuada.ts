@@ -6,6 +6,8 @@ import {
     Message,
     InteractionType,
   }  from "discord.js";
+import { configData } from "../..";
+import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 
 export = {
     data: new SlashCommandBuilder()
@@ -21,17 +23,19 @@ export = {
     name: "tabuada",
     description: "Envia a tabuada de um numero até 10",
     aliases: [],
-    async execute(arg: Message | ChatInputCommandInteraction) {
+    async execute(msg: Message | ChatInputCommandInteraction) {
+
+      if (!verifyRolesPermissions(msg.member!,[configData.roles.staff.staff1, configData.roles.staff.staff2]) && msg.channel?.id != configData["channels"]["commands"]) return
 
       let valor = 0;
-      if (arg.type != InteractionType.ApplicationCommand){
-        if (!arg.content.split(" ")[1]?.match(/[0-9]/)) return await arg.reply({content: "argumento valor necessario"})
-        valor = parseInt(arg.content.split(" ")[1])
+      if (msg.type != InteractionType.ApplicationCommand){
+        if (!msg.content.split(" ")[1]?.match(/[0-9]/)) return await msg.reply({content: "argumento valor necessario"})
+        valor = parseInt(msg.content.split(" ")[1])
       } else {
-        valor = arg.options.getNumber("numero")!
+        valor = msg.options.getNumber("numero")!
       }
 
-      if (valor <= 0) { return await arg.reply({content: "O numero precisa ser maior que 0", ephemeral: true})}
+      if (valor <= 0) { return await msg.reply({content: "O numero precisa ser maior que 0", ephemeral: true})}
 
 
       const e = new EmbedBuilder()
@@ -43,7 +47,7 @@ export = {
         e.addFields({name: `${valor} x ${x}`, value: `${i}`})
       }
 
-      await arg.reply({embeds: [e], ephemeral: true})
+      await msg.reply({embeds: [e], ephemeral: true})
 
 	},
 }

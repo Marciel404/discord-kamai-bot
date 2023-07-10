@@ -1,6 +1,8 @@
 import { ChatInputCommandInteraction, Collection, InteractionType, Message, SlashCommandBuilder } from "discord.js";
-import { add_money, memberManegements, setCoolDown } from "../../db/moderation";
+import { inc_money, memberManegements, setCoolDown } from "../../db/moderation";
 import moment from "moment-timezone";
+import { configData } from "../..";
+import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 
 const cooldowns: Collection<string, any> = new Collection()
 
@@ -13,6 +15,8 @@ export = {
     aliases: ["dice", "dado", "dados", "dices"],
     description: "Role o dado de 1000 lados e tente a sorte",
     async execute(msg: Message | ChatInputCommandInteraction){
+
+        if (!verifyRolesPermissions(msg.member!,[configData.roles.staff.staff1, configData.roles.staff.staff2]) && msg.channel?.id != configData["channels"]["commands"]) return
 
         const tier5 = 990
         const tier4 = 950
@@ -83,7 +87,7 @@ export = {
                 
                 if (value >= tier5){
 
-                    await add_money(member, 2000)
+                    await inc_money(member, 2000)
 
                     emb = {
 
@@ -97,7 +101,7 @@ export = {
 
                 } else if (value >= tier4){
 
-                    await add_money(member, 1000)
+                    await inc_money(member, 1000)
 
                     emb = {
 
@@ -111,7 +115,7 @@ export = {
                     
                 } else if (value >= tier3){
 
-                    await add_money(member,200)
+                    await inc_money(member,200)
 
                     emb = {
 
@@ -125,7 +129,7 @@ export = {
                     
                 } else if (value >= tier2){
 
-                    await add_money(member, 100)
+                    await inc_money(member, 100)
 
                     emb = {
 
@@ -139,7 +143,7 @@ export = {
                     
                 } else if (value >= tier1){
 
-                    await add_money(member, 30)
+                    await inc_money(member, 30)
 
                     emb = {
 
@@ -163,13 +167,13 @@ export = {
 
             } else {
 
-                await setCoolDown(member,"cooldownRow", moment(msg.createdTimestamp).add(4, "hours").tz("America/Sao_Paulo").unix()*1000)
+                await setCoolDown(member,"cooldownRow", moment(msg.createdTimestamp).add(2, "hours").tz("America/Sao_Paulo").unix()*1000)
 
-                cooldowns.set(`${member.id}`, {timestamp: moment(msg.createdTimestamp).add(4, "hours").tz("America/Sao_Paulo").unix()*1000, vezes: 4})
+                cooldowns.set(`${member.id}`, {timestamp: moment(msg.createdTimestamp).add(2, "hours").tz("America/Sao_Paulo").unix()*1000, vezes: 4})
 
                 await msg.reply(
                     {
-                        content: `Você só pode utilizar esse comando em ${moment(cooldowns.get(`${member.id}`).timestamp).tz("America/Sao_Paulo").toDate()}`,
+                        content: `Você só pode utilizar esse comando em ${moment(cooldowns.get(`${member.id}`).timestamp).tz("America/Sao_Paulo").format("DD/MM/YYYY HH:mm a")}`,
                         ephemeral: true
                     }
                 )
@@ -180,7 +184,7 @@ export = {
 
             await msg.reply(
                 {
-                    content: `Você só pode utilizar esse comando em ${moment(cooldowns.get(`${member.id}`).timestamp).tz("America/Sao_Paulo").format()}`,
+                    content: `Você só pode utilizar esse comando em ${moment(cooldowns.get(`${member.id}`).timestamp).tz("America/Sao_Paulo").format("DD/MM/YYYY HH:mm a")}`,
                     ephemeral: true
                 }
             )
