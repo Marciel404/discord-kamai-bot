@@ -28,24 +28,11 @@ export = {
             return await msg.reply({content: "Não existe perguntas salvas na db"})
         }
 
-        let questionsOrg = ""
-
         for ( const q of await dbQuestions.getQuestions() as String[]){
-            questionsOrg += `${q}\n\n`
             if (msg.type == InteractionType.ApplicationCommand){
-                if (questionsOrg.length == 500){
-                    await msg.followUp({content:`Perguntas Salvas \n${questionsOrg}`, ephemeral: true})
-                    questionsOrg = ""
-                } else {
-                    await msg.followUp({content:`Perguntas Salvas \n${questionsOrg}`, ephemeral: true})
-                }
+                await msg.followUp({content:`Perguntas Salvas \n${q}`, ephemeral: true})
             } else {
-                if (questionsOrg.length == 500){
-                    await msg.reply({content:`Perguntas Salvas \n${questionsOrg}`})
-                    questionsOrg = ""
-                } else {
-                    await msg.reply({content:`Perguntas Salvas \n${questionsOrg}`})
-                }
+                await msg.reply({content:`Perguntas Salvas \n${q}`})
             }
         }
     }

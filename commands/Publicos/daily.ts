@@ -113,9 +113,10 @@ export = {
 
             }
 
-            await setCoolDown(member, "cooldownDaily", date1.add(1,"day").unix()*1000)
-            await setCoolDown(member, "economy.daily.last", date1.unix()*1000)
-            cooldowns.set(member.id, {timestamp: date1.add(1,"day").unix()*1000})
+            await setCoolDown(member, "economy.daily.last", date1.tz("America/Sao_Paulo").unix()*1000)
+            const cooldown = date1.add(1,"day").tz("America/Sao_Paulo").unix()*1000
+            await setCoolDown(member, "cooldownDaily", cooldown)
+            cooldowns.set(member.id, {timestamp: cooldown})
 
         } else {
 

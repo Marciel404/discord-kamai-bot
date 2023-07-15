@@ -15,7 +15,7 @@ export = {
         configData["roles"]["staff"]["astaroth"]
     ],
     description: "Remove uma advertencia de um membro",
-    async execute(msg: Message | ChatInputCommandInteraction) {
+    async execute (msg: Message | ChatInputCommandInteraction) {
 
         if (!msg.guild) return
 
@@ -35,5 +35,5 @@ export = {
             await msg.reply({content: "Não encontrei essa advertencia"})
         }
 
-    },
+    }
 }

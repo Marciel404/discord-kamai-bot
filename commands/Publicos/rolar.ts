@@ -53,6 +53,7 @@ export = {
                     timestampc = cooldowns.get(`${member.id}`).timestamp;
 
                 } else {
+
                     cooldowns.set(member.id, {timestamp: moment(msg.createdTimestamp).tz("America/Sao_Paulo").unix()*1000, vezes: 4});
 
                     timestampc = cooldowns.get(member.id).timestamp;
@@ -162,7 +163,7 @@ export = {
                 await msg.reply({embeds: [emb], ephemeral: true})
 
                 if (count == 1){
-                    await setCoolDown(member,"cooldownRow", moment(msg.createdTimestamp).add(4, "hours").tz("America/Sao_Paulo").unix()*1000)
+                    await setCoolDown(member,"cooldownRow", moment(msg.createdTimestamp).add(2, "hours").tz("America/Sao_Paulo").unix()*1000)
                 }
 
             } else {

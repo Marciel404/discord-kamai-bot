@@ -56,6 +56,7 @@ export = {
   channels: {
 
     scamlog: "932619563919630376",
+    desban_log: "1123031986475368579",
     staff: "624079796556529676",
     anun_evento: "838163782592757820",
     participantes_evento: "1084206578699345960",

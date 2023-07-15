@@ -97,7 +97,7 @@ export async function execute(interaction: ButtonInteraction) {
                         {name:"Data", value: `${(moment(new Date(dt))).format("DD/MM/YYYY HH:mm")}`, inline: false}
                     )
                     await interaction.guild!.bans.remove(user.id);
-                    const channel: any = await interaction.guild!.channels.fetch(configData["channels"]["modlog"])
+                    const channel: any = await interaction.guild!.channels.fetch(configData["channels"]["desban_log"])
                     await channel.send({
                         embeds: [eR]
                     })
