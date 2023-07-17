@@ -1,6 +1,7 @@
 import { GuildMember, PartialGuildMember, TextChannel } from "discord.js";
 import { client } from "../../utils";
 import { configData } from "../..";
+import logger from "../../logger";
 
 client.on("guildMemberRemove", async (member: GuildMember | PartialGuildMember)  =>{
 
@@ -10,7 +11,7 @@ client.on("guildMemberRemove", async (member: GuildMember | PartialGuildMember) 
             let channel: any = member.guild.channels.cache.find(channel => channel.type === 0 && channel.name.includes("log"))
             await channel.send({content: `👈 ${member.user.username}(${member.id}) saiu do server`})
         } catch (err) {
-            console.log(err)
+            logger.error(err)
         }
     }
 })

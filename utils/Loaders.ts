@@ -1,5 +1,6 @@
 import { Routes, Collection } from "discord.js";
 import fs from "fs";
+import logger from "../logger";
 
 const {REST} = require("discord.js");
 const rest = new REST().setToken(process.env.token);
@@ -18,8 +19,9 @@ export async function loadCommandsPrefix(path:  fs.PathLike, command: string = "
                     if (cmd && cmd.name == `${command}` || cmd.aliases && cmd.aliases.includes(command)){
                         try {
                             await cmd.execute(msg)
+                            logger.usage(msg.author, command)
                         } catch (err) {
-                            await msg.reply({content: `${err}`})
+                            logger.error(err)
                         };
                     };
                 });
@@ -46,7 +48,6 @@ export function loadCommandsSlash(path: fs.PathLike) {
                 });
             };
         });
-
     } catch (err) {
         console.log(err)
     };

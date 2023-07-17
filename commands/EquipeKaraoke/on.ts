@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction, InteractionType, Message, SlashCommandBuilder } from "discord.js"
 import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
-import { karaokeAct } from "../../db/eligos";
+import { karaokeAct } from "../../db/equipes";
 import moment from "moment-timezone";
 
 export = {

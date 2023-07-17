@@ -25,7 +25,7 @@ export = {
 
         if (msg.type == InteractionType.ApplicationCommand){
 
-            await msg.deferReply({ephemeral:true})
+            await msg.deferReply({ephemeral: true})
 
             if (!embListed) return await msg.followUp({ embeds: [{ description: "Nenhum embed registrado ainda", color: Colors.Red }], ephemeral: true })
 

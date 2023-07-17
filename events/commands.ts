@@ -2,6 +2,7 @@ import { Message } from "discord.js";
 import { configData } from "..";
 import { loadCommandsPrefix } from "../utils/Loaders";
 import { client } from "../utils/index";
+import logger from "../logger";
 
 //Commands prefix Administrator
 client.on("messageCreate", async (msg: Message) => {
@@ -13,6 +14,6 @@ client.on("messageCreate", async (msg: Message) => {
 	try {
 		await loadCommandsPrefix("./commands", commandName, msg)
 	} catch (err) {
-		await msg.reply({content: `Error: ${err}`})
+		logger.error(err)
 	};
 });

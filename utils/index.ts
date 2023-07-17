@@ -1,6 +1,7 @@
-import { Client, GatewayIntentBits, Options } from "discord.js";
+import { ActivityFlags, ActivityFlagsBitField, ActivityType, Client, GatewayIntentBits, Options, PresenceUpdateStatus } from "discord.js";
 import { loadSlash, loadEvents } from "./Loaders";
 import { verifyQuestionOfDay } from "../funcsSuporte/verifys";
+import logger from "../logger";
 
 export const client: any = new Client({
     makeCache: Options.cacheWithLimits({ MessageManager: 5000 }),
@@ -10,7 +11,7 @@ export const client: any = new Client({
         GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildModeration,
-        GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.GuildVoiceStates
     ]
 });
 
@@ -19,5 +20,6 @@ client.once("ready", (async (self: Client) => {
     loadSlash(self.application?.id);
     loadEvents("./events")
     await verifyQuestionOfDay(client)
+    logger.clear()
     console.log("Eu entrei como " + self.user?.username);
 }));

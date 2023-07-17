@@ -1,6 +1,7 @@
 import { Colors, GuildMember, PartialGuildMember, PermissionFlagsBits } from "discord.js";
 import { client } from "../../utils";
 import { configData } from "../..";
+import logger from "../../logger";
 
 client.on("guildMemberAdd", async (member: GuildMember | PartialGuildMember)  =>{
 
@@ -48,7 +49,7 @@ Responda as seguintes indagações e aguarde a resposta de seu unban. Caso queir
             let channel: any = member.guild.channels.cache.find(channel => channel.type === 0 && channel.name.includes("log"))
             await channel.send({content: `👉 ${member.user.username}(${member.id}) entrou do server`})
         } catch (err) {
-            console.log(err)
+            logger.error(err)
         }
     }
 })

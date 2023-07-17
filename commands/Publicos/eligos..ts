@@ -1,6 +1,6 @@
 import { ChatInputCommandInteraction, Message, SlashCommandBuilder } from "discord.js";
 import { configData } from "../..";
-import { karaokeAct } from "../../db/eligos";
+import { karaokeAct } from "../../db/equipes";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 
 export = {

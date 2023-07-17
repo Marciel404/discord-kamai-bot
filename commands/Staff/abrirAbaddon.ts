@@ -1,6 +1,7 @@
 import { Colors, Message, SlashCommandBuilder, ChatInputCommandInteraction, InteractionType, User, TextChannel } from "discord.js";
 import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
+import logger from "../../logger";
 
 export = {
     data: new SlashCommandBuilder()
@@ -89,7 +90,7 @@ export = {
                 }
             }
         } catch (error) {
-            console.log(error)
+            logger.error(error)
         }
     }
 }
@@ -125,14 +126,14 @@ async function open(msg: Message){
 
             } catch (error) {
 
-                console.log(error)
+                logger.error(error)
 
             }
 
         }, 5000)
 
     } catch (error) {
-        console.log(error)
+        logger.error(error)
     }
     
 

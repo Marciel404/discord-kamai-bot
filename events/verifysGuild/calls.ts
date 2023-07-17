@@ -2,6 +2,7 @@ import { ChannelType, OverwriteType, PermissionFlagsBits, VoiceState } from "dis
 import { client } from "../../utils";
 import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
+import logger from "../../logger";
 
 const roles: Array<string> = [
     configData["roles"]["ntb"],
@@ -54,6 +55,7 @@ client.on("voiceStateUpdate", async (old_state: VoiceState, new_state: VoiceStat
         } else if (old_state.channel && old_state.channel.name.indexOf("PV [") >= 0 && old_state.channel.members.size === 0){
             await old_state.channel.delete("O canal pv ficou vazio")
         }
-    } catch {
+    } catch (err) {
+        logger.error(err)
     }
 })

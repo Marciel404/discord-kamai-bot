@@ -1,6 +1,7 @@
 import { Colors, EmbedBuilder, Message, MessageType } from "discord.js";
 import { client } from "../../utils";
 import { configData } from "../..";
+import logger from "../../logger";
 
 client.on("messageCreate", async (message: Message) => {
 
@@ -33,7 +34,7 @@ ${message.content}
         }
     } catch (err) {
 
-        console.log(err)
+        logger.error(err)
 
     }
 })

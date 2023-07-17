@@ -1,6 +1,7 @@
 import { APIUser, Guild, User } from "discord.js";
 import { verifyRolesPermissions } from "../funcsSuporte/verifys";
 import { configData } from "..";
+import logger from "../logger";
 
 const { MongoClient } = require("mongodb");
 
@@ -164,7 +165,7 @@ export async function warn_list(user_id: string) {
         }
   
     } catch (err) {
-      console.log(err)
+      logger.error(err)
     }
 }
 export async function notifyList(user_id: string) {
@@ -188,6 +189,6 @@ export async function notifyList(user_id: string) {
         }
 
     } catch (err) {
-        console.log(err)
+        logger.error(err)
     }
 }

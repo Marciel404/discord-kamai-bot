@@ -76,7 +76,7 @@ export = {
 
         const count = cooldowns.get(`${member.id}`).vezes
 
-        if (date1.date()-date2.date() == 0 && date1.hour()-date2.hour() >=0 || date1.date()-date2.date() >= 1){
+        if (date1.date()-date2.date() == 0 && date1.hour()-date2.hour() >= 0 || date1.date()-date2.date() >= 1){
 
             const value = parseInt(`${Math.random()*1000}`)
 
@@ -164,6 +164,7 @@ export = {
 
                 if (count == 1){
                     await setCoolDown(member,"cooldownRow", moment(msg.createdTimestamp).add(2, "hours").tz("America/Sao_Paulo").unix()*1000)
+                    cooldowns.set(`${member.id}`, {timestamp: moment(msg.createdTimestamp).add(2, "hours").tz("America/Sao_Paulo").unix()*1000, vezes: 4})
                 }
 
             } else {

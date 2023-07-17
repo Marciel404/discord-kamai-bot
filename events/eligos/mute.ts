@@ -2,6 +2,7 @@ import { Colors, EmbedBuilder, VoiceState } from "discord.js";
 import { client } from "../../utils";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 import { configData } from "../..";
+import logger from "../../logger";
 
 client.on("voiceStateUpdate", async (old_state: VoiceState, new_state: VoiceState) => {
 
@@ -53,7 +54,7 @@ client.on("voiceStateUpdate", async (old_state: VoiceState, new_state: VoiceStat
 
             }
         }
-    }
-    catch {
+    } catch (err) {
+        logger.error(err)
     }
 })

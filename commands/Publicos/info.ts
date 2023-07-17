@@ -1,4 +1,4 @@
-import { APIGuildMember, ChatInputCommandInteraction, GuildMember, InteractionType, Message, SlashCommandBuilder } from "discord.js";
+import { APIGuildMember, ChatInputCommandInteraction, GuildMember, InteractionType, Message, SlashCommandBuilder, User } from "discord.js";
 import { memberManegements } from "../../db/moderation";
 import moment from "moment";
 
@@ -103,6 +103,5 @@ export = {
     
         badges=badges.join("")
         return badges;
-    }
-
+    },
 }

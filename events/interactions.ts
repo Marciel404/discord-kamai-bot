@@ -1,6 +1,7 @@
 import { BaseInteraction } from "discord.js";
 import { commandSlash } from "../utils/Loaders";
 import { client } from "../utils/index";
+import logger from "../logger";
 
 //Interactions administrator
 client.on("interactionCreate", async (interaction: BaseInteraction) => {
@@ -13,12 +14,13 @@ client.on("interactionCreate", async (interaction: BaseInteraction) => {
 		};
 
 		try {
+			logger.usage(interaction.user, command.name)
 			await command.execute(interaction);
-		} catch (error) {
+		} catch (err) {
 			if (interaction.replied || interaction.deferred) {
-				await interaction.followUp({ content: `${error}`, ephemeral: true });
+				logger.error(err)
 			} else {
-				await interaction.reply({ content: `${error}`, ephemeral: true });
+				logger.error(err)
 			};
 		};
 	} else if (interaction.isButton()) {
@@ -26,7 +28,7 @@ client.on("interactionCreate", async (interaction: BaseInteraction) => {
 		try{
 			await require(`../buttons/${interaction.customId}`).execute(interaction)
 		} catch (err) {
-			console.log(err)
+			logger.error(err)
 		};
 
 	} else if (interaction.isStringSelectMenu()){
@@ -34,7 +36,7 @@ client.on("interactionCreate", async (interaction: BaseInteraction) => {
 		try{
 			await require(`../stringSelects/${interaction.customId}`).execute(interaction)
 		} catch (err) {
-			console.log(err)
+			logger.error(err)
 		};
 
 	};
