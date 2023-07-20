@@ -1,6 +1,7 @@
-import { Message } from "discord.js"
+import { Message, SlashCommandBuilder, SlashCommandSubcommandGroupBuilder } from "discord.js"
 import { configData } from "../..";
 import logger from "../../logger";
+import { addReaction } from "../../funcsSuporte/messages";
 
 export = {
     name: "teste",
@@ -10,7 +11,9 @@ export = {
 
         if (!msg.guild) return
 
-        await msg.guild.members.fetch(msg.content.split(" ")[1])
- 
+        const msg2 = await msg.reply({content: "GEsge"})
+
+        await addReaction(msg2, ["👩", "🐍"])
+
     }
 }

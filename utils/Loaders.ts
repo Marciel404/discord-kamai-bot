@@ -74,9 +74,11 @@ export async function loadSlash(CLIENT_ID: any){
     try {
         const data = await rest.put(Routes.applicationCommands(CLIENT_ID),{ body: commands });
         console.log(`Registrei ${data.length} Slash Commands.`);
-    } catch (error) {
-        console.log(error);
+    } catch (error: any) {
+        console.log(error)
     };
 };
+
+
 
 loadCommandsSlash("./commands")
