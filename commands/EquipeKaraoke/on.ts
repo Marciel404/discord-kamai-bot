@@ -3,6 +3,7 @@ import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 import { karaokeAct } from "../../db/equipes";
 import moment from "moment-timezone";
+import logger from "../../logger";
 
 export = {
     data: new SlashCommandBuilder()
@@ -47,7 +48,7 @@ export = {
             }
             
         } catch (err){
-            console.log(err)
+            logger.error(err)
         }
         
     },

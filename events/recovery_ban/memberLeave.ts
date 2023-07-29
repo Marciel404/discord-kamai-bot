@@ -1,4 +1,4 @@
-import { GuildMember, PartialGuildMember, TextChannel } from "discord.js";
+import { EmbedBuilder, GuildMember, Message, PartialGuildMember, TextChannel } from "discord.js";
 import { client } from "../../utils";
 import { configData } from "../..";
 import logger from "../../logger";

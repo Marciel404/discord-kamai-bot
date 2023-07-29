@@ -56,7 +56,7 @@ export = {
             
             if(msgedit.length > 2000) return await msg.channel.send(msg.author.toString()+" Mensagem invalida. Verifique seu conteudo")
             
-            const canal = client.channels.cache.find((channel: any) =>channel.id === msgArgs[1])
+            const canal = await msg.guild.channels.fetch(msgArgs[1]) as TextChannel
             
             if(!canal) return await msg.channel.send({content: msg.author.toString(), embeds:[{ description:"Não foi possivel achar o canal", color: Colors.Red}]})
             

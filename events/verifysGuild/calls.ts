@@ -1,4 +1,4 @@
-import { ChannelType, OverwriteType, PermissionFlagsBits, VoiceState } from "discord.js";
+import { ChannelType, Message, OverwriteType, PermissionFlagsBits, VoiceState } from "discord.js";
 import { client } from "../../utils";
 import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";

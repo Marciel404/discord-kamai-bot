@@ -1,9 +1,9 @@
-import { ActivityFlags, ActivityFlagsBitField, ActivityType, Client, GatewayIntentBits, Options, PresenceUpdateStatus } from "discord.js";
+import { Client, GatewayIntentBits, Options, version } from "discord.js";
 import { loadSlash, loadEvents } from "./Loaders";
 import { verifyQuestionOfDay } from "../funcsSuporte/verifys";
 import logger from "../logger";
 
-export const client: any = new Client({
+export const client: Client = new Client({
     makeCache: Options.cacheWithLimits({ MessageManager: 5000 }),
     intents: [
         GatewayIntentBits.MessageContent,
