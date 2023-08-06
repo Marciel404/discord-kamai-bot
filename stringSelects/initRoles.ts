@@ -5,7 +5,7 @@ import {
     StringSelectMenuBuilder,
     StringSelectMenuInteraction,
     StringSelectMenuOptionBuilder
-    } from "discord.js";
+} from "discord.js";
 import { msgDelete } from "../funcsSuporte/messages";
 
 const cargos1: Array<any> = [

@@ -6,7 +6,7 @@ import {
     OverwriteType,
     PermissionFlagsBits,
     StringSelectMenuInteraction
-    } from "discord.js";
+} from "discord.js";
 import { row } from "../funcsSuporte/components";
 import { configData } from "..";
 import moment from "moment";

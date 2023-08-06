@@ -7,8 +7,8 @@ import {
     StringSelectMenuInteraction,
     StringSelectMenuOptionBuilder,
     range
-    } from "discord.js";
-import embDb from "../utils/embDb";
+} from "discord.js";
+import embDb from "../utils/dbEmb";
 import { row } from "../funcsSuporte/components";
 
 export async function execute(interaction: StringSelectMenuInteraction){

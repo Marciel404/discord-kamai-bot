@@ -40,7 +40,7 @@ export function loadCommandsSlash(path: fs.PathLike) {
                         if (files.endsWith(".ts") || files.endsWith(".js")) {
                             let command = require(`.${path}/${name}/${files}`)
                             if (command.data){
-                                commands.push(command.data)
+                                commands.push(command.data.toJSON())
                                 commandSlash.set(command.data.name, command)
                             };
                         };

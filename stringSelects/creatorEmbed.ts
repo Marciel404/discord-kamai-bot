@@ -7,7 +7,7 @@ import {
     StringSelectMenuOptionBuilder,
     range
     } from "discord.js";
-import embDb from "../utils/embDb";
+import embDb from "../utils/dbEmb";
 import { row } from "../funcsSuporte/components";
 
 let embedArray: any = {}

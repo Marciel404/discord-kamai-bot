@@ -3,7 +3,7 @@ import {
     InteractionType,
     Message, 
     SlashCommandBuilder
-    } from "discord.js"
+} from "discord.js"
 import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 import { rmvNotify } from "../../db/moderation";

@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction, Colors, InteractionType, Message, SlashCommandBuilder } from "discord.js"
 import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
-import embDb from "../../utils/embDb";
+import embDb from "../../utils/dbEmb";
 
 export = {
     data: new SlashCommandBuilder()

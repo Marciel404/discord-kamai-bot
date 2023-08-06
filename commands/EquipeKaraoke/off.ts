@@ -31,9 +31,7 @@ export = {
         try {
             const doc = await karaokeAct.findOne({_id: author.id})
             if (doc && !doc["avaliable"]["state"]){
-
                 await msg.reply({content: `Você precisa estar disponivel primeiro`})
-
             } else {
                 await karaokeAct.updateOne(
                     {_id: author.id},

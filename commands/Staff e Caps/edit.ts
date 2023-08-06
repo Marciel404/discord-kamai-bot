@@ -1,5 +1,4 @@
 import { ChatInputCommandInteraction, Colors, InteractionType, Message, SlashCommandBuilder, TextChannel } from "discord.js";
-import { client } from "../../utils";
 import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 

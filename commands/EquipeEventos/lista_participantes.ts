@@ -4,7 +4,7 @@ import {
     ChatInputCommandInteraction,
     Message,
     SlashCommandBuilder 
-    } from "discord.js"
+} from "discord.js"
 import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
 

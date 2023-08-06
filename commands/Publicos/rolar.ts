@@ -76,7 +76,7 @@ export = {
 
         const count = cooldowns.get(`${member.id}`).vezes
 
-        if (date1.date()-date2.date() == 0 && date1.hour()-date2.hour() >= 0 || date1.date()-date2.date() >= 1){
+        if (date1 > date2 || date1.date()-date2.date() == 0 && date1.hour()-date2.hour() >= 0){
 
             const value = parseInt(`${Math.random()*1000}`)
 

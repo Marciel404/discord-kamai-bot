@@ -3,10 +3,8 @@ import {
     ButtonBuilder, 
     StringSelectMenuInteraction,
     EmbedBuilder
-    } from "discord.js";
-
+} from "discord.js";
 import { notifyMember } from "../funcsSuporte/satff";
-const {RegsAtivos} = require("../db/moderation")
 
 export const motivosList = [
     {

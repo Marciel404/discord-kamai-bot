@@ -3,7 +3,7 @@ import {
     ButtonBuilder,
     EmbedBuilder,
     StringSelectMenuInteraction
-    } from "discord.js";
+} from "discord.js";
 import { configData } from "..";
 
 export async function execute(interaction: StringSelectMenuInteraction){

@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, Options, version } from "discord.js";
+import { Client, GatewayIntentBits, Options } from "discord.js";
 import { loadSlash, loadEvents } from "./Loaders";
 import { verifyQuestionOfDay } from "../funcsSuporte/verifys";
 import logger from "../logger";
@@ -11,7 +11,8 @@ export const client: Client = new Client({
         GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildModeration,
-        GatewayIntentBits.GuildVoiceStates
+        GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.GuildPresences
     ]
 });
 

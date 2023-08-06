@@ -1,8 +1,8 @@
 import { APIGuildMember, Client, GuildMember, TextChannel, User } from "discord.js"
-const { memberManegements } = require("../db/moderation")
+import { memberManegements } from "../db/moderation";
 import { configData } from "..";
-import moment, { tz } from "moment-timezone";
-import dbQuestions from "../utils/questionsDb"
+import moment from "moment-timezone";
+import dbQuestions from "../utils/dbQuestions"
 
 export function verifyUserId(user: User, Ids: Array<string>) {
     let v = false;

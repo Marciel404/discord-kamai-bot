@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction, InteractionType, Message, SlashCommandBuilder } from "discord.js"
 import { configData } from "../..";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
-import  dbQuestions  from "../../utils/questionsDb"
+import  dbQuestions  from "../../utils/dbQuestions"
 
 export = {
     data: new SlashCommandBuilder()

@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Message, SlashCommandBuilder } from "discord.js";
+import { ChatInputCommandInteraction, Message, SlashCommandBuilder, VoiceChannel } from "discord.js";
 import { configData } from "../..";
 import { karaokeAct } from "../../db/equipes";
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys";
@@ -26,12 +26,14 @@ export = {
             let regs_avaliables: Array<any> = []
             let regs_avaliablesID: Array<any> = []
 
-            let channelK: any = await msg.guild.channels!.fetch(configData["channels"]["karaoke_voice"])
+            let channelK = await msg.guild.channels!.fetch(configData["channels"]["karaoke_voice"]) as VoiceChannel
+
             for (const mem of channelK.members) {
-                if (verifyRolesPermissions(mem, [configData["roles"]["equipe_karaoke"]])) {
+                if (verifyRolesPermissions(mem[1], [configData["roles"]["equipe_karaoke"]])) {
                     regs_in_karaoke.push(mem[1])
                 }
             }
+
             for await (const aval of karaokeAct.find({ "avaliable.state": true }) ){
                 let member = await msg.guild.members.fetch(aval["_id"])
                 if (member && verifyRolesPermissions(member, [configData["roles"]["equipe_karaoke"]])) {
@@ -45,7 +47,7 @@ export = {
                 if (regs_in_karaoke.length > 0) {
 
                     for (const caps of (await msg.guild.members.fetch())
-                        .filter(member => Object.values(member.roles)[0]._roles.indexOf(configData["roles"]["capitaes_karaoke"]) >= 0)) {
+                        .filter(member => verifyRolesPermissions(member, [configData["roles"]["capitaes_karaoke"]]))) {
 
                         try {
                             await caps[1].send(`Pediram ajuda no karaoke, porém já tem alguns eligos no karaoke ${regs_in_karaoke}`)
@@ -63,7 +65,7 @@ export = {
             } else if (regs_in_karaoke.length > 0) {
 
                 for (const caps of (await msg.guild.members.fetch())
-                    .filter(member => Object.values(member.roles)[0]._roles.indexOf(configData["roles"]["capitaes_karaoke"]) >= 0)) {
+                    .filter(member => verifyRolesPermissions(member, [configData["roles"]["capitaes_karaoke"]]))) {
 
                     try {
                         await caps[1].send(`Pediram ajuda no Karaoke mas não tem ninguém disponivel, e tem alguns eligos no karaoke ${regs_in_karaoke}`)
@@ -76,7 +78,7 @@ export = {
             } else {
 
                 for (const caps of (await msg.guild.members.fetch())
-                    .filter(member => Object.values(member.roles)[0]._roles.indexOf(configData["roles"]["capitaes_karaoke"]) >= 0)) {
+                    .filter(member => verifyRolesPermissions(member, [configData["roles"]["capitaes_karaoke"]]))) {
                     try {
                         await caps[1].send(`Pediram ajuda no Karaoke mas não tem ninguém disponivel`)
                     } catch (err) {

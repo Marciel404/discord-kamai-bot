@@ -5,7 +5,7 @@ import {
     InteractionType,
     Message,
     SlashCommandBuilder
-    } from "discord.js"
+} from "discord.js"
 import { verifyRolesPermissions } from "../../funcsSuporte/verifys"
 import { configData } from "../..";
 
