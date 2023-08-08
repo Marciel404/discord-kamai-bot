@@ -1,7 +1,7 @@
 var options = {
     db_name: "dbActivityStaff",
 }
-import { EmbedBuilder, GuildChannel, GuildMember, Presence, VoiceState } from "discord.js";
+import { EmbedBuilder, GuildMember, Presence, VoiceState } from "discord.js";
 import moment from "moment-timezone";
 import { JsonDB, Config } from "node-json-db";
 
@@ -12,14 +12,16 @@ class actStaff {
     async adcActMessage(staff: GuildMember, ChannelId: string){
 
         if (await this.dbACT.exists(`/${staff.id}/message/qnt`)){
-            await this.dbACT.push(`/${staff.id}/message/qnt`, parseInt(await this.dbACT.getData(`/${staff.id}/message/qnt`))+1, true)
+            const qnt = await this.dbACT.getObject(`/${staff.id}/message/qnt`)
+            await this.dbACT.push(`/${staff.id}/message/qnt`, parseInt(`${qnt}`)+1, true)
         } else {
             await this.dbACT.push(`/${staff.id}/message/qnt`, 1, true)
         }
 
         if (await this.dbACT.exists(`/${staff.id}/message/last`)){
+            const lastTime = await this.dbACT.getObject(`/${staff.id}/message/last`)
             if (
-                moment(await this.dbACT.getData(`/${staff.id}/message/last`)).tz("America/Sao_Paulo").month() != 
+                moment(lastTime!).tz("America/Sao_Paulo").month() != 
                 moment(new Date()).tz("America/Sao_Paulo").month()
             ){
                 await this.dbACT.push(`/${staff.id}/message/qnt`, 1, true)
@@ -33,10 +35,10 @@ class actStaff {
 
     async adcActPresence(staff: GuildMember, oldPresence: Presence, newPresence: Presence){
 
-        if (oldPresence?.status === newPresence?.status) return
+        if (oldPresence?.status === newPresence?.status || !oldPresence || !newPresence) return
 
-        await this.dbACT.push(`/${staff.id}/presence/oldPresence`,oldPresence.status, true)
-        await this.dbACT.push(`/${staff.id}/presence/newPresence`,newPresence.status, true)
+        await this.dbACT.push(`/${staff.id}/presence/oldPresence`,oldPresence?.status, true)
+        await this.dbACT.push(`/${staff.id}/presence/newPresence`,newPresence?.status, true)
         await this.dbACT.push(`/${staff.id}/presence/dateChanged`,moment(new Date()).tz("America/Sao_Paulo").unix()*1000, true)
 
     }
@@ -59,6 +61,8 @@ class actStaff {
 
     async embedData(users: any){
 
+        await this.dbACT.load()
+
         const e = new EmbedBuilder()
         .setTitle("Registros de atividade")
         let user: any;
@@ -69,17 +73,27 @@ class actStaff {
                 user = i[1].displayName
                 infos = ""
                 if (await this.dbACT.exists(`/${i[0]}/message/last`)){
-                    infos += `**Mensagens**\n- Ultima mensagem em ${moment(await this.dbACT.getData(`/${i[0]}/message/last`)).tz("America/Sao_Paulo").format("DD/MM/YYYY HH:mm")}\n- No canal: <#${await this.dbACT.getData(`/${i[0]}/message/channelId`)}>\n- Qnt de msg no mes da ultima aparição: ${await this.dbACT.getData(`/${i[0]}/message/qnt`)}\n`
+                    const lastTime = await this.dbACT.getObject(`/${i[0]}/message/last`)
+                    const channelId = await this.dbACT.getObject(`/${i[0]}/message/channelId`)
+                    const qntMsg = await this.dbACT.getObject(`/${i[0]}/message/qnt`)
+                    infos += `**Mensagens**\n- Ultima mensagem em ${moment((lastTime!)).tz("America/Sao_Paulo").format("DD/MM/YYYY HH:mm")}\n- No canal: <#${channelId!}>\n- Qnt de msg no mes da ultima aparição: ${qntMsg!}\n`
                 }
                 if (await this.dbACT.exists(`/${i[0]}/presence`)){
-                    infos += `**Presence**\n- Antes: ${await this.dbACT.getData(`/${i[0]}/presence/oldPresence`)}\n- Depois: ${await this.dbACT.getData(`/${i[0]}/presence/newPresence`)}\n- Data de modificação: ${moment(await this.dbACT.getData(`/${i[0]}/presence/dateChanged`)).tz("America/Sao_Paulo").format("DD/MM/YYYY HH:mm")}\n`
+                    const oldPresence = await this.dbACT.getObject(`/${i[0]}/presence/oldPresence`)
+                    const newPresence = await this.dbACT.getObject(`/${i[0]}/presence/newPresence`)
+                    const dateChanged = await this.dbACT.getObject(`/${i[0]}/presence/dateChanged`)
+                    infos += `**Presence**\n- Antes: ${oldPresence!}\n- Depois: ${newPresence!}\n- Data de modificação: ${moment((dateChanged!)).tz("America/Sao_Paulo").format("DD/MM/YYYY HH:mm")}\n`
                 }
                 if (await this.dbACT.exists(`/${i[0]}/voice`)){
                     if (await this.dbACT.exists(`/${i[0]}/voice/lastJoin`)){
-                        infos += `**Call Join**\n- Ultima call que entrou: <#${await this.dbACT.getData(`/${i[0]}/voice/lastJoinChannel`)}>\n- Data que entrou: ${moment(await this.dbACT.getData(`/${i[0]}/voice/lastJoin`)).tz("America/Sao_Paulo").format("DD/MM/YYYY HH:mm")}\n`
+                        const lastJoin = await this.dbACT.getObject(`/${i[0]}/voice/lastJoin`)
+                        const lastJoinChannel = await this.dbACT.getObject(`/${i[0]}/voice/lastJoinChannel`)
+                        infos += `**Call Join**\n- Ultima call que entrou: <#${lastJoinChannel!}>\n- Data que entrou: ${moment((lastJoin!)).tz("America/Sao_Paulo").format("DD/MM/YYYY HH:mm")}\n`
                     }
                     if (await this.dbACT.exists(`/${i[0]}/voice/lastLeft`)){
-                        infos += `**Call Left**\n- Ultima call que saiu: <#${await this.dbACT.getData(`/${i[0]}/voice/lastLeftChannel`)}>\n- Data que saiu: ${moment(await this.dbACT.getData(`/${i[0]}/voice/lastLeft`)).tz("America/Sao_Paulo").format("DD/MM/YYYY HH:mm")}\n`
+                        const lastLeft = await this.dbACT.getObject(`/${i[0]}/voice/lastLeft`)
+                        const lastLeftChannel = await this.dbACT.getObject(`/${i[0]}/voice/lastLeftChannel`)
+                        infos += `**Call Left**\n- Ultima call que saiu: <#${lastLeftChannel!}>\n- Data que saiu: ${moment((lastLeft!)).tz("America/Sao_Paulo").format("DD/MM/YYYY HH:mm")}\n`
                     }
                 }
                 e.addFields({name:`${user}`, value: infos})

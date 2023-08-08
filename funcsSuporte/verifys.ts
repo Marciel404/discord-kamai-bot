@@ -1,10 +1,10 @@
-import { APIGuildMember, Client, GuildMember, TextChannel, User } from "discord.js"
+import { APIGuildMember, APIUser, Client, GuildMember, TextChannel, User } from "discord.js"
 import { memberManegements } from "../db/moderation";
 import { configData } from "..";
 import moment from "moment-timezone";
 import dbQuestions from "../utils/dbQuestions"
 
-export function verifyUserId(user: User, Ids: Array<string>) {
+export function verifyUserId(user: User | GuildMember | APIUser, Ids: Array<string>) {
     let v = false;
     for (const I of Ids) {
         if (user.id === I) {

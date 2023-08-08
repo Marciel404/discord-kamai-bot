@@ -10,7 +10,7 @@ class embedDb {
 
         var newEmb: any = {};
         if(await this.dbemb.exists(`/last`)){
-            let embId = await this.dbemb.getObject(`/last`)
+            const embId = await this.dbemb.getObject(`/last`)
             newEmb.id = parseInt(`${Object.values(embId!)[0]}`) + 1
         } else {
             newEmb.id = 1

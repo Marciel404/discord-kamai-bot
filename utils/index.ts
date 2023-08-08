@@ -1,10 +1,9 @@
-import { Client, GatewayIntentBits, Options } from "discord.js";
+import { Client, GatewayIntentBits } from "discord.js";
 import { loadSlash, loadEvents } from "./Loaders";
 import { verifyQuestionOfDay } from "../funcsSuporte/verifys";
 import logger from "../logger";
 
 export const client: Client = new Client({
-    makeCache: Options.cacheWithLimits({ MessageManager: 5000 }),
     intents: [
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.Guilds,
