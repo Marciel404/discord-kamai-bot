@@ -32,26 +32,25 @@ export async function loadCommandsPrefix(path:  fs.PathLike, command: string = "
     };
 };
 export function loadCommandsSlash(path: fs.PathLike) {
+    commands.pop()
+    commandSlash.clear()
     try {
-        fs.readdir(path, (error, subFolderPath: Array<String>) => {
-            for (const name of subFolderPath){
-                fs.readdir(`${path}/${[name]}`, (error, files: String[]) => {
-                    files.forEach((files: String) => {
-                        if (files.endsWith(".ts") || files.endsWith(".js")) {
-                            let command = require(`.${path}/${name}/${files}`)
-                            if (command.data){
-                                commands.push(command.data.toJSON())
-                                commandSlash.set(command.data.name, command)
-                            };
-                        };
-                    });
-                });
-            };
-        });
+        let subFolderPath = fs.readdirSync(path)
+        for (const name of subFolderPath) {
+            if (fs.readdirSync(`${path}/${name}`).length >= 1) {
+                let subFolderPath = fs.readdirSync(`${path}/${name}`).filter(file => file.endsWith(".ts") || file.endsWith(".js"))
+                subFolderPath.forEach(async (commandName: string) => {
+                    let command = require(`.${path}/${name}/${commandName}`)
+                    if (command.data) {
+                        commands.push(command.data.toJSON())
+                        commandSlash.set(command.data.name, command)
+                    };
+                })
+            }
+        }
     } catch (err) {
         console.log(err)
     };
-
 };
 export function loadEvents(path: string) {
 
