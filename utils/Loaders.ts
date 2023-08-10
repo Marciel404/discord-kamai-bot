@@ -1,22 +1,23 @@
 import { Routes, Collection } from "discord.js";
 import fs from "fs";
 import logger from "../logger";
+import axios from "axios";
 
-const {REST} = require("discord.js");
+const { REST } = require("discord.js");
 const rest = new REST().setToken(process.env.token);
 let commands: Array<string> = [];
 
 export const commandSlash: Collection<any, any> = new Collection();
-export async function loadCommandsPrefix(path:  fs.PathLike, command: string = "none", msg: any = null){
+export async function loadCommandsPrefix(path: fs.PathLike, command: string = "none", msg: any = null) {
     if (command == "none") return
-    try{
+    try {
         let subFolderPath = fs.readdirSync(path)
-        for (const name of subFolderPath){
-            if (fs.readdirSync(`${path}/${name}`).length >= 1){
+        for (const name of subFolderPath) {
+            if (fs.readdirSync(`${path}/${name}`).length >= 1) {
                 let subFolderPath = fs.readdirSync(`${path}/${name}`).filter(file => file.endsWith(".ts") || file.endsWith(".js"))
-                subFolderPath.forEach( async commandName => {
-                    let cmd =  require(`.${path}/${name}/${commandName}`)
-                    if (cmd && cmd.name == `${command}` || cmd.aliases && cmd.aliases.includes(command)){
+                subFolderPath.forEach(async commandName => {
+                    let cmd = require(`.${path}/${name}/${commandName}`)
+                    if (cmd && cmd.name == `${command}` || cmd.aliases && cmd.aliases.includes(command)) {
                         try {
                             await cmd.execute(msg)
                             logger.usage(msg.author, command)
@@ -32,7 +33,7 @@ export async function loadCommandsPrefix(path:  fs.PathLike, command: string = "
     };
 };
 export function loadCommandsSlash(path: fs.PathLike) {
-    commands.pop()
+    commands = []
     commandSlash.clear()
     try {
         let subFolderPath = fs.readdirSync(path)
@@ -55,13 +56,13 @@ export function loadCommandsSlash(path: fs.PathLike) {
 export function loadEvents(path: string) {
 
     let events = fs.readdirSync(path)
-    for (const name of events){
-        if (name.endsWith(".ts") || name.endsWith(".js")){
+    for (const name of events) {
+        if (name.endsWith(".ts") || name.endsWith(".js")) {
             require(`.${path}/${name}`)
         } else {
             const subevents = fs.readdirSync(`${path}/${name}`)
-            for (const subName of subevents){
-                if (subName.endsWith(".ts") || subName.endsWith(".js")){
+            for (const subName of subevents) {
+                if (subName.endsWith(".ts") || subName.endsWith(".js")) {
                     require(`.${path}/${name}/${subName}`)
                 };
             };
@@ -69,6 +70,13 @@ export function loadEvents(path: string) {
     };
 };
 export async function loadSlash(CLIENT_ID: any) {
+    let requestGet = await axios({
+        method: "GET",
+        url: `https://discord.com/api/v10/applications/${CLIENT_ID}/commands`,
+        headers: {
+            Authorization: `Bot ${process.env.token}`
+        },
+    })
     let countNew: number = 0
     let countOld: number = 0
     /*
@@ -76,28 +84,38 @@ export async function loadSlash(CLIENT_ID: any) {
     mas só vai demorar para adicionar os novos, os antigos vão funcionar normalmente
     */
     console.log("Começando a registrar os SlashCommands")
-    for (const command of commands) {
+    for (var command of commands) {
+        let cval: any = command
+        if (requestGet.data.find((fc: any) => fc.name === cval.name) == undefined) {
 
-        try{
-            let requestPost = await axios({
-                method: "POST",
-                url: `https://discord.com/api/v10/applications/${CLIENT_ID}/commands`,
-                headers: {
-                    Authorization: `Bot ${process.env.token}`
-                },
-                data: command
-            })
-    
-            if (requestPost.status == 201) {
-                countNew++
-            } else if (requestPost.status == 200){
-                countOld++
+            try {
+
+                let requestPost = await axios({
+                    method: "POST",
+                    url: `https://discord.com/api/v10/applications/${CLIENT_ID}/commands`,
+                    headers: {
+                        Authorization: `Bot ${process.env.token}`
+                    },
+                    data: command
+                })
+
+                if (requestPost.status == 201) {
+                    countNew++
+                }
+
+            } catch (err) {
+
+                logger.error(err)
+
             }
-        } catch (err){
-            logger.error(err)
-        }
 
-        await new Promise(r => setTimeout(r, 5000));
+            await new Promise(r => setTimeout(r, 5000));
+
+        } else {
+
+            countOld++
+
+        }
 
     }
 
@@ -105,5 +123,6 @@ export async function loadSlash(CLIENT_ID: any) {
     console.log(`Já tinha ${countOld} Slash Commands registrados`)
 
 };
+
 
 loadCommandsSlash("./commands")
