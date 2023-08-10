@@ -71,22 +71,33 @@ export function loadEvents(path: string) {
 export async function loadSlash(CLIENT_ID: any) {
     let countNew: number = 0
     let countOld: number = 0
+    /*
+    Essa parte demora pra krlh mesmo, para funcionar o Reload de Comandos,
+    mas só vai demorar para adicionar os novos, os antigos vão funcionar normalmente
+    */
+    console.log("Começando a registrar os SlashCommands")
     for (const command of commands) {
 
-        let requestPost = await axios({
-            method: "POST",
-            url: `https://discord.com/api/v10/applications/${CLIENT_ID}/commands`,
-            headers: {
-                Authorization: `Bot ${process.env.TOKEN}`
-            },
-            data: command
-        })
-
-        if (requestPost.status == 201) {
-            countNew++
-        } else if (requestPost.status == 200){
-            countOld++
+        try{
+            let requestPost = await axios({
+                method: "POST",
+                url: `https://discord.com/api/v10/applications/${CLIENT_ID}/commands`,
+                headers: {
+                    Authorization: `Bot ${process.env.TOKEN}`
+                },
+                data: command
+            })
+    
+            if (requestPost.status == 201) {
+                countNew++
+            } else if (requestPost.status == 200){
+                countOld++
+            }
+        } catch (err){
+            logger.error(err)
         }
+
+        await new Promise(r => setTimeout(r, 5000));
 
     }
 
