@@ -83,7 +83,7 @@ export async function loadSlash(CLIENT_ID: any) {
                 method: "POST",
                 url: `https://discord.com/api/v10/applications/${CLIENT_ID}/commands`,
                 headers: {
-                    Authorization: `Bot ${process.env.TOKEN}`
+                    Authorization: `Bot ${process.env.token}`
                 },
                 data: command
             })
