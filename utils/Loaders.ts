@@ -68,14 +68,25 @@ export function loadEvents(path: string) {
         };
     };
 };
-export async function loadSlash(CLIENT_ID: any){
+export async function loadSlash(CLIENT_ID: any) {
+    let count: number = 0
+    for (const command of commands) {
 
-    try {
-        const data = await rest.put(Routes.applicationCommands(CLIENT_ID),{ body: commands });
-        console.log(`Registrei ${data.length} Slash Commands.`);
-    } catch (error: any) {
-        console.log(error)
-    };
+        let requestPost = await axios({
+            method: "POST",
+            url: `https://discord.com/api/v10/applications/${CLIENT_ID}/commands`,
+            headers: {
+                Authorization: `Bot ${process.env.TOKEN}`
+            },
+            data: command
+        })
+
+        if (requestPost.status == 201) {
+            count++
+        }
+
+    }
+    console.log(`Registrei ${count} Slash Commands.`);
 };
 
 
