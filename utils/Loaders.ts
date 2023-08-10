@@ -69,7 +69,8 @@ export function loadEvents(path: string) {
     };
 };
 export async function loadSlash(CLIENT_ID: any) {
-    let count: number = 0
+    let countNew: number = 0
+    let countOld: number = 0
     for (const command of commands) {
 
         let requestPost = await axios({
@@ -82,13 +83,16 @@ export async function loadSlash(CLIENT_ID: any) {
         })
 
         if (requestPost.status == 201) {
-            count++
+            countNew++
+        } else if (requestPost.status == 200){
+            countOld++
         }
 
     }
-    console.log(`Registrei ${count} Slash Commands.`);
+
+    console.log(`Registrei ${countNew} Slash Commands.`);
+    console.log(`Já tinha ${countOld} Slash Commands registrados`)
+
 };
-
-
 
 loadCommandsSlash("./commands")
