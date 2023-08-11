@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 import { configData } from "..";
-import { loadCommandsPrefix } from "../utils/Loaders";
+import { CommandsPrefix } from "../utils/Loaders";
 import { client } from "../utils/index";
 import logger from "../logger";
 
@@ -12,7 +12,7 @@ client.on("messageCreate", async (msg: Message) => {
 	if (commandName.length == 0) return;
 
 	try {
-		await loadCommandsPrefix("./commands", commandName, msg)
+		CommandsPrefix("./commands", commandName, msg)
 	} catch (err) {
 		logger.error(err)
 	};

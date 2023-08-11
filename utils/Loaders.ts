@@ -1,14 +1,11 @@
-import { Routes, Collection } from "discord.js";
+import { Collection } from "discord.js";
 import fs from "fs";
 import logger from "../logger";
 import axios from "axios";
-
-const { REST } = require("discord.js");
-const rest = new REST().setToken(process.env.token);
 let commands: Array<string> = [];
 
 export const commandSlash: Collection<any, any> = new Collection();
-export async function loadCommandsPrefix(path: fs.PathLike, command: string = "none", msg: any = null) {
+export async function CommandsPrefix(path: fs.PathLike, command: string = "none", msg: any = null) {
     if (command == "none") return
     try {
         let subFolderPath = fs.readdirSync(path)

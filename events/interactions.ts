@@ -14,8 +14,8 @@ client.on("interactionCreate", async (interaction: BaseInteraction) => {
 		};
 
 		try {
+			command.execute(interaction);
 			logger.usage(interaction.user, command.name)
-			await command.execute(interaction);
 		} catch (err) {
 			if (interaction.replied || interaction.deferred) {
 				logger.error(err)

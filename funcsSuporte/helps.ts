@@ -81,7 +81,7 @@ function fullcommand(){
         let cmd = require(`../commands/Adm/${commandName}`);
         if (l.indexOf(`- ${cmd.name}`) == -1){
             l += `- ${cmd.name}: ${cmd.description}\n`
-            if (cmd.aliases.length > 0){
+            if (cmd.aliases && cmd.aliases.length > 0){
                 l += `- - aliases: ${cmd.aliases}\n\n`
             }
         };
@@ -107,7 +107,7 @@ function getModCommands(){
         let cmd = require(`../commands/Mod/${commandName}`)
         if (s.indexOf(`- ${cmd.name}`) == -1){
             s += `- ${cmd.name}: ${cmd.description}\n`
-            if (cmd.aliases.length > 0){
+            if (cmd.aliases && cmd.aliases.length > 0){
                 s += `- - aliases: ${cmd.aliases}\n\n`
             }
         };
@@ -128,7 +128,7 @@ function getStaffCommands(){
         let cmd = require(`../commands/Staff/${commandName}`)
         if (s.indexOf(`- ${cmd.name}`) == -1){
             s += `- ${cmd.name}: ${cmd.description}\n`
-            if (cmd.aliases.length > 0){
+            if (cmd.aliases && cmd.aliases.length > 0){
                 s += `- - aliases: ${cmd.aliases}\n\n`
             }
         };
@@ -148,7 +148,7 @@ function getStaffeCapsCommands(){
         let cmd = require(`../commands/Staff e Caps/${commandName}`)
         if (s.indexOf(`- ${cmd.name}`) == -1){
             s += `- ${cmd.name}: ${cmd.description}\n`
-            if (cmd.aliases.length > 0){
+            if (cmd.aliases && cmd.aliases.length > 0){
                 s += `- - aliases: ${cmd.aliases}\n\n`
             }
         };
@@ -169,7 +169,7 @@ function getEligosCommands(){
         let cmd = require(`../commands/EquipeKaraoke/${commandName}`)
         if (s.indexOf(`- ${cmd.name}`) == -1){
             s += `- ${cmd.name}: ${cmd.description}\n`
-            if (cmd.aliases.length > 0){
+            if (cmd.aliases && cmd.aliases.length > 0){
                 s += `- - aliases: ${cmd.aliases}\n\n`
             }
         };
@@ -190,7 +190,7 @@ function getEquipeEventosCommands(){
         let cmd = require(`../commands/EquipeEventos/${commandName}`)
         if (s.indexOf(`- ${cmd.name}`) == -1){
             s += `- ${cmd.name}: ${cmd.description}\n`
-            if (cmd.aliases.length > 0){
+            if (cmd.aliases && cmd.aliases.length > 0){
                 s += `- - aliases: ${cmd.aliases}\n\n`
             }
         };
@@ -211,7 +211,7 @@ function getPublicCommands(){
         let cmd = require(`../commands/Publicos/${commandName}`)
         if (s.indexOf(`- ${cmd.name}`) == -1){
             s += `- ${cmd.name}: ${cmd.description}\n`
-            if (cmd.aliases.length > 0){
+            if (cmd.aliases && cmd.aliases.length > 0){
                 s += `- - aliases: ${cmd.aliases}\n\n`
             }
         };
