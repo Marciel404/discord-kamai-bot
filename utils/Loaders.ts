@@ -1,7 +1,10 @@
-import { Collection } from "discord.js";
+import { Routes, Collection } from "discord.js";
 import fs from "fs";
 import logger from "../logger";
-import axios from "axios";
+
+const { REST } = require("discord.js");
+const rest = new REST().setToken(process.env.token);
+
 let commands: Array<string> = [];
 
 export const commandSlash: Collection<any, any> = new Collection();
@@ -67,59 +70,13 @@ export function loadEvents(path: string) {
     };
 };
 export async function loadSlash(CLIENT_ID: any) {
-    let requestGet = await axios({
-        method: "GET",
-        url: `https://discord.com/api/v10/applications/${CLIENT_ID}/commands`,
-        headers: {
-            Authorization: `Bot ${process.env.token}`
-        },
-    })
-    let countNew: number = 0
-    let countOld: number = 0
-    /*
-    Essa parte demora pra krlh mesmo, para funcionar o Reload de Comandos,
-    mas só vai demorar para adicionar os novos, os antigos vão funcionar normalmente
-    */
-    console.log("Começando a registrar os SlashCommands")
-    for (var command of commands) {
-        let cval: any = command
-        if (requestGet.data.find((fc: any) => fc.name === cval.name) == undefined) {
-
-            try {
-
-                let requestPost = await axios({
-                    method: "POST",
-                    url: `https://discord.com/api/v10/applications/${CLIENT_ID}/commands`,
-                    headers: {
-                        Authorization: `Bot ${process.env.token}`
-                    },
-                    data: command
-                })
-
-                if (requestPost.status == 201) {
-                    countNew++
-                }
-
-            } catch (err) {
-
-                logger.error(err)
-
-            }
-
-            await new Promise(r => setTimeout(r, 5000));
-
-        } else {
-
-            countOld++
-
-        }
-
-    }
-
-    console.log(`Registrei ${countNew} Slash Commands.`);
-    console.log(`Já tinha ${countOld} Slash Commands registrados`)
+    try {
+        const data = await rest.put(Routes.applicationCommands(CLIENT_ID),{ body: commands });
+        console.log(`Registrei ${data.length} Slash Commands.`);
+    } catch (error: any) {
+        console.log(error)
+    };
 
 };
-
 
 loadCommandsSlash("./commands")
