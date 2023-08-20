@@ -17,7 +17,7 @@ client.on("messageCreate", async (msg: Message) => {
         if (verifyRolesPermissions(msg.member!,roles) && !msg.author.bot && msg.guild){
             actStaff.adcActMessage(msg.member!, msg.channel.id)
         }
-    } catch {
+    } catch (err) {
     }
 
 })
@@ -28,7 +28,7 @@ client.on("presenceUpdate", async (oldPresence: Presence | null, newPresence: Pr
         if (verifyRolesPermissions(newPresence!.member!,roles) && !newPresence?.user?.bot){
             actStaff.adcActPresence(newPresence?.member!,oldPresence!, newPresence!)
         }    
-    } catch {
+    } catch (err) {
     }
 })
 
@@ -38,7 +38,7 @@ client.on("voiceStateUpdate",async (oldState: VoiceState, newState: VoiceState) 
         if (verifyRolesPermissions(oldState!.member!,roles) && !oldState.member?.user.bot){
             actStaff.adcActVoice(oldState.member!, oldState, newState)
         }
-    } catch{
+    } catch (err) {
     }
 
 })

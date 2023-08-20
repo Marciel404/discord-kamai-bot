@@ -6,8 +6,8 @@ const { REST } = require("discord.js");
 const rest = new REST().setToken(process.env.token);
 
 let commands: Array<string> = [];
-
 export const commandSlash: Collection<any, any> = new Collection();
+
 export async function CommandsPrefix(path: fs.PathLike, command: string = "none", msg: any = null) {
     if (command == "none") return
     try {
@@ -78,5 +78,6 @@ export async function loadSlash(CLIENT_ID: any) {
     };
 
 };
+
 
 loadCommandsSlash("./commands")

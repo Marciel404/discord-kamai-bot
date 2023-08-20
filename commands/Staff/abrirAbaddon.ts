@@ -46,7 +46,7 @@ export = {
 
                 const collectorFilter = (m: Message) => m.author.id === author.id
 
-                const collector = msg.channel!.createMessageCollector({ filter: collectorFilter, max: 1, time: 100000 });
+                const collector = msg.channel!.createMessageCollector({ filter: collectorFilter, max: 1, time: 50000 });
 
                 collector.on("collect", async (message: Message) => {
                     

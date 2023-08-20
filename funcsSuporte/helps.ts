@@ -203,7 +203,7 @@ function getEquipeEventosCommands(){
 
 function getPublicCommands(){
     let s = "";
-    const eventoscmd = fs.readdirSync(`./commands/Publicos`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
+    let eventoscmd = fs.readdirSync(`./commands/Publicos`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
     eventoscmd.forEach(commandName =>{
         if (s.indexOf("Publicos") == -1){
             s += "\n**Publicos**\n"
@@ -217,6 +217,18 @@ function getPublicCommands(){
         };
         
     });
-
+    eventoscmd = fs.readdirSync(`./commands/Fun`).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
+    eventoscmd.forEach(commandName =>{
+        if (s.indexOf("Publicos") == -1){
+            s += "\n**Publicos**\n"
+        };
+        let cmd = require(`../commands/Fun/${commandName}`)
+        if (s.indexOf(`- ${cmd.name}`) == -1){
+            s += `- ${cmd.name}: ${cmd.description}\n`
+            if (cmd.aliases && cmd.aliases.length > 0){
+                s += `- - aliases: ${cmd.aliases}\n\n`
+            };
+        };
+    });
     return s
 };
