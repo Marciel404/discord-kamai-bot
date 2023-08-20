@@ -23,7 +23,7 @@ export = {
         if (msg.type === InteractionType.ApplicationCommand){
             opt = (opt) ? msg.options.getString("jogo")?.toLowerCase() : "0"
         } else {
-            opt = msg.content.split(" ")[1].toLowerCase()
+            opt = (opt) ? msg.content.split(" ")[1].toLowerCase(): "0"
         }
 
         switch (opt) {
